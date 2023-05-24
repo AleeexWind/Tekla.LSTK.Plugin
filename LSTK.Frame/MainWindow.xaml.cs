@@ -44,5 +44,25 @@ namespace LSTK.Frame
         {
             this.ToggleSelection();
         }
+
+        private void WpfProfileCatalogColumns_SelectClicked(object sender, EventArgs e)
+        {
+            this.profileCatalogColumns.SelectedProfile = this.dataModel.ProfileColumns;
+        }
+
+        private void WpfProfileCatalogColumns_SelectionDone(object sender, EventArgs e)
+        {
+            this.dataModel.ProfileColumns = this.profileCatalogColumns.SelectedProfile;
+        }
+
+        private void profileCatalogTopChord_SelectClicked(object sender, EventArgs e)
+        {
+            this.profileCatalogTopChord.SelectedProfile = this.dataModel.ProfileTopChord;
+        }
+
+        private void profileCatalogTopChord_SelectionDone(object sender, EventArgs e)
+        {
+            this.dataModel.ProfileTopChord = this.profileCatalogTopChord.SelectedProfile;
+        }
     }
 }

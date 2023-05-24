@@ -15,7 +15,8 @@ namespace LSTK.Frame
         private Model _Model;
         private PluginData _Data;
 
-        private string _profile = string.Empty;
+        private string _profileColumns = string.Empty;
+        private string _profileTopChord = string.Empty;
         private Model Model
         {
             get { return this._Model; }
@@ -54,8 +55,10 @@ namespace LSTK.Frame
         [StructuresField("name")]
         public string partName;
          
-        [StructuresField("profile")]
-        public string profile;
+        [StructuresField("profileColumns")]
+        public string profileColumns;
+        [StructuresField("profileTopChord")]
+        public string profileTopChord;
 
         #endregion
     }

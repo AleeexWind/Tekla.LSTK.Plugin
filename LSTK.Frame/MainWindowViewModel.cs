@@ -13,7 +13,8 @@ namespace LSTK.Frame
     public class MainWindowViewModel : INotifyPropertyChanged
     {
         private string partName = string.Empty;
-        private string profile = string.Empty;
+        private string profileColumns = string.Empty;
+        private string profileTopChord = string.Empty;
 
         [StructuresDialog("name", typeof(TD.String))]
         public string PartName
@@ -21,11 +22,17 @@ namespace LSTK.Frame
             get { return partName; }
             set { partName = value; OnPropertyChanged("PartName"); }
         }
-        [StructuresDialog("profile", typeof(TD.String))]
-        public string ProfileName
+        [StructuresDialog("profileColumns", typeof(TD.String))]
+        public string ProfileColumns
         {
-            get { return profile; }
-            set { profile = value; OnPropertyChanged("ProfileName"); }
+            get { return profileColumns; }
+            set { profileColumns = value; OnPropertyChanged("ProfileColumns"); }
+        }
+        [StructuresDialog("profileTopChord", typeof(TD.String))]
+        public string ProfileTopChord
+        {
+            get { return profileTopChord; }
+            set { profileTopChord = value; OnPropertyChanged("ProfileTopChord"); }
         }
 
 
@@ -40,7 +47,7 @@ namespace LSTK.Frame
         }
         public void Run()
         {
-            MessageBox.Show($"Start. Part: {partName}  Profile: {profile}");
+            MessageBox.Show($"Start. Part: {PartName}  ProfileColumns: {ProfileColumns} ProfileTopChord: {ProfileTopChord}");
         }
     }
 }

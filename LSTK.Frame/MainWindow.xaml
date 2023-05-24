@@ -38,11 +38,21 @@
                 <Label x:Name="label_Profile" Content="{tsd:Loc albl_Profile}" Height="30" Width="100"/>
                 <UIControls:WpfFilterCheckBox VerticalAlignment="Center" AttributeName="profile" />
                 <TextBox
-                    x:Name="tb_Profile"
+                    x:Name="tb_Profile_columns"
                     Width="120"
                     Height="23"
-                    Text="{Binding ProfileName, Mode=TwoWay}"/>
-                <UIControls:WpfProfileCatalog HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    Text="{Binding ProfileColumns, Mode=TwoWay}"/>
+                <UIControls:WpfProfileCatalog x:Name="profileCatalogColumns" HorizontalAlignment="Left" VerticalAlignment="Center" SelectClicked="WpfProfileCatalogColumns_SelectClicked" SelectionDone="WpfProfileCatalogColumns_SelectionDone"/>
+            </StackPanel>
+            <StackPanel Grid.Row="2" Orientation="Horizontal">
+                <Label x:Name="label_Profile_topChord" Content="{tsd:Loc albl_Profile_topChord}" Height="30" Width="100"/>
+                <UIControls:WpfFilterCheckBox VerticalAlignment="Center" AttributeName="profile_topChord" />
+                <TextBox
+                    x:Name="tb_Profile_topChord"
+                    Width="120"
+                    Height="23"
+                    Text="{Binding ProfileTopChord, Mode=TwoWay}"/>
+                <UIControls:WpfProfileCatalog x:Name="profileCatalogTopChord" HorizontalAlignment="Left" VerticalAlignment="Center" SelectClicked="profileCatalogTopChord_SelectClicked" SelectionDone="profileCatalogTopChord_SelectionDone"/>
             </StackPanel>
         </Grid>
         <UIControls:WpfOkApplyModifyGetOnOffCancel
