@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using Xunit;
+﻿using Xunit;
 using LSTK.Frame.Models;
 using LSTK.Frame.Interactors;
 

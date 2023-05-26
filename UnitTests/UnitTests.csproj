@@ -67,6 +67,10 @@
     <PackageReference Include="coverlet.collector" Version="1.0.1" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\StartColumnDataTest.cs" />
+    <Compile Include="TeklaElementInsertHandlerTest.cs" />
+    <Compile Include="TeklaPartAttributeSetterTest.cs" />
+    <Compile Include="TeklaPartCreatorTest.cs" />
     <Compile Include="TeklaPointSelectorTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

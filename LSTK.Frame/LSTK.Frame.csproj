@@ -67,12 +67,16 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interactors\TeklaPointSelector.cs" />
+    <Compile Include="Interactors\DataAccessInterface\TeklaElementInsertHandler.cs" />
+    <Compile Include="Interactors\DataAccessInterface\TeklaPartAttributeSetter.cs" />
+    <Compile Include="Interactors\DataAccessInterface\TeklaPointSelector.cs" />
+    <Compile Include="Interactors\TeklaPartCreator.cs" />
     <Compile Include="MainPlugin.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindowViewModel.cs" />
+    <Compile Include="Models\CoordinateData.cs" />
     <Compile Include="Models\FrameData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
