@@ -5,16 +5,26 @@ namespace LSTK.Frame.Models
 {
     public class FrameData
     {
+        #region This is the coordinates in global
         public Point StartPoint { get; set; }
         public Point EndPoint { get; set; }
+        #endregion
 
 
-        public double ColumnHeight { get; set; }
-        public string ColumnProfile { get; set; }
-        public string ColumnMaterial { get; set; }
+        #region This is the coordinates in Local
+        public Point StartPointLeftColumn { get; set; }
+        public Point EndPointLeftColumn { get; set; }
+        public Point StartPointRightColumn { get; set; }
+        public Point EndPointRightColumn { get; set; }
+        #endregion
+
+
+        public string PartNameColumns { get; set; }
+        public double HeightColumns { get; set; }
+        public string ProfileColumns { get; set; }
+        public string MaterialColumns { get; set; }
         public Position.RotationEnum RotationEnum { get; set; }
         public Position.PlaneEnum PlaneEnum { get; set; }
         public Position.DepthEnum DepthEnum { get; set; }
-
     }
 }

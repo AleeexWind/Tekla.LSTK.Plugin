@@ -11,7 +11,8 @@ namespace UnitTests
         public void IsInsertionSucceed()
         {
             //Arrange
-            StartColumnDataTest startColumnDataTest = new StartColumnDataTest();
+            FrameDataTest frameDataTest = new FrameDataTest();
+            StartColumnDataTest startColumnDataTest = new StartColumnDataTest(frameDataTest);
 
             //CoordinateData coordinateData = new CoordinateData();
             TeklaElementInsertHandler teklaElementArrangeHandler = new TeklaElementInsertHandler();

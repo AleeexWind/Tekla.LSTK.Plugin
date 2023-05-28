@@ -1,6 +1,7 @@
 ﻿using Xunit;
 using LSTK.Frame.Models;
 using LSTK.Frame.Interactors;
+using Tekla.Structures.Geometry3d;
 
 namespace UnitTests
 {
@@ -10,15 +11,14 @@ namespace UnitTests
         public void AreReceivedPointsNotNull()
         {
             //Arrange
-            FrameData frameData = new FrameData();
             TeklaPointSelector teklaPointSelector = new TeklaPointSelector();
 
             //Act
-            teklaPointSelector.SelectPoints(frameData);
+            (Point, Point) coordinates = teklaPointSelector.SelectPoints();
 
             //Assert
-            Assert.NotNull(frameData.StartPoint);
-            Assert.NotNull(frameData.EndPoint);
+            Assert.NotNull(coordinates.Item1);
+            Assert.NotNull(coordinates.Item2);
         }
     }
 }

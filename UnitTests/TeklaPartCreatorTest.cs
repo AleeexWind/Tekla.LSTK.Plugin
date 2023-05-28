@@ -12,20 +12,21 @@ namespace UnitTests
         public void PartCreationTest()
         {
             //Arrange
-            StartColumnDataTest startColumnDataTest = new StartColumnDataTest();
-
+            FrameDataTest frameDataTest = new FrameDataTest();
+            StartColumnDataTest startColumnDataTest = new StartColumnDataTest(frameDataTest);
+            TeklaPartAttributeSetter teklaPartAttributeSetter = new TeklaPartAttributeSetter();
             FrameData frameData = new FrameData()
             {
                 StartPoint = startColumnDataTest.Beam.StartPoint,
-                ColumnHeight = startColumnDataTest.Beam.EndPoint.Z,
-                ColumnProfile = startColumnDataTest.Beam.Profile.ProfileString,
-                ColumnMaterial = startColumnDataTest.Beam.Material.MaterialString,
+                HeightColumns = startColumnDataTest.Beam.EndPoint.Z,
+                ProfileColumns = startColumnDataTest.Beam.Profile.ProfileString,
+                MaterialColumns = startColumnDataTest.Beam.Material.MaterialString,
                 RotationEnum = startColumnDataTest.Beam.Position.Rotation,
                 PlaneEnum = startColumnDataTest.Beam.Position.Plane,
                 DepthEnum = startColumnDataTest.Beam.Position.Depth
             };
 
-            TeklaPartCreator teklaPartCreator = new TeklaPartCreator(frameData);
+            TeklaPartCreator teklaPartCreator = new TeklaPartCreator(frameData, teklaPartAttributeSetter);
 
 
             //Act

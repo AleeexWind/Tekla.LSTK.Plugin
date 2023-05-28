@@ -11,18 +11,18 @@ namespace LSTK.Frame.Interactors
     public class TeklaPartCreator
     {
         private readonly TeklaPartAttributeSetter _teklaPartAttributeSetter;
-        private FrameData _frameData;
-        public TeklaPartCreator(FrameData frameData)
+        private readonly FrameData _frameData;
+        public TeklaPartCreator(FrameData frameData, TeklaPartAttributeSetter teklaPartAttributeSetter)
         {
-            _teklaPartAttributeSetter = new TeklaPartAttributeSetter();
+            _teklaPartAttributeSetter = teklaPartAttributeSetter;
             _frameData = frameData;
         }
         public Beam CreateStartColumn()
         {
             Beam beam = new Beam();
-            _teklaPartAttributeSetter.SetCoordinatesToStartColumn(beam, _frameData.StartPoint, _frameData.ColumnHeight);
-            _teklaPartAttributeSetter.SetProfileToStartColumn(beam, _frameData.ColumnProfile);
-            _teklaPartAttributeSetter.SetMaterialToStartColumn(beam, _frameData.ColumnMaterial);
+            _teklaPartAttributeSetter.SetCoordinatesToStartColumn(beam, _frameData.StartPoint, _frameData.HeightColumns);
+            _teklaPartAttributeSetter.SetProfileToStartColumn(beam, _frameData.ProfileColumns);
+            _teklaPartAttributeSetter.SetMaterialToStartColumn(beam, _frameData.MaterialColumns);
             _teklaPartAttributeSetter.SetPositionRotationToStartColumn(beam, _frameData.RotationEnum);
             _teklaPartAttributeSetter.SetPositionPlaneToStartColumn(beam, _frameData.PlaneEnum);
             _teklaPartAttributeSetter.SetPositionDepthToStartColumn(beam, _frameData.DepthEnum);
