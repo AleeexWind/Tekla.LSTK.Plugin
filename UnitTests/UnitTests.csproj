@@ -71,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FrameDataControllerTest.cs" />
+    <Compile Include="IntegrationTests\FrameCreatorManagerTest.cs" />
     <Compile Include="LocalPlaneManagerTest.cs" />
     <Compile Include="Models\FrameDataTest.cs" />
     <Compile Include="Models\StartColumnDataTest.cs" />
@@ -86,6 +87,7 @@
       <Name>LSTK.Frame</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

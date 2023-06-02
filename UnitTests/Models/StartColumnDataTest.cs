@@ -12,7 +12,7 @@ namespace UnitTests.Models
             Beam.Profile.ProfileString = frameDataTest.ProfileColumns;
             Beam.Material.MaterialString = frameDataTest.MaterilColumns;
             Beam.Class = frameDataTest.ClassColumns;
-            Beam.StartPoint = frameDataTest.StartPoint;
+            Beam.StartPoint = frameDataTest.StartPointLeftColumn;
             Beam.EndPoint = frameDataTest.EndPointLeftColumn;
         }
     }

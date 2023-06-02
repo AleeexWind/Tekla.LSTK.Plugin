@@ -17,10 +17,21 @@ namespace LSTK.Frame.Interactors
             _teklaPartAttributeSetter = teklaPartAttributeSetter;
             _frameData = frameData;
         }
-        public Beam CreateStartColumn()
+        public Beam CreateLeftColumn()
         {
             Beam beam = new Beam();
-            _teklaPartAttributeSetter.SetCoordinatesToStartColumn(beam, _frameData.StartPoint, _frameData.HeightColumns);
+            _teklaPartAttributeSetter.SetCoordinatesToStartColumn(beam, _frameData.StartPointLeftColumn, _frameData.EndPointLeftColumn);
+            _teklaPartAttributeSetter.SetProfileToStartColumn(beam, _frameData.ProfileColumns);
+            _teklaPartAttributeSetter.SetMaterialToStartColumn(beam, _frameData.MaterialColumns);
+            _teklaPartAttributeSetter.SetPositionRotationToStartColumn(beam, _frameData.RotationEnum);
+            _teklaPartAttributeSetter.SetPositionPlaneToStartColumn(beam, _frameData.PlaneEnum);
+            _teklaPartAttributeSetter.SetPositionDepthToStartColumn(beam, _frameData.DepthEnum);
+            return beam;
+        }
+        public Beam CreateRightColumn()
+        {
+            Beam beam = new Beam();
+            _teklaPartAttributeSetter.SetCoordinatesToStartColumn(beam, _frameData.StartPointRightColumn, _frameData.EndPointRightColumn);
             _teklaPartAttributeSetter.SetProfileToStartColumn(beam, _frameData.ProfileColumns);
             _teklaPartAttributeSetter.SetMaterialToStartColumn(beam, _frameData.MaterialColumns);
             _teklaPartAttributeSetter.SetPositionRotationToStartColumn(beam, _frameData.RotationEnum);

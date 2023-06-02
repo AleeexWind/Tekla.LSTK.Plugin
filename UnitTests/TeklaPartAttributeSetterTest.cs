@@ -2,6 +2,8 @@
 using LSTK.Frame.Interactors;
 using Tekla.Structures.Model;
 using Tekla.Structures.Geometry3d;
+using LSTK.Frame.Models;
+using UnitTests.Models;
 
 namespace UnitTests
 {
@@ -11,23 +13,17 @@ namespace UnitTests
         public void StartColumnsCoordinatesToBe0_0_0With2000Height()
         {
             //Arrange
+            FrameDataTest frameDataTest = new FrameDataTest();
             Beam beam = new Beam();
-            Point startPoint = new Point(0, 0, 0);
-            double height = 2000;
 
             TeklaPartAttributeSetter teklaPartCreator = new TeklaPartAttributeSetter();
 
             //Act
-            teklaPartCreator.SetCoordinatesToStartColumn(beam, startPoint, height);
+            teklaPartCreator.SetCoordinatesToStartColumn(beam, frameDataTest.StartPointLeftColumn, frameDataTest.EndPointLeftColumn);
 
             //Assert
-            Assert.Equal(startPoint.X, beam.StartPoint.X);
-            Assert.Equal(startPoint.Y, beam.StartPoint.Y);
-            Assert.Equal(startPoint.Z, beam.StartPoint.Z);
-
-            Assert.Equal(startPoint.X, beam.EndPoint.X);
-            Assert.Equal(startPoint.Y, beam.EndPoint.Y);
-            Assert.Equal(height, beam.EndPoint.Z);
+            Assert.Equal(frameDataTest.StartPointLeftColumn, beam.StartPoint);
+            Assert.Equal(frameDataTest.EndPointLeftColumn, beam.EndPoint);
         }
 
         [Fact]

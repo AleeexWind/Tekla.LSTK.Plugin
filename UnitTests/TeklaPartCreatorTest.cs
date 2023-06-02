@@ -17,8 +17,8 @@ namespace UnitTests
             TeklaPartAttributeSetter teklaPartAttributeSetter = new TeklaPartAttributeSetter();
             FrameData frameData = new FrameData()
             {
-                StartPoint = startColumnDataTest.Beam.StartPoint,
-                HeightColumns = startColumnDataTest.Beam.EndPoint.Z,
+                StartPointLeftColumn = startColumnDataTest.Beam.StartPoint,
+                EndPointLeftColumn = startColumnDataTest.Beam.EndPoint,
                 ProfileColumns = startColumnDataTest.Beam.Profile.ProfileString,
                 MaterialColumns = startColumnDataTest.Beam.Material.MaterialString,
                 RotationEnum = startColumnDataTest.Beam.Position.Rotation,
@@ -30,7 +30,7 @@ namespace UnitTests
 
 
             //Act
-            Beam beam = teklaPartCreator.CreateStartColumn();
+            Beam beam = teklaPartCreator.CreateLeftColumn();
 
             //Assert
             Assert.NotNull(beam);

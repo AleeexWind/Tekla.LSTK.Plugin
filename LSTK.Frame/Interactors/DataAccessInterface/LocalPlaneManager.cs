@@ -18,7 +18,7 @@ namespace LSTK.Frame.Interactors
 
         public (Vector X, Vector Y) SetVectors(Point startPoint, Point endPoint)
         {
-            Vector X = new Vector(startPoint.X - endPoint.X, startPoint.Y - endPoint.Y, startPoint.Z - endPoint.Z);
+            Vector X = new Vector(-startPoint.X + endPoint.X, -startPoint.Y + endPoint.Y, -startPoint.Z + endPoint.Z);
             Vector Y = new Vector(0, 0, 1);
 
             return (X , Y);
@@ -36,6 +36,10 @@ namespace LSTK.Frame.Interactors
         public bool SetCurrentWorkPlane(TransformationPlane currentPlane)
         {
             return _model.GetWorkPlaneHandler().SetCurrentTransformationPlane(currentPlane);
+        }
+        public bool SetTemporaryWorkPlane()
+        {
+            return _model.GetWorkPlaneHandler().SetCurrentTransformationPlane(new TransformationPlane()); ;
         }
     }
 }

@@ -29,8 +29,6 @@ namespace LSTK.Frame.Controllers
         }
         public FrameData GetLeftColumnCoordinatesInput()
         {
-            _frameData.StartPointLeftColumn = new Point(0, 0, 0);
-
             double endPointY = double.Parse(_mainWindowViewModel.HeightColumns, System.Globalization.CultureInfo.InvariantCulture) ;
             _frameData.EndPointLeftColumn = new Point(_frameData.StartPointLeftColumn.X, endPointY, _frameData.StartPointLeftColumn.Z);
             return _frameData;

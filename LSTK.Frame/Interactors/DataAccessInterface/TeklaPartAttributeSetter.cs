@@ -5,15 +5,15 @@ namespace LSTK.Frame.Interactors
 {
     public class TeklaPartAttributeSetter
     {
-        public void SetCoordinatesToStartColumn(Beam beam, Point startPoint, double height)
+        public void SetCoordinatesToStartColumn(Beam beam, Point startPoint, Point endPoint)
         {
             beam.StartPoint.X = startPoint.X;
             beam.StartPoint.Y = startPoint.Y;
             beam.StartPoint.Z = startPoint.Z;
 
-            beam.EndPoint.X = startPoint.X;
-            beam.EndPoint.Y = startPoint.Y;
-            beam.EndPoint.Z = height;
+            beam.EndPoint.X = endPoint.X;
+            beam.EndPoint.Y = endPoint.Y;
+            beam.EndPoint.Z = endPoint.Z;
         }
         public void SetProfileToStartColumn(Beam beam, string profile)
         {

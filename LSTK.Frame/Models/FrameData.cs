@@ -7,12 +7,12 @@ namespace LSTK.Frame.Models
     {
         #region This is the coordinates in global
         public Point StartPoint { get; set; }
-        public Point EndPoint { get; set; }
+        public Point DirectionPoint { get; set; }
         #endregion
 
 
         #region This is the coordinates in Local
-        public Point StartPointLeftColumn { get; set; }
+        public Point StartPointLeftColumn { get; set; } = new Point(0, 0, 0);
         public Point EndPointLeftColumn { get; set; }
         public Point StartPointRightColumn { get; set; }
         public Point EndPointRightColumn { get; set; }

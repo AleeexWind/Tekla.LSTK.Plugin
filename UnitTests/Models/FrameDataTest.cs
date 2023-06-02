@@ -13,7 +13,7 @@ namespace UnitTests.Models
         #region This is the coordinates in Local
         //Left column 
         public Point StartPointLeftColumn { get; set; } = new Point(0, 0, 0);
-        public Point EndPointLeftColumn { get; set; } = new Point(0, 2000, 0);
+        public Point EndPointLeftColumn { get; set; } = new Point(0, 3000, 0);
         //Right column
         public Point StartPointRightColumn { get { return GetStartPointRightColumn(); } }
         public Point EndPointRightColumn { get { return GetEndPointRightColumn(); } }
@@ -21,10 +21,12 @@ namespace UnitTests.Models
 
         public double BayOverall { get; set; } = 22100;
 
-        public string PartNameColumns { get; set; } = "COLUMN";
+        public string PartNameColumns { get; set; } = "COLUMN11";
         public string ProfileColumns { get; set; } = "ПСУ400х100х20х3,0";
         public string MaterilColumns { get; set; } = "350";
         public string ClassColumns { get; set; } = "2";
+
+        public double HeightColumns { get; set; } = 3000;
 
 
         private Point GetStartPointRightColumn()

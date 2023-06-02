@@ -65,7 +65,7 @@ namespace UnitTests
             //Arrange
             FrameDataTest frameDataTest = new FrameDataTest();
             Point startPoint = frameDataTest.StartPoint;
-            Point endPoint = new Point(1000, 0, 0);
+            Point endPoint = new Point(100, 0, 0);
             (Vector X, Vector Y) vectors = _localPlaneManager.SetVectors(startPoint, endPoint);
             CoordinateSystem localCoordinateSystem = _localPlaneManager.SetLocalCoordinateSystem(startPoint, vectors);
 
@@ -83,6 +83,15 @@ namespace UnitTests
 
             //Act
             bool result = _localPlaneManager.SetCurrentWorkPlane(currentPlane);
+
+            //Assert
+            Assert.True(result);
+        }
+        [Fact]
+        public void IsSetTemporaryWorkPlaneSucceed()
+        {
+            //Act
+            bool result = _localPlaneManager.SetTemporaryWorkPlane();
 
             //Assert
             Assert.True(result);
