@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using LSTK.Frame.Interactors;
+using LSTK.Frame.Models;
+using System.ComponentModel;
 using System.Windows;
 using Tekla.Structures.Dialog;
 using TD = Tekla.Structures.Datatype;
@@ -67,7 +69,20 @@ namespace LSTK.Frame
         }
         public void Run()
         {
-            MessageBox.Show($"Start. Part: {PartName}  ProfileColumns: {ProfileColumns} ProfileTopChord: {ProfileTopChord}");
+            //FrameData frameData = new FrameData();
+            //TeklaPointSelector teklaPointSelector = new TeklaPointSelector();
+            //LocalPlaneManager localPlaneManager = new LocalPlaneManager();
+            //TeklaPartAttributeSetter teklaPartAttributeSetter = new TeklaPartAttributeSetter();
+            //TeklaPartCreator teklaPartCreator = new TeklaPartCreator(frameData, teklaPartAttributeSetter);
+            //FrameCreatorManager frameCreatorManager = new FrameCreatorManager(frameData, this, teklaPointSelector, localPlaneManager);
+
+            //frameCreatorManager.SetLocalWorkingPlane();
+            //frameCreatorManager.BuildFrameData();
+            //frameCreatorManager.CreateColumns(teklaPartCreator);
+            //frameCreatorManager.SetCurrentPlane();
+            //frameCreatorManager.Commit();
+
+            //MessageBox.Show($"Start.\nPart: {PartNameColumns}\nProfileColumns: {ProfileColumns}\nProfileTopChord: {ProfileTopChord}\nHeightColumns: {HeightColumns}\nBayOverall: {BayOverall}");
         }
     }
 }

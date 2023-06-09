@@ -18,20 +18,20 @@ namespace UnitTests.IntegrationTests
             //Arrange
             FrameDataTest frameDataTest = new FrameDataTest();
 
-            MainWindowViewModel mainWindowViewModel = new MainWindowViewModel()
+            PluginData pluginData = new PluginData()
             {
+                StartPoint = frameDataTest.StartPoint,
+                DirectionPoint = frameDataTest.DirectionPoint,
                 PartNameColumns = frameDataTest.PartNameColumns,
                 ProfileColumns = frameDataTest.ProfileColumns,
                 HeightColumns = frameDataTest.HeightColumns.ToString(),
                 BayOverall = frameDataTest.BayOverall.ToString()
-
             };
 
 
             FrameData frameData = new FrameData();
-            TeklaPointSelector teklaPointSelector = new TeklaPointSelector();
-            LocalPlaneManager localPlaneManager = new LocalPlaneManager();
-            FrameCreatorManager frameCreatorManager = new FrameCreatorManager(frameData, mainWindowViewModel, teklaPointSelector, localPlaneManager);
+            LocalPlaneManager localPlaneManager = new LocalPlaneManager(new Model());
+            FrameCreatorManager frameCreatorManager = new FrameCreatorManager(frameData, pluginData, localPlaneManager);
 
             //Act
             frameCreatorManager.SetLocalWorkingPlane();
@@ -48,13 +48,16 @@ namespace UnitTests.IntegrationTests
         {
             //Arrange
             FrameDataTest frameDataTest = new FrameDataTest();
-            MainWindowViewModel mainWindowViewModel = new MainWindowViewModel();
-
+            PluginData pluginData = new PluginData()
+            {
+                StartPoint = frameDataTest.StartPoint,
+                DirectionPoint = frameDataTest.DirectionPoint
+            };
 
             FrameData frameData = new FrameData();
             TeklaPointSelector teklaPointSelector = new TeklaPointSelector();
-            LocalPlaneManager localPlaneManager = new LocalPlaneManager();
-            FrameCreatorManager frameCreatorManager = new FrameCreatorManager(frameData, mainWindowViewModel, teklaPointSelector, localPlaneManager);
+            LocalPlaneManager localPlaneManager = new LocalPlaneManager(new Model());
+            FrameCreatorManager frameCreatorManager = new FrameCreatorManager(frameData, pluginData, localPlaneManager);
 
             //Act
             frameCreatorManager.SetLocalWorkingPlane();
@@ -88,23 +91,23 @@ namespace UnitTests.IntegrationTests
 
             rightbeamForChecking.Profile.ProfileString = frameDataTest.ProfileColumns;
 
-
-            MainWindowViewModel mainWindowViewModel = new MainWindowViewModel()
+            PluginData pluginData = new PluginData()
             {
+                StartPoint = frameDataTest.StartPoint,
+                DirectionPoint = frameDataTest.DirectionPoint,
                 PartNameColumns = frameDataTest.PartNameColumns,
                 ProfileColumns = frameDataTest.ProfileColumns,
                 HeightColumns = frameDataTest.HeightColumns.ToString(),
                 BayOverall = frameDataTest.BayOverall.ToString()
-
             };
 
+
             FrameData frameData = new FrameData();
-            TeklaPointSelector teklaPointSelector = new TeklaPointSelector();
-            LocalPlaneManager localPlaneManager = new LocalPlaneManager();
+            LocalPlaneManager localPlaneManager = new LocalPlaneManager(new Model());
             TeklaPartAttributeSetter teklaPartAttributeSetter = new TeklaPartAttributeSetter();
             TeklaPartCreator teklaPartCreator = new TeklaPartCreator(frameData, teklaPartAttributeSetter);
 
-            FrameCreatorManager frameCreatorManager = new FrameCreatorManager(frameData, mainWindowViewModel, teklaPointSelector, localPlaneManager);
+            FrameCreatorManager frameCreatorManager = new FrameCreatorManager(frameData, pluginData, localPlaneManager);
 
             //Act
             frameCreatorManager.SetLocalWorkingPlane();
@@ -117,16 +120,39 @@ namespace UnitTests.IntegrationTests
             Assert.Equal(rightbeamForChecking.StartPoint, columns.Item2.StartPoint);
         }
         [Fact]
+        public void IsCurrentPlaneSet()
+        {
+            //Arrange
+            FrameDataTest frameDataTest = new FrameDataTest();
+            PluginData pluginData = new PluginData()
+            {
+                StartPoint = frameDataTest.StartPoint,
+                DirectionPoint = frameDataTest.DirectionPoint,
+            };
+
+            FrameData frameData = new FrameData();
+            LocalPlaneManager localPlaneManager = new LocalPlaneManager(new Model());
+
+            FrameCreatorManager frameCreatorManager = new FrameCreatorManager(frameData, pluginData, localPlaneManager);
+
+            //Act
+            frameCreatorManager.SetLocalWorkingPlane();
+            bool result = frameCreatorManager.SetCurrentPlane();
+
+            //Assert
+            Assert.True(result);
+        }
+        [Fact]
         public void IsCommitSucceed()
         {
             //Arrange
-            MainWindowViewModel mainWindowViewModel = new MainWindowViewModel();
+            //MainWindowViewModel mainWindowViewModel = new MainWindowViewModel();
+            PluginData pluginData = new PluginData();
 
             FrameData frameData = new FrameData();
-            TeklaPointSelector teklaPointSelector = new TeklaPointSelector();
-            LocalPlaneManager localPlaneManager = new LocalPlaneManager();
+            LocalPlaneManager localPlaneManager = new LocalPlaneManager(new Model());
 
-            FrameCreatorManager frameCreatorManager = new FrameCreatorManager(frameData, mainWindowViewModel, teklaPointSelector, localPlaneManager);
+            FrameCreatorManager frameCreatorManager = new FrameCreatorManager(frameData, pluginData, localPlaneManager);
 
             //Act
             bool result = frameCreatorManager.Commit();

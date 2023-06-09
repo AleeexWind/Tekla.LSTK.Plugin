@@ -6,9 +6,9 @@ namespace LSTK.Frame.Interactors
     public class LocalPlaneManager
     {
         private Model _model;
-        public LocalPlaneManager()
+        public LocalPlaneManager(Model model)
         {
-            _model = new Model();
+            _model = model;
         }
         public TransformationPlane RecieveCurrentWorkPlane()
         {
@@ -36,10 +36,6 @@ namespace LSTK.Frame.Interactors
         public bool SetCurrentWorkPlane(TransformationPlane currentPlane)
         {
             return _model.GetWorkPlaneHandler().SetCurrentTransformationPlane(currentPlane);
-        }
-        public bool SetTemporaryWorkPlane()
-        {
-            return _model.GetWorkPlaneHandler().SetCurrentTransformationPlane(new TransformationPlane()); ;
         }
     }
 }

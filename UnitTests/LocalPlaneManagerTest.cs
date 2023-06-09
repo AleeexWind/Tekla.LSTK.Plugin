@@ -11,7 +11,7 @@ namespace UnitTests
         private LocalPlaneManager _localPlaneManager;
         public LocalPlaneManagerTest()
         {
-            _localPlaneManager = new LocalPlaneManager();
+            _localPlaneManager = new LocalPlaneManager(new Model());
         }
 
         [Fact]
@@ -83,15 +83,6 @@ namespace UnitTests
 
             //Act
             bool result = _localPlaneManager.SetCurrentWorkPlane(currentPlane);
-
-            //Assert
-            Assert.True(result);
-        }
-        [Fact]
-        public void IsSetTemporaryWorkPlaneSucceed()
-        {
-            //Act
-            bool result = _localPlaneManager.SetTemporaryWorkPlane();
 
             //Assert
             Assert.True(result);

@@ -9,17 +9,19 @@ namespace LSTK.Frame.Interactors
     {
         private FrameData _frameData;
         private FrameDataController _frameDataController;
-        private TeklaPointSelector _teklaPointSelector;
+        //private TeklaPointSelector _teklaPointSelector;
         private LocalPlaneManager _localPlaneManager;
         private TransformationPlane _currentTransformationPlane;
+        private PluginData _pluginData;
         private Model _model;
 
-        public FrameCreatorManager(FrameData frameData, MainWindowViewModel mainWindowViewModel, TeklaPointSelector teklaPointSelector, LocalPlaneManager localPlaneManager)
+        public FrameCreatorManager(FrameData frameData, PluginData pluginData, LocalPlaneManager localPlaneManager)
         {
             _model = new Model();
             _frameData = frameData;
-            _frameDataController = new FrameDataController(mainWindowViewModel, frameData);
-            _teklaPointSelector = teklaPointSelector;
+            _pluginData = pluginData;
+            _frameDataController = new FrameDataController(pluginData, frameData);
+            //_teklaPointSelector = teklaPointSelector;
             _localPlaneManager = localPlaneManager;
         }
         public void BuildFrameData()
@@ -33,15 +35,14 @@ namespace LSTK.Frame.Interactors
         {
             _currentTransformationPlane = _localPlaneManager.RecieveCurrentWorkPlane();
 
-            _localPlaneManager.SetTemporaryWorkPlane();
-
-            (Point, Point) selectedPoints = _teklaPointSelector.SelectPoints();
-            _frameData.StartPoint = selectedPoints.Item1;
-            _frameData.DirectionPoint = selectedPoints.Item2;
+            //_localPlaneManager.SetTemporaryWorkPlane();
 
 
-            (Vector, Vector) vectors = _localPlaneManager.SetVectors(selectedPoints.Item1, selectedPoints.Item2);
-            CoordinateSystem localCoordinateSystem = _localPlaneManager.SetLocalCoordinateSystem(selectedPoints.Item1, vectors);
+            _frameDataController.GetStartPointInput();
+            _frameDataController.GetDirectionPointInput();
+
+            (Vector, Vector) vectors = _localPlaneManager.SetVectors(_frameData.StartPoint, _frameData.DirectionPoint);
+            CoordinateSystem localCoordinateSystem = _localPlaneManager.SetLocalCoordinateSystem(_frameData.StartPoint, vectors);
             _localPlaneManager.SetLocalWorkPlane(localCoordinateSystem);
         }
 
@@ -52,6 +53,10 @@ namespace LSTK.Frame.Interactors
             leftColumn.Insert();
             rightColumn.Insert();
             return (leftColumn, rightColumn);
+        }
+        public bool SetCurrentPlane()
+        {
+            return _model.GetWorkPlaneHandler().SetCurrentTransformationPlane(_currentTransformationPlane);
         }
         public bool Commit()
         {

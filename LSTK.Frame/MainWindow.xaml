@@ -26,26 +26,26 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
+                <ColumnDefinition Width="0.75*"/>
+                <ColumnDefinition Width="0.25*"/>
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal">
-                <Label x:Name="label_PartName" Content="{tsd:Loc albl_Part_name}" Height="30" Width="100"/>
+                <Label x:Name="label_PartName" Content="{tsd:Loc albl_Part_name_columns}" Height="30" Width="150"/>
                 <UIControls:WpfFilterCheckBox VerticalAlignment="Center" AttributeName="name"/>
-                <TextBox x:Name="tb_PartName" Width="120" Height="23" VerticalAlignment="Center" Text="{Binding PartName, Mode=TwoWay}" TextWrapping="Wrap"  />
+                <TextBox x:Name="tb_PartNameColumns" Width="120" Height="23" VerticalAlignment="Center" Text="{Binding PartNameColumns, Mode=TwoWay}" TextWrapping="Wrap"  />
             </StackPanel>
             <StackPanel Grid.Row="1" Orientation="Horizontal">
-                <Label x:Name="label_Profile" Content="{tsd:Loc albl_Profile}" Height="30" Width="100"/>
+                <Label x:Name="label_Profile_columns" Content="{tsd:Loc albl_Profile_columns}" Height="30" Width="150"/>
                 <UIControls:WpfFilterCheckBox VerticalAlignment="Center" AttributeName="profile" />
                 <TextBox
                     x:Name="tb_Profile_columns"
                     Width="120"
                     Height="23"
                     Text="{Binding ProfileColumns, Mode=TwoWay}"/>
-                <UIControls:WpfProfileCatalog x:Name="profileCatalogColumns" HorizontalAlignment="Left" VerticalAlignment="Center" SelectClicked="WpfProfileCatalogColumns_SelectClicked" SelectionDone="WpfProfileCatalogColumns_SelectionDone"/>
+                <UIControls:WpfProfileCatalog x:Name="profileCatalogColumns" HorizontalAlignment="Left" VerticalAlignment="Center" SelectClicked="WpfProfileCatalogColumns_SelectClicked" SelectionDone="WpfProfileCatalogColumns_SelectionDone" Margin="0,12,0,11"/>
             </StackPanel>
             <StackPanel Grid.Row="2" Orientation="Horizontal">
-                <Label x:Name="label_Profile_topChord" Content="{tsd:Loc albl_Profile_topChord}" Height="30" Width="100"/>
+                <Label x:Name="label_Profile_topChord" Content="{tsd:Loc albl_Profile_topChord}" Height="30" Width="150"/>
                 <UIControls:WpfFilterCheckBox VerticalAlignment="Center" AttributeName="profile_topChord" />
                 <TextBox
                     x:Name="tb_Profile_topChord"
@@ -53,6 +53,24 @@
                     Height="23"
                     Text="{Binding ProfileTopChord, Mode=TwoWay}"/>
                 <UIControls:WpfProfileCatalog x:Name="profileCatalogTopChord" HorizontalAlignment="Left" VerticalAlignment="Center" SelectClicked="profileCatalogTopChord_SelectClicked" SelectionDone="profileCatalogTopChord_SelectionDone"/>
+            </StackPanel>
+            <StackPanel Grid.Row="3" Orientation="Horizontal">
+                <Label x:Name="label_HeightColumns" Content="{tsd:Loc albl_Height_columns}" Height="30" Width="150"/>
+                <UIControls:WpfFilterCheckBox VerticalAlignment="Center" AttributeName="heightColumns" />
+                <TextBox
+                    x:Name="tb_HeightColumns"
+                    Width="120"
+                    Height="23"
+                    Text="{Binding HeightColumns, Mode=TwoWay}"/>
+            </StackPanel>
+            <StackPanel Grid.Row="4" Orientation="Horizontal">
+                <Label x:Name="label_BayOverall" Content="{tsd:Loc albl_Bay_overall}" Height="30" Width="150"/>
+                <UIControls:WpfFilterCheckBox VerticalAlignment="Center" AttributeName="bayOverall" />
+                <TextBox
+                    x:Name="tb_BayOverall"
+                    Width="120"
+                    Height="23"
+                    Text="{Binding BayOverall, Mode=TwoWay}"/>
             </StackPanel>
         </Grid>
         <UIControls:WpfOkApplyModifyGetOnOffCancel
