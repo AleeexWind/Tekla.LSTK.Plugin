@@ -8,8 +8,9 @@
              xmlns:UIControls="clr-namespace:Tekla.Structures.Dialog.UIControls;assembly=Tekla.Structures.Dialog"
              x:Class="LSTK.Frame.MainWindow"
              mc:Ignorable="d" 
-             d:DesignHeight="350" d:DesignWidth="800"
-             Title="{tsd:Loc albl_LSTK_Frame_plug-in}" Height="355" Width="590" HorizontalAlignment="Stretch">
+             d:DesignHeight="350"
+             Title="{tsd:Loc albl_LSTK_Frame_plug-in}" Height="355" Width="700
+    " HorizontalAlignment="Stretch">
     <Grid HorizontalAlignment="Stretch" Margin="0,0,0,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" MinHeight="48" />
@@ -24,10 +25,12 @@
                 <RowDefinition />
                 <RowDefinition />
                 <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.75*"/>
-                <ColumnDefinition Width="0.25*"/>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="0.5*"/>
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal">
                 <Label x:Name="label_PartName" Content="{tsd:Loc albl_Part_name_columns}" Height="30" Width="150"/>
@@ -42,7 +45,7 @@
                     Width="120"
                     Height="23"
                     Text="{Binding ProfileColumns, Mode=TwoWay}"/>
-                <UIControls:WpfProfileCatalog x:Name="profileCatalogColumns" HorizontalAlignment="Left" VerticalAlignment="Center" SelectClicked="WpfProfileCatalogColumns_SelectClicked" SelectionDone="WpfProfileCatalogColumns_SelectionDone" Margin="0,12,0,11"/>
+                <UIControls:WpfProfileCatalog x:Name="profileCatalogColumns" HorizontalAlignment="Left" VerticalAlignment="Center" SelectClicked="WpfProfileCatalogColumns_SelectClicked" SelectionDone="WpfProfileCatalogColumns_SelectionDone"/>
             </StackPanel>
             <StackPanel Grid.Row="2" Orientation="Horizontal">
                 <Label x:Name="label_Profile_topChord" Content="{tsd:Loc albl_Profile_topChord}" Height="30" Width="150"/>
@@ -71,6 +74,29 @@
                     Width="120"
                     Height="23"
                     Text="{Binding BayOverall, Mode=TwoWay}"/>
+            </StackPanel>
+            <StackPanel Grid.Row="5" Orientation="Horizontal">
+                <Label x:Name="label_RoofRidgeHeight" Content="{tsd:Loc albl_RoofRidgeHeight}" Height="30" Width="150"/>
+                <UIControls:WpfFilterCheckBox VerticalAlignment="Center" AttributeName="roofRidgeHeight" />
+                <TextBox
+                    x:Name="tb_RoofRidgeHeight"
+                    Width="120"
+                    Height="23"
+                    Text="{Binding RoofRidgeHeight, Mode=TwoWay}"/>
+            </StackPanel>
+            <StackPanel Grid.Row="6" Orientation="Horizontal">
+                <Label x:Name="label_RoofBottomHeight" Content="{tsd:Loc albl_RoofBottomHeight}" Height="30" Width="150"/>
+                <UIControls:WpfFilterCheckBox VerticalAlignment="Center" AttributeName="roofBottomHeight" />
+                <TextBox
+                    x:Name="tb_RoofBottomHeight"
+                    Width="120"
+                    Height="23"
+                    Text="{Binding RoofBottomHeight, Mode=TwoWay}"/>
+            </StackPanel>
+            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                <Label x:Name="label_FrameOption" Content="{tsd:Loc albl_FrameOption}" Height="30" Width="150"/>
+                <UIControls:WpfFilterCheckBox VerticalAlignment="Center" AttributeName="frameOption"/>
+                <ComboBox x:Name="cmb_FrameOption" Height="25" Width="150" ItemsSource="{Binding FrameOptionList}" SelectedItem ="{Binding FrameOption, Mode=TwoWay}"/>
             </StackPanel>
         </Grid>
         <UIControls:WpfOkApplyModifyGetOnOffCancel

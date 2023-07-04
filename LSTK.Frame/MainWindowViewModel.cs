@@ -1,5 +1,6 @@
 ﻿using LSTK.Frame.Interactors;
 using LSTK.Frame.Models;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
 using Tekla.Structures.Dialog;
@@ -16,6 +17,9 @@ namespace LSTK.Frame
         private string profileTopChord = string.Empty;
 
         private string bayOverall = string.Empty;
+        private string roofRidgeHeight = string.Empty;
+        private string roofBottomHeight = string.Empty;
+        private string frameOption;
 
         [StructuresDialog("name", typeof(TD.String))]
         public string PartName
@@ -57,6 +61,30 @@ namespace LSTK.Frame
             set { profileTopChord = value; OnPropertyChanged("ProfileTopChord"); }
         }
 
+        [StructuresDialog("roofRidgeHeight", typeof(TD.String))]
+        public string RoofRidgeHeight
+        {
+            get { return roofRidgeHeight; }
+            set { roofRidgeHeight = value; OnPropertyChanged("RoofRidgeHeight"); }
+        }
+
+        [StructuresDialog("roofBottomHeight", typeof(TD.String))]
+        public string RoofBottomHeight
+        {
+            get { return roofBottomHeight; }
+            set { roofBottomHeight = value; OnPropertyChanged("RoofBottomHeight"); }
+        }
+        [StructuresDialog("frameOption", typeof(TD.String))]
+        public string FrameOption
+        {
+            get { return frameOption; }
+            set { frameOption = value; OnPropertyChanged("FrameOption"); }
+        }
+        public List<string> FrameOptionList { get; set; } = new List<string>()
+        {
+            "Whole",
+            "Half"
+        };
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string name)

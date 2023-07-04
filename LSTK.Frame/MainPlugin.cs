@@ -23,7 +23,9 @@ namespace LSTK.Frame
         private string _heightColumns = string.Empty;
         private string _profileTopChord = string.Empty;
         private string _bayOverall = string.Empty;
-
+        private string _roofRidgeHeight = string.Empty;
+        private string _roofBottomHeight = string.Empty;
+        private string _frameOption;
         private Model Model
         {
             get { return this._model; }
@@ -98,6 +100,9 @@ namespace LSTK.Frame
             _heightColumns = Data.HeightColumns;
             _profileTopChord = Data.ProfileTopChord;
             _bayOverall = Data.BayOverall;
+            _roofRidgeHeight = Data.RoofRidgeHeight;
+            _roofBottomHeight = Data.RoofBottomHeight;
+            _frameOption = Data.FrameOption;
 
             if (IsDefaultValue(_partNameColumns))
                 _partNameColumns = "TEST";
@@ -131,6 +136,14 @@ namespace LSTK.Frame
         [StructuresField("bayOverall")]
         public string BayOverall;
 
+        [StructuresField("roofRidgeHeight")]
+        public string RoofRidgeHeight;
+
+        [StructuresField("roofBottomHeight")]
+        public string RoofBottomHeight;
+
+        [StructuresField("frameOption")]
+        public string FrameOption;
         #endregion
 
         public Point StartPoint { get; set; }
