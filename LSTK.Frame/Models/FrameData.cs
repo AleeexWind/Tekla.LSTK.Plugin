@@ -16,6 +16,12 @@ namespace LSTK.Frame.Models
         public Point EndPointLeftColumn { get; set; }
         public Point StartPointRightColumn { get; set; }
         public Point EndPointRightColumn { get; set; }
+
+
+        public Point StartPointLeftTopChord { get; set; }
+        public Point EndPointLeftTopChord { get; set; }
+        public Point StartPointRightTopChord { get; set; }
+        public Point EndPointRightTopChord { get; set; }
         #endregion
 
 

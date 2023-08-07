@@ -25,7 +25,7 @@ namespace UnitTests.IntegrationTests
                 PartNameColumns = frameDataTest.PartNameColumns,
                 ProfileColumns = frameDataTest.ProfileColumns,
                 HeightColumns = frameDataTest.HeightColumns.ToString(),
-                BayOverall = frameDataTest.BayOverall.ToString()
+                Bay = frameDataTest.BayOverall.ToString()
             };
 
 
@@ -98,7 +98,7 @@ namespace UnitTests.IntegrationTests
                 PartNameColumns = frameDataTest.PartNameColumns,
                 ProfileColumns = frameDataTest.ProfileColumns,
                 HeightColumns = frameDataTest.HeightColumns.ToString(),
-                BayOverall = frameDataTest.BayOverall.ToString()
+                Bay = frameDataTest.BayOverall.ToString()
             };
 
 

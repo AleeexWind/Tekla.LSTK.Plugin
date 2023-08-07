@@ -1,15 +1,16 @@
-﻿using LSTK.Frame.Controllers;
+﻿using LSTK.Frame.BusinessRules.DataBoundaries;
+using LSTK.Frame.Controllers;
+using LSTK.Frame.Interactors;
 using LSTK.Frame.Interactors.Boundaries;
 using LSTK.Frame.Interactors.DataStructures;
 using LSTK.Frame.Models;
 using Tekla.Structures.Geometry3d;
 using Tekla.Structures.Model;
 
-namespace LSTK.Frame.Interactors
+namespace LSTK.Frame.BusinessRules.UseCases
 {
-    public class FrameCreatorManager : IBoundaryInput
+    public class FrameCreatorManager : IFrameDataInputBoundary
     {
-        private InputData _inputData;
         private FrameData _frameData;
         private InterfaceDataController _frameDataController;
         //private TeklaPointSelector _teklaPointSelector;
@@ -18,15 +19,8 @@ namespace LSTK.Frame.Interactors
         private PluginData _pluginData;
         private Model _model;
 
-        public FrameCreatorManager(FrameData frameData, PluginData pluginData, LocalPlaneManager localPlaneManager)
-        {
-            _model = new Model();
-            _frameData = frameData;
-            _pluginData = pluginData;
-            _frameDataController = new InterfaceDataController(pluginData, frameData);
-            //_teklaPointSelector = teklaPointSelector;
-            _localPlaneManager = localPlaneManager;
-        }
+        private FrameInputData _frameInputData;
+
         public void BuildFrameData()
         {
             _frameDataController.GetColumnProfileInput();
@@ -66,9 +60,14 @@ namespace LSTK.Frame.Interactors
             return _model.CommitChanges();
         }
 
-        public void TransferInputData(InputData inputData)
+        //public void TransferInputData(InputData inputData)
+        //{
+        //    _inputData = inputData;
+        //}
+
+        public void TransferInputData(FrameInputData inputData)
         {
-            _inputData = inputData;
+            _frameInputData = inputData;
         }
     }
 }

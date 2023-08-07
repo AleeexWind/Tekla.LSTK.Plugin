@@ -99,7 +99,7 @@ namespace LSTK.Frame
             _profileColumns = Data.ProfileColumns;
             _heightColumns = Data.HeightColumns;
             _profileTopChord = Data.ProfileTopChord;
-            _bayOverall = Data.BayOverall;
+            _bayOverall = Data.Bay;
             _roofRidgeHeight = Data.RoofRidgeHeight;
             _roofBottomHeight = Data.RoofBottomHeight;
             _frameOption = Data.FrameOption;
@@ -122,25 +122,63 @@ namespace LSTK.Frame
         //
         // Define the fields specified on the Form.
         //
-        [StructuresField("partNameColumns")]
-        public string PartNameColumns;
-         
+
+        //Columns section
         [StructuresField("profileColumns")]
         public string ProfileColumns;
-        [StructuresField("profileTopChord")]
-        public string ProfileTopChord;
+
+        [StructuresField("partNameColumns")]
+        public string PartNameColumns;
+
+        [StructuresField("materialColumns")]
+        public string MaterialColumns;
+
+        [StructuresField("classColumns")]
+        public string ClassColumns;
 
         [StructuresField("heightColumns")]
         public string HeightColumns;
 
-        [StructuresField("bayOverall")]
-        public string BayOverall;
+
+
+        //TopChord section
+        [StructuresField("profileTopChord")]
+        public string ProfileTopChord;
+
+        [StructuresField("partNameTopChord")]
+        public string PartNameTopChord;
+
+        [StructuresField("materialTopChord")]
+        public string MaterialTopChord;
+
+        [StructuresField("classTopChord")]
+        public string ClassTopChord;
 
         [StructuresField("roofRidgeHeight")]
         public string RoofRidgeHeight;
 
+
+
+        //BottomChord section
+        [StructuresField("profileBottomChord")]
+        public string ProfileBottomChord;
+
+        [StructuresField("partNameBottomChord")]
+        public string PartNameBottomChord;
+
+        [StructuresField("materialBottomChord")]
+        public string MaterialBottomChord;
+
+        [StructuresField("classBottomChord")]
+        public string ClassBottomChord;
+
         [StructuresField("roofBottomHeight")]
         public string RoofBottomHeight;
+
+
+        //Common
+        [StructuresField("bay")]
+        public string Bay;
 
         [StructuresField("frameOption")]
         public string FrameOption;
