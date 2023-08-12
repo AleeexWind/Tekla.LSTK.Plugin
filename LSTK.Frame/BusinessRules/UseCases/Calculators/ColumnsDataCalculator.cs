@@ -56,16 +56,15 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators
         {
             ElementData elementData = new ElementData()
             {
-                StartPoint = startPoint,
-                EndPoint = endPoint,
-                Profile = _frameInputData.ProfileColumns,
                 PartName =_frameInputData.PartNameColumns,
+                Profile = _frameInputData.ProfileColumns,
                 Material = _frameInputData.MaterialColumns,
                 Class = _frameInputData.ClassColumns,
                 RotationPosition = _frameInputData.RotationPositionColumns,
                 PlanePosition = _frameInputData.PlanePositionColumns,
-                DepthPosition = _frameInputData.DepthPositionColumns
-
+                DepthPosition = _frameInputData.DepthPositionColumns,
+                StartPoint = startPoint,
+                EndPoint = endPoint,
             };
             return elementData;
         }

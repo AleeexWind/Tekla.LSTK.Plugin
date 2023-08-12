@@ -73,6 +73,7 @@
     <Compile Include="Adapters\Controllers\InterfaceDataController.cs" />
     <Compile Include="BusinessRules\DataBoundaries\IFrameDataInputBoundary.cs" />
     <Compile Include="BusinessRules\Gateways\ITeklaAccess.cs" />
+    <Compile Include="BusinessRules\UseCases\Calculators\BottomChordTrussDataCalculator.cs" />
     <Compile Include="BusinessRules\UseCases\Calculators\IDataCalculator.cs" />
     <Compile Include="BusinessRules\UseCases\Calculators\TopChordTrussDataCalculator.cs" />
     <Compile Include="Frameworks\TeklaAPI\LocalPlaneManager.cs" />

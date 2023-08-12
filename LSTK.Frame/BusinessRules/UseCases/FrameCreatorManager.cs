@@ -48,6 +48,11 @@ namespace LSTK.Frame.BusinessRules.UseCases
             res = _teklaAccess.CreateRightTopChord(_frameData);
             if (!res) return res;
 
+            res = _teklaAccess.CreateLeftBottomChord(_frameData);
+            if (!res) return res;
+            res = _teklaAccess.CreateRightBottomChord(_frameData);
+            if (!res) return res;
+
 
             res =_localPlaneManager.SetCurrentWorkPlane();
             if (!res) return res;

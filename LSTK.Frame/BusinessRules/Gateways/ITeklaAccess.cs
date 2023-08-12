@@ -8,6 +8,8 @@ namespace LSTK.Frame.BusinessRules.Gateways
         bool CreateRightColumn(FrameData frameData);
         bool CreateLeftTopChord(FrameData frameData);
         bool CreateRightTopChord(FrameData frameData);
+        bool CreateLeftBottomChord(FrameData frameData);
+        bool CreateRightBottomChord(FrameData frameData);
         bool CommitChanges();
     }
 }

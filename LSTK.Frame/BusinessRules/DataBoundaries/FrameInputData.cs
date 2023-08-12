@@ -23,7 +23,7 @@ namespace LSTK.Frame.BusinessRules.DataBoundaries
         public double HeightRoofRidge { get; set; }
         public string RotationPositionTopChord { get; set; } = "FRONT";
         public string PlanePositionTopChord { get; set; } = "MIDDLE";
-        public string DepthPositionTopChords { get; set; } = "MIDDLE";
+        public string DepthPositionTopChord { get; set; } = "MIDDLE";
 
 
         //BottomChord section

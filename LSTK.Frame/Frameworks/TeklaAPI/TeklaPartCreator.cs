@@ -36,6 +36,14 @@ namespace LSTK.Frame.Frameworks.TeklaAPI
         {
             return CreatePart(frameData.TrussData.RightTopChord);
         }
+        public bool CreateLeftBottomChord(FrameData frameData)
+        {
+            return CreatePart(frameData.TrussData.LeftBottomChord);
+        }
+        public bool CreateRightBottomChord(FrameData frameData)
+        {
+            return CreatePart(frameData.TrussData.RightBottomChord);
+        }
 
         private bool CreatePart(ElementData element)
         {

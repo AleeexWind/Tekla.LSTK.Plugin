@@ -67,8 +67,8 @@ namespace LSTK.Frame
             {
                 GetValuesFromDialog();
 
-                Point Point1 = (Point)(Input[0]).GetInput();
-                Point Point2 = (Point)(Input[1]).GetInput();
+                Point Point1 = (Point)Input[0].GetInput();
+                Point Point2 = (Point)Input[1].GetInput();
                 Data.StartPoint = Point1;
                 Data.DirectionPoint = Point2;
 
@@ -79,7 +79,8 @@ namespace LSTK.Frame
                 List<IDataCalculator> calculators = new List<IDataCalculator>()
                 {
                     new ColumnsDataCalculator(),
-                    new TopChordTrussDataCalculator()
+                    new TopChordTrussDataCalculator(),
+                    new BottomChordTrussDataCalculator()
                 };
 
                 LocalPlaneManager localPlaneManager = new LocalPlaneManager(Model);

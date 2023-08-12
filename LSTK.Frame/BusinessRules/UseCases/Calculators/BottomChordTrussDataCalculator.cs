@@ -1,50 +1,51 @@
 ﻿using LSTK.Frame.BusinessRules.DataBoundaries;
 using LSTK.Frame.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace LSTK.Frame.BusinessRules.UseCases.Calculators
 {
-    public class TopChordTrussDataCalculator : IDataCalculator
+    public class BottomChordTrussDataCalculator : IDataCalculator
     {
         private FrameInputData _frameInputData;
         public void Calculate(FrameData frameData, FrameInputData frameInputData)
         {
             _frameInputData = frameInputData;
-            TrussData trussData = new TrussData()
-            {
-                LeftTopChord = CalcLeftTopChord(),
-                RightTopChord = CalcRightTopChord()
-            };
-            frameData.TrussData = trussData;
+            frameData.TrussData.LeftBottomChord = CalcLeftBottomChord();
+            frameData.TrussData.RightBottomChord = CalcRightBottomChord();
         }
-        private ElementData CalcLeftTopChord()
+        private ElementData CalcLeftBottomChord()
         {
             Point startPoint = new Point()
             {
                 X = 0.0,
-                Y = _frameInputData.HeightColumns,
+                Y = _frameInputData.HeightColumns - _frameInputData.HeightRoofBottom,
                 Z = 0.0
             };
             Point endPoint = new Point()
             {
                 X = _frameInputData.Bay/2,
-                Y = _frameInputData.HeightColumns + _frameInputData.HeightRoofRidge,
+                Y = _frameInputData.HeightColumns - _frameInputData.HeightRoofBottom,
                 Z = 0.0
             };
             ElementData elementData = CalcCommonData(startPoint, endPoint);
             return elementData;
         }
-        private ElementData CalcRightTopChord()
+        private ElementData CalcRightBottomChord()
         {
             Point startPoint = new Point()
             {
                 X = _frameInputData.Bay/2,
-                Y = _frameInputData.HeightColumns + _frameInputData.HeightRoofRidge,
+                Y = _frameInputData.HeightColumns - _frameInputData.HeightRoofBottom,
                 Z = 0.0
             };
             Point endPoint = new Point()
             {
                 X = _frameInputData.Bay,
-                Y = _frameInputData.HeightColumns,
+                Y = _frameInputData.HeightColumns - _frameInputData.HeightRoofBottom,
                 Z = 0.0
             };
             ElementData elementData = CalcCommonData(startPoint, endPoint);
@@ -54,13 +55,13 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators
         {
             ElementData elementData = new ElementData()
             {
-                PartName =_frameInputData.PartNameTopChord,
-                Profile = _frameInputData.ProfileTopChord,
-                Material = _frameInputData.MaterialTopChord,
-                Class = _frameInputData.ClassTopChord,
-                RotationPosition = _frameInputData.RotationPositionTopChord,
-                PlanePosition = _frameInputData.PlanePositionTopChord,
-                DepthPosition = _frameInputData.DepthPositionTopChord,
+                PartName =_frameInputData.PartNameBottomChord,
+                Profile = _frameInputData.ProfileBottomChord,
+                Material = _frameInputData.MaterialBottomChord,
+                Class = _frameInputData.ClassBottomChord,
+                RotationPosition = _frameInputData.RotationPositionBottomChord,
+                PlanePosition = _frameInputData.PlanePositionBottomChord,
+                DepthPosition = _frameInputData.DepthPositionBottomChord,
                 StartPoint = startPoint,
                 EndPoint = endPoint,
             };
