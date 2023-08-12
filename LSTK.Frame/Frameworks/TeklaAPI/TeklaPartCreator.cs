@@ -1,25 +1,25 @@
 ﻿using LSTK.Frame.BusinessRules.Gateways;
 using LSTK.Frame.Entities;
 using LSTK.Frame.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Tekla.Structures.Model;
 
 namespace LSTK.Frame.Frameworks.TeklaAPI
 {
     public class TeklaPartCreator : ITeklaAccess
     {
+        private readonly Model _model;
         private readonly FrameData _frameData;
         private readonly TeklaPartAttributeSetter _teklaPartAttributeSetter;
-        public TeklaPartCreator(FrameData frameData, TeklaPartAttributeSetter teklaPartAttributeSetter)
+        public TeklaPartCreator(Model model, FrameData frameData, TeklaPartAttributeSetter teklaPartAttributeSetter)
         {
+            _model = model;
             _frameData = frameData;
             _teklaPartAttributeSetter = teklaPartAttributeSetter;
         }
-
+        public bool CommitChanges()
+        {
+            return _model.CommitChanges();
+        }
         public bool CreateLeftColumn()
         {
             return CreatePart(_frameData.ColumnsData.LeftColumn);
@@ -46,20 +46,22 @@ namespace LSTK.Frame.Frameworks.TeklaAPI
             res = _teklaPartAttributeSetter.SetPositionDepthToStartColumn(beam, SetDepthPosition(element));
             if (!res) return res;
 
-            return true;
+            res = TeklaElementInsertHandler.InsertElement(beam);
+
+            return res;
         }
         private Position.RotationEnum SetRotationPosition(ElementData element)
         {
             Position.RotationEnum rotationEnum;
-            if (element.RotationPosition.Equals(Position.RotationEnum.BACK))
+            if (element.RotationPosition.Equals(Position.RotationEnum.BACK.ToString()))
             {
                 rotationEnum = Position.RotationEnum.BACK;
             }
-            else if(element.RotationPosition.Equals(Position.RotationEnum.BELOW))
+            else if(element.RotationPosition.Equals(Position.RotationEnum.BELOW.ToString()))
             {
                 rotationEnum = Position.RotationEnum.BELOW;
             }
-            else if(element.RotationPosition.Equals(Position.RotationEnum.FRONT))
+            else if(element.RotationPosition.Equals(Position.RotationEnum.FRONT.ToString()))
             {
                 rotationEnum = Position.RotationEnum.FRONT;
             }
@@ -73,17 +75,17 @@ namespace LSTK.Frame.Frameworks.TeklaAPI
         private Position.PlaneEnum SetPlanePosition(ElementData element)
         {
             Position.PlaneEnum planeEnum;
-            if (element.PlanePosition.Equals(Position.PlaneEnum.LEFT))
+            if (element.PlanePosition.Equals(Position.PlaneEnum.LEFT.ToString()))
             {
                 planeEnum = Position.PlaneEnum.LEFT;
             }
-            else if (element.RotationPosition.Equals(Position.PlaneEnum.MIDDLE))
+            else if (element.RotationPosition.Equals(Position.PlaneEnum.RIGHT.ToString()))
             {
-                planeEnum = Position.PlaneEnum.MIDDLE;
+                planeEnum = Position.PlaneEnum.RIGHT;
             }
             else
             {
-                planeEnum = Position.PlaneEnum.RIGHT;
+                planeEnum = Position.PlaneEnum.MIDDLE;               
             }
 
             return planeEnum;
@@ -91,11 +93,11 @@ namespace LSTK.Frame.Frameworks.TeklaAPI
         private Position.DepthEnum SetDepthPosition(ElementData element)
         {
             Position.DepthEnum depthEnum;
-            if (element.DepthPosition.Equals(Position.DepthEnum.BEHIND))
+            if (element.DepthPosition.Equals(Position.DepthEnum.BEHIND.ToString()))
             {
                 depthEnum = Position.DepthEnum.BEHIND;
             }
-            else if (element.DepthPosition.Equals(Position.DepthEnum.FRONT))
+            else if (element.DepthPosition.Equals(Position.DepthEnum.FRONT.ToString()))
             {
                 depthEnum = Position.DepthEnum.FRONT;
             }

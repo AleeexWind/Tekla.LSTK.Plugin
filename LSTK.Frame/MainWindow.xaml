@@ -67,13 +67,13 @@
                     Text="{Binding HeightColumns, Mode=TwoWay}"/>
             </StackPanel>
             <StackPanel Grid.Row="4" Orientation="Horizontal">
-                <Label x:Name="label_BayOverall" Content="{tsd:Loc albl_Bay_overall}" Height="30" Width="150"/>
-                <UIControls:WpfFilterCheckBox VerticalAlignment="Center" AttributeName="bayOverall" />
+                <Label x:Name="label_Bay" Content="{tsd:Loc albl_Bay}" Height="30" Width="150"/>
+                <UIControls:WpfFilterCheckBox VerticalAlignment="Center" AttributeName="bay" />
                 <TextBox
-                    x:Name="tb_BayOverall"
+                    x:Name="tb_Bay"
                     Width="120"
                     Height="23"
-                    Text="{Binding BayOverall, Mode=TwoWay}"/>
+                    Text="{Binding Bay, Mode=TwoWay}"/>
             </StackPanel>
             <StackPanel Grid.Row="5" Orientation="Horizontal">
                 <Label x:Name="label_RoofRidgeHeight" Content="{tsd:Loc albl_RoofRidgeHeight}" Height="30" Width="150"/>

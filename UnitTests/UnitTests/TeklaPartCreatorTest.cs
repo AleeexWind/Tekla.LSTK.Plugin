@@ -3,6 +3,7 @@ using LSTK.Frame.BusinessRules.Gateways;
 using LSTK.Frame.BusinessRules.UseCases.Calculators;
 using LSTK.Frame.Entities;
 using LSTK.Frame.Frameworks.TeklaAPI;
+using Tekla.Structures.Model;
 using Xunit;
 
 namespace UnitTests.UnitTests
@@ -15,12 +16,20 @@ namespace UnitTests.UnitTests
             //Arrange
             TeklaPartAttributeSetter teklaPartAttributeSetter = new TeklaPartAttributeSetter();
             FrameData frameData = new FrameData();
-            FrameInputData frameInputData = new FrameInputData();
+            FrameInputData frameInputData = new FrameInputData()
+            {
+                ClassColumns = "5",
+                MaterialColumns = "350",
+                ProfileColumns = "ПСУ400х100х20х3,0",
+                PartNameColumns = "COLUMN11",
+                HeightColumns = 3000
+            };
+
             ColumnsDataCalculator columnsDataCalculator = new ColumnsDataCalculator(frameData);
             columnsDataCalculator.Calculate(frameInputData);
             
 
-            ITeklaAccess teklaPartCreator = new TeklaPartCreator(frameData, teklaPartAttributeSetter);
+            ITeklaAccess teklaPartCreator = new TeklaPartCreator(new Model(), frameData, teklaPartAttributeSetter);
 
             //Act
             bool leftColumn = teklaPartCreator.CreateLeftColumn();

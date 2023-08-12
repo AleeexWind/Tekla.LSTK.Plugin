@@ -16,7 +16,7 @@ namespace LSTK.Frame
         private string heightColumns = string.Empty;
         private string profileTopChord = string.Empty;
 
-        private string bayOverall = string.Empty;
+        private string bay = string.Empty;
         private string roofRidgeHeight = string.Empty;
         private string roofBottomHeight = string.Empty;
         private string frameOption;
@@ -47,11 +47,11 @@ namespace LSTK.Frame
         }
 
 
-        [StructuresDialog("bayOverall", typeof(TD.String))]
-        public string BayOverall
+        [StructuresDialog("bay", typeof(TD.String))]
+        public string Bay
         {
-            get { return bayOverall; }
-            set { bayOverall = value; OnPropertyChanged("BayOverall"); }
+            get { return bay; }
+            set { bay = value; OnPropertyChanged("Bay"); }
         }
 
         [StructuresDialog("profileTopChord", typeof(TD.String))]

@@ -2,7 +2,7 @@
 
 namespace LSTK.Frame.Interactors
 {
-    public class TeklaElementInsertHandler
+    public  class TeklaElementInsertHandler
     {
         public bool InsertElement(Part part)
         {

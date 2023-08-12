@@ -10,6 +10,9 @@ namespace LSTK.Frame.BusinessRules.DataBoundaries
         public string MaterialColumns { get; set; } = string.Empty;
         public string ClassColumns { get; set; } = string.Empty;
         public double HeightColumns { get; set; }
+        public string RotationPositionColumns { get; set; } = "FRONT";
+        public string PlanePositionColumns { get; set; } = "MIDDLE";
+        public string DepthPositionColumns { get; set; } = "MIDDLE";
 
 
         //TopChord section
@@ -18,6 +21,10 @@ namespace LSTK.Frame.BusinessRules.DataBoundaries
         public string MaterialTopChord { get; set; } = string.Empty;
         public string ClassTopChord { get; set; } = string.Empty;
         public double RoofRidgeHeight { get; set; }
+        public string RotationPositionTopChord { get; set; } = "FRONT";
+        public string PlanePositionTopChord { get; set; } = "MIDDLE";
+        public string DepthPositionTopChords { get; set; } = "MIDDLE";
+
 
         //BottomChord section
         public string ProfileBottomChord { get; set; } = string.Empty;
@@ -25,6 +32,9 @@ namespace LSTK.Frame.BusinessRules.DataBoundaries
         public string MaterialBottomChord { get; set; } = string.Empty;
         public string ClassBottomChord { get; set; } = string.Empty;
         public double RoofBottomHeight { get; set; }
+        public string RotationPositionBottomChord { get; set; } = "FRONT";
+        public string PlanePositionBottomChord { get; set; } = "MIDDLE";
+        public string DepthPositionBottomChord { get; set; } = "MIDDLE";
 
 
         //Common

@@ -1,5 +1,9 @@
-﻿using LSTK.Frame.Interactors;
-using LSTK.Frame.Models;
+﻿using LSTK.Frame.Adapters.Controllers;
+using LSTK.Frame.BusinessRules.Gateways;
+using LSTK.Frame.BusinessRules.UseCases;
+using LSTK.Frame.BusinessRules.UseCases.Calculators;
+using LSTK.Frame.Entities;
+using LSTK.Frame.Frameworks.TeklaAPI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +12,7 @@ using System.Threading.Tasks;
 using Tekla.Structures.Geometry3d;
 using Tekla.Structures.Model;
 using Tekla.Structures.Plugins;
+using Point = Tekla.Structures.Geometry3d.Point;
 
 namespace LSTK.Frame
 {
@@ -22,7 +27,7 @@ namespace LSTK.Frame
         private string _profileColumns = string.Empty;
         private string _heightColumns = string.Empty;
         private string _profileTopChord = string.Empty;
-        private string _bayOverall = string.Empty;
+        private string _bay = string.Empty;
         private string _roofRidgeHeight = string.Empty;
         private string _roofBottomHeight = string.Empty;
         private string _frameOption;
@@ -71,27 +76,65 @@ namespace LSTK.Frame
                 Data.StartPoint = Point1;
                 Data.DirectionPoint = Point2;
 
-
                 FrameData frameData = new FrameData();
-                LocalPlaneManager localPlaneManager = new LocalPlaneManager(Model);
                 TeklaPartAttributeSetter teklaPartAttributeSetter = new TeklaPartAttributeSetter();
-                TeklaPartCreator teklaPartCreator = new TeklaPartCreator(frameData, teklaPartAttributeSetter);
-                FrameCreatorManager frameCreatorManager = new FrameCreatorManager(frameData, Data, localPlaneManager);
+                ITeklaAccess teklaAccess = new TeklaPartCreator(Model, frameData, teklaPartAttributeSetter);
 
-                frameCreatorManager.SetLocalWorkingPlane();
-                frameCreatorManager.BuildFrameData();
-                frameCreatorManager.CreateColumns(teklaPartCreator);
-                frameCreatorManager.SetCurrentPlane();
-                frameCreatorManager.Commit();
+                List<IDataCalculator> calculators = new List<IDataCalculator>()
+                {
+                    new ColumnsDataCalculator(frameData)
+                };
 
+                LocalPlaneManager localPlaneManager = new LocalPlaneManager(Model);
 
+                FrameCreatorManager frameCreatorManager = new FrameCreatorManager(teklaAccess, calculators, localPlaneManager);
+
+                InterfaceDataController interfaceDataController = new InterfaceDataController(frameCreatorManager);
+
+                interfaceDataController.GatherInput(_data);
+                interfaceDataController.SendInput();
+
+                frameCreatorManager.CreateFrame();
             }
             catch (Exception Ex)
-            {              
+            {
                 throw;
             }
             return true;
         }
+
+        //public override bool Run(List<InputDefinition> Input)
+        //{
+        //    try
+        //    {
+        //        GetValuesFromDialog();
+
+        //        Point Point1 = (Point)(Input[0]).GetInput();
+        //        Point Point2 = (Point)(Input[1]).GetInput();
+        //        Data.StartPoint = Point1;
+        //        Data.DirectionPoint = Point2;
+
+
+        //        FrameData frameData = new FrameData();
+        //        LocalPlaneManager localPlaneManager = new LocalPlaneManager(Model);
+        //        TeklaPartAttributeSetter teklaPartAttributeSetter = new TeklaPartAttributeSetter();
+        //        TeklaPartCreator teklaPartCreator = new TeklaPartCreator(frameData, teklaPartAttributeSetter);
+        //        FrameCreatorManager frameCreatorManager = new FrameCreatorManager(frameData, Data, localPlaneManager);
+
+        //        frameCreatorManager.SetLocalWorkingPlane();
+        //        frameCreatorManager.BuildFrameData();
+        //        frameCreatorManager.CreateColumns(teklaPartCreator);
+        //        frameCreatorManager.SetCurrentPlane();
+        //        frameCreatorManager.Commit();
+
+
+        //    }
+        //    catch (Exception Ex)
+        //    {              
+        //        throw;
+        //    }
+        //    return true;
+        //}
 
         private void GetValuesFromDialog()
         {
@@ -99,7 +142,7 @@ namespace LSTK.Frame
             _profileColumns = Data.ProfileColumns;
             _heightColumns = Data.HeightColumns;
             _profileTopChord = Data.ProfileTopChord;
-            _bayOverall = Data.Bay;
+            _bay = Data.Bay;
             _roofRidgeHeight = Data.RoofRidgeHeight;
             _roofBottomHeight = Data.RoofBottomHeight;
             _frameOption = Data.FrameOption;
@@ -112,8 +155,8 @@ namespace LSTK.Frame
                 _heightColumns = "5000";
             if (IsDefaultValue(_profileTopChord))
                 _profileTopChord = "ПСУ300х100х20х2,0";
-            if (IsDefaultValue(_bayOverall))
-                _bayOverall = "20000";
+            if (IsDefaultValue(_bay))
+                _bay = "20000";
         }
     }
     public class PluginData

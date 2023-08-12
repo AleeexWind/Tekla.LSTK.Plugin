@@ -10,6 +10,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 using System.Reflection;
+using LSTK.Frame.Entities;
+using LSTK.Frame.Frameworks.TeklaAPI;
+using LSTK.Frame.BusinessRules.UseCases.Calculators;
+using Tekla.Structures.Model;
 
 namespace UnitTests.UnitTests
 {
@@ -30,7 +34,7 @@ namespace UnitTests.UnitTests
                 DirectionPoint = point
             };
 
-            FrameCreatorManager frameCreatorManager = new FrameCreatorManager();
+            FrameCreatorManager frameCreatorManager = new FrameCreatorManager(new TeklaPartCreator(new Model(), new FrameData(), new TeklaPartAttributeSetter()), new List<IDataCalculator>(), new LocalPlaneManager(new Tekla.Structures.Model.Model()));
             InterfaceDataController interfaceDataController = new InterfaceDataController(frameCreatorManager);
 
             //Act
@@ -57,7 +61,7 @@ namespace UnitTests.UnitTests
                 DirectionPoint = point
             };
 
-            FrameCreatorManager frameCreatorManager = new FrameCreatorManager();
+            FrameCreatorManager frameCreatorManager = new FrameCreatorManager(new TeklaPartCreator(new Model(), new FrameData(), new TeklaPartAttributeSetter()), new List<IDataCalculator>(), new LocalPlaneManager(new Tekla.Structures.Model.Model()));
             InterfaceDataController interfaceDataController = new InterfaceDataController(frameCreatorManager);
             interfaceDataController.GatherInput(pluginData);
 

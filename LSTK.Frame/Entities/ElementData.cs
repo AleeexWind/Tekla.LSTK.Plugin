@@ -8,11 +8,6 @@ namespace LSTK.Frame.Entities
 {
     public class ElementData
     {
-        //public Point StartPointLeft { get; set; }
-        //public Point EndPointLeft { get; set; }
-        //public Point StartPointRight { get; set; }
-        //public Point EndPointRight { get; set; }
-
         public Point StartPoint { get; set; } = new Point();
         public Point EndPoint { get; set; } = new Point();
 
@@ -20,7 +15,7 @@ namespace LSTK.Frame.Entities
         public string PartName { get; set; } = string.Empty;
         public string Material { get; set; } = string.Empty;
         public string Class { get; set; } = string.Empty;
-        public string Position { get; set; } = string.Empty;
+        //public string Position { get; set; } = string.Empty;
 
         public string RotationPosition { get; set; } = string.Empty;
 

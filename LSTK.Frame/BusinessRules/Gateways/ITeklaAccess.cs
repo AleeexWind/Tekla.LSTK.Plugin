@@ -10,5 +10,6 @@ namespace LSTK.Frame.BusinessRules.Gateways
     {
         bool CreateLeftColumn();
         bool CreateRightColumn();
+        bool CommitChanges();
     }
 }

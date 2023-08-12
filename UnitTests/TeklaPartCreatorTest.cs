@@ -16,7 +16,7 @@ namespace UnitTests
             TeklaPartAttributeSetter teklaPartAttributeSetter = new TeklaPartAttributeSetter();
             FrameData frameData = new FrameData();
 
-            ITeklaAccess teklaPartCreator = new TeklaPartCreator(frameData, teklaPartAttributeSetter);
+            ITeklaAccess teklaPartCreator = new TeklaPartCreator(new Model(), frameData, teklaPartAttributeSetter);
 
             //Act
             bool leftColumn = teklaPartCreator.CreateLeftColumn();

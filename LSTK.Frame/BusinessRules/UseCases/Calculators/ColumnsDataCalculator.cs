@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LSTK.Frame.BusinessRules.UseCases.Calculators
 {
-    public class ColumnsDataCalculator
+    public class ColumnsDataCalculator : IDataCalculator
     {
         private FrameData _frameData;
         private FrameInputData _frameInputData;
@@ -41,11 +41,7 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators
                 Y = _frameInputData.HeightColumns,
                 Z = 0.0
             };
-            ElementData elementData = new ElementData()
-            {
-                StartPoint = startPoint,
-                EndPoint = endPoint
-            };
+            ElementData elementData = CalcCommonDataForColumn(startPoint, endPoint);
             return elementData;
         }
         private ElementData CalcRightColumn()
@@ -62,10 +58,23 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators
                 Y = _frameInputData.HeightColumns,
                 Z = 0.0
             };
+            ElementData elementData = CalcCommonDataForColumn(startPoint, endPoint);
+            return elementData;
+        }
+        private ElementData CalcCommonDataForColumn(Point startPoint, Point endPoint)
+        {
             ElementData elementData = new ElementData()
             {
                 StartPoint = startPoint,
-                EndPoint = endPoint
+                EndPoint = endPoint,
+                Profile = _frameInputData.ProfileColumns,
+                PartName =_frameInputData.PartNameColumns,
+                Material = _frameInputData.MaterialColumns,
+                Class = _frameInputData.MaterialColumns,
+                RotationPosition = _frameInputData.RotationPositionColumns,
+                PlanePosition = _frameInputData.PlanePositionColumns,
+                DepthPosition = _frameInputData.DepthPositionColumns
+
             };
             return elementData;
         }

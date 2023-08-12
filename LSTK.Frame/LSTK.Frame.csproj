@@ -73,6 +73,9 @@
     <Compile Include="Adapters\Controllers\InterfaceDataController.cs" />
     <Compile Include="BusinessRules\DataBoundaries\IFrameDataInputBoundary.cs" />
     <Compile Include="BusinessRules\Gateways\ITeklaAccess.cs" />
+    <Compile Include="BusinessRules\UseCases\Calculators\IDataCalculator.cs" />
+    <Compile Include="Frameworks\TeklaAPI\LocalPlaneManager.cs" />
+    <Compile Include="Frameworks\TeklaAPI\TeklaElementInsertHandler.cs" />
     <Compile Include="Frameworks\TeklaAPI\TeklaPartAttributeSetter.cs" />
     <Compile Include="Frameworks\TeklaAPI\TeklaPartCreator.cs" />
     <Compile Include="BusinessRules\UseCases\Calculators\ColumnsDataCalculator.cs" />
@@ -84,6 +87,7 @@
     <Compile Include="Entities\Point.cs" />
     <Compile Include="Entities\TrussData.cs" />
     <Compile Include="Entities\ElementData.cs" />
+    <Compile Include="Frameworks\TeklaAPI\TeklaPointSelector.cs" />
     <Compile Include="Interactors\Boundaries\IBoundaryInput.cs" />
     <Compile Include="Interactors\DataAccessInterface\LocalPlaneManager.cs" />
     <Compile Include="Interactors\DataAccessInterface\TeklaElementInsertHandler.cs" />
