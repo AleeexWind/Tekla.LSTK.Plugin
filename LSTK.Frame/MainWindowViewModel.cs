@@ -1,6 +1,4 @@
-﻿using LSTK.Frame.Interactors;
-using LSTK.Frame.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
 using Tekla.Structures.Dialog;

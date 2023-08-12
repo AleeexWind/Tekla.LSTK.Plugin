@@ -70,15 +70,7 @@
     <PackageReference Include="coverlet.collector" Version="1.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FrameDataControllerTest.cs" />
     <Compile Include="IntegrationTests\FrameCreatorManagerTest.cs" />
-    <Compile Include="LocalPlaneManagerTest.cs" />
-    <Compile Include="Models\FrameDataTest.cs" />
-    <Compile Include="Models\StartColumnDataTest.cs" />
-    <Compile Include="TeklaElementInsertHandlerTest.cs" />
-    <Compile Include="TeklaPartAttributeSetterTest.cs" />
-    <Compile Include="TeklaPartCreatorTest.cs" />
-    <Compile Include="TeklaPointSelectorTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitTests\ColumnsDataCalculatorTest.cs" />
     <Compile Include="UnitTests\InterfaceDataControllerTest.cs" />

@@ -80,7 +80,6 @@
     <Compile Include="Frameworks\TeklaAPI\TeklaPartCreator.cs" />
     <Compile Include="BusinessRules\UseCases\Calculators\ColumnsDataCalculator.cs" />
     <Compile Include="BusinessRules\UseCases\FrameCreatorManager.cs" />
-    <Compile Include="Controllers\InterfaceDataController.cs" />
     <Compile Include="BusinessRules\DataBoundaries\FrameInputData.cs" />
     <Compile Include="Entities\ColumnsData.cs" />
     <Compile Include="Entities\FrameData.cs" />
@@ -88,22 +87,11 @@
     <Compile Include="Entities\TrussData.cs" />
     <Compile Include="Entities\ElementData.cs" />
     <Compile Include="Frameworks\TeklaAPI\TeklaPointSelector.cs" />
-    <Compile Include="Interactors\Boundaries\IBoundaryInput.cs" />
-    <Compile Include="Interactors\DataAccessInterface\LocalPlaneManager.cs" />
-    <Compile Include="Interactors\DataAccessInterface\TeklaElementInsertHandler.cs" />
-    <Compile Include="Interactors\DataAccessInterface\TeklaPartAttributeSetter.cs" />
-    <Compile Include="Interactors\DataAccessInterface\TeklaPointSelector.cs" />
-    <Compile Include="Interactors\DataStructures\InputData.cs" />
-    <Compile Include="Interactors\DataStructures\Point.cs" />
-    <Compile Include="Interactors\FrameCreatorManager.cs" />
-    <Compile Include="Interactors\FrameDataHandler.cs" />
-    <Compile Include="Interactors\TeklaPartCreator.cs" />
     <Compile Include="MainPlugin.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindowViewModel.cs" />
-    <Compile Include="Models\FrameData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\TeklaPointConverter.cs" />
   </ItemGroup>

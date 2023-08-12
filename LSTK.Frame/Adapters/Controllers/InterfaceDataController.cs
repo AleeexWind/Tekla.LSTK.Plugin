@@ -1,13 +1,4 @@
-﻿using LSTK.Frame.Interactors.Boundaries;
-using LSTK.Frame.Interactors.DataStructures;
-using LSTK.Frame.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Tekla.Structures.Geometry3d;
-using PointTekla = Tekla.Structures.Geometry3d;
+﻿using PointTekla = Tekla.Structures.Geometry3d;
 using PointPlugin = LSTK.Frame.Entities;
 using LSTK.Frame.BusinessRules.DataBoundaries;
 
