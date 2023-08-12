@@ -1,14 +1,10 @@
 ﻿using LSTK.Frame.BusinessRules.DataBoundaries;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using LSTK.Frame.Entities;
 
 namespace LSTK.Frame.BusinessRules.UseCases.Calculators
 {
     public interface IDataCalculator
     {
-        void Calculate(FrameInputData frameInputData);
+        void Calculate(FrameData frameData, FrameInputData frameInputData);
     }
 }

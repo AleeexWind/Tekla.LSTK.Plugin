@@ -17,23 +17,23 @@ namespace LSTK.Frame.Adapters.Controllers
         {
             FrameInputData inputData = new FrameInputData
             {
-                ProfileColumns = pluginData.ProfileColumns,
                 PartNameColumns = pluginData.PartNameColumns,
+                ProfileColumns = pluginData.ProfileColumns,
                 MaterialColumns = pluginData.MaterialColumns,
                 ClassColumns = pluginData.ClassColumns,
                 HeightColumns = double.Parse(pluginData.HeightColumns, System.Globalization.CultureInfo.InvariantCulture),
 
-                ProfileTopChord = pluginData.ProfileTopChord,
                 PartNameTopChord = pluginData.PartNameTopChord,
+                ProfileTopChord = pluginData.ProfileTopChord,
                 MaterialTopChord = pluginData.MaterialTopChord,
                 ClassTopChord = pluginData.ClassTopChord,
-                RoofRidgeHeight = double.Parse(pluginData.RoofRidgeHeight, System.Globalization.CultureInfo.InvariantCulture),
+                HeightRoofRidge = double.Parse(pluginData.HeightRoofRidge, System.Globalization.CultureInfo.InvariantCulture),
 
-                ProfileBottomChord = pluginData.ProfileBottomChord,
                 PartNameBottomChord = pluginData.PartNameBottomChord,
+                ProfileBottomChord = pluginData.ProfileBottomChord,
                 MaterialBottomChord = pluginData.MaterialBottomChord,
                 ClassBottomChord = pluginData.ClassBottomChord,
-                RoofBottomHeight = double.Parse(pluginData.RoofBottomHeight, System.Globalization.CultureInfo.InvariantCulture),
+                HeightRoofBottom = double.Parse(pluginData.HeightRoofBottom, System.Globalization.CultureInfo.InvariantCulture),
 
                 Bay = double.Parse(pluginData.Bay, System.Globalization.CultureInfo.InvariantCulture),
                 FrameOption = pluginData.FrameOption,

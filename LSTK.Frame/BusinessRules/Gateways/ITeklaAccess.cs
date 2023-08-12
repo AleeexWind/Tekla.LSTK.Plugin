@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using LSTK.Frame.Entities;
 
 namespace LSTK.Frame.BusinessRules.Gateways
 {
     public interface ITeklaAccess
     {
-        bool CreateLeftColumn();
-        bool CreateRightColumn();
+        bool CreateLeftColumn(FrameData frameData);
+        bool CreateRightColumn(FrameData frameData);
+        bool CreateLeftTopChord(FrameData frameData);
+        bool CreateRightTopChord(FrameData frameData);
         bool CommitChanges();
     }
 }

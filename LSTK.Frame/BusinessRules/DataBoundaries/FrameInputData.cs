@@ -5,8 +5,8 @@ namespace LSTK.Frame.BusinessRules.DataBoundaries
     public class FrameInputData
     {
         //Columns section
-        public string ProfileColumns { get; set; } = string.Empty;
         public string PartNameColumns { get; set; } = string.Empty;
+        public string ProfileColumns { get; set; } = string.Empty;
         public string MaterialColumns { get; set; } = string.Empty;
         public string ClassColumns { get; set; } = string.Empty;
         public double HeightColumns { get; set; }
@@ -16,22 +16,22 @@ namespace LSTK.Frame.BusinessRules.DataBoundaries
 
 
         //TopChord section
-        public string ProfileTopChord { get; set; } = string.Empty;
         public string PartNameTopChord { get; set; } = string.Empty;
+        public string ProfileTopChord { get; set; } = string.Empty;
         public string MaterialTopChord { get; set; } = string.Empty;
         public string ClassTopChord { get; set; } = string.Empty;
-        public double RoofRidgeHeight { get; set; }
+        public double HeightRoofRidge { get; set; }
         public string RotationPositionTopChord { get; set; } = "FRONT";
         public string PlanePositionTopChord { get; set; } = "MIDDLE";
         public string DepthPositionTopChords { get; set; } = "MIDDLE";
 
 
         //BottomChord section
-        public string ProfileBottomChord { get; set; } = string.Empty;
         public string PartNameBottomChord { get; set; } = string.Empty;
+        public string ProfileBottomChord { get; set; } = string.Empty;
         public string MaterialBottomChord { get; set; } = string.Empty;
         public string ClassBottomChord { get; set; } = string.Empty;
-        public double RoofBottomHeight { get; set; }
+        public double HeightRoofBottom { get; set; }
         public string RotationPositionBottomChord { get; set; } = "FRONT";
         public string PlanePositionBottomChord { get; set; } = "MIDDLE";
         public string DepthPositionBottomChord { get; set; } = "MIDDLE";

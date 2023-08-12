@@ -1,13 +1,8 @@
 ﻿using LSTK.Frame;
 using LSTK.Frame.Adapters.Controllers;
-using LSTK.Frame.BusinessRules.DataBoundaries;
 using LSTK.Frame.BusinessRules.UseCases;
 using PointTekla = Tekla.Structures.Geometry3d;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 using System.Reflection;
 using LSTK.Frame.Entities;
@@ -28,13 +23,13 @@ namespace UnitTests.UnitTests
             { 
                 Bay = "5000",
                 HeightColumns = "5000",
-                RoofBottomHeight = "5000",
-                RoofRidgeHeight = "5000",
+                HeightRoofBottom = "5000",
+                HeightRoofRidge = "5000",
                 StartPoint = point,
                 DirectionPoint = point
             };
 
-            FrameCreatorManager frameCreatorManager = new FrameCreatorManager(new TeklaPartCreator(new Model(), new FrameData(), new TeklaPartAttributeSetter()), new List<IDataCalculator>(), new LocalPlaneManager(new Tekla.Structures.Model.Model()));
+            FrameCreatorManager frameCreatorManager = new FrameCreatorManager(new FrameData(), new TeklaPartCreator(new Model(), new TeklaPartAttributeSetter()), new List<IDataCalculator>(), new LocalPlaneManager(new Model()));
             InterfaceDataController interfaceDataController = new InterfaceDataController(frameCreatorManager);
 
             //Act
@@ -55,13 +50,13 @@ namespace UnitTests.UnitTests
             {
                 Bay = "5000",
                 HeightColumns = "5000",
-                RoofBottomHeight = "5000",
-                RoofRidgeHeight = "5000",
+                HeightRoofBottom = "5000",
+                HeightRoofRidge = "5000",
                 StartPoint = point,
                 DirectionPoint = point
             };
 
-            FrameCreatorManager frameCreatorManager = new FrameCreatorManager(new TeklaPartCreator(new Model(), new FrameData(), new TeklaPartAttributeSetter()), new List<IDataCalculator>(), new LocalPlaneManager(new Tekla.Structures.Model.Model()));
+            FrameCreatorManager frameCreatorManager = new FrameCreatorManager(new FrameData(), new TeklaPartCreator(new Model(), new TeklaPartAttributeSetter()), new List<IDataCalculator>(), new LocalPlaneManager(new Model()));
             InterfaceDataController interfaceDataController = new InterfaceDataController(frameCreatorManager);
             interfaceDataController.GatherInput(pluginData);
 

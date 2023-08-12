@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LSTK.Frame.Entities
+﻿namespace LSTK.Frame.Entities
 {
     public class TrussData
     {
-        public ElementData TopChord { get; set; }
-        public ElementData BottomChord { get; set; }
+        public ElementData LeftTopChord { get; set; }
+        public ElementData RightTopChord { get; set; }
+        public ElementData LeftBottomChord { get; set; }
+        public ElementData RightBottomChord { get; set; }
     }
 }

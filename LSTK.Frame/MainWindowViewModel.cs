@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.Windows;
 using Tekla.Structures.Dialog;
 using TD = Tekla.Structures.Datatype;
 
@@ -8,23 +7,30 @@ namespace LSTK.Frame
 {
     public class MainWindowViewModel : INotifyPropertyChanged
     {
-        private string partName = string.Empty;
         private string partNameColumns = string.Empty;
         private string profileColumns = string.Empty;
+        private string materialColumns = string.Empty;
+        private string classColumns = string.Empty;
         private string heightColumns = string.Empty;
-        private string profileTopChord = string.Empty;
 
-        private string bay = string.Empty;
-        private string roofRidgeHeight = string.Empty;
-        private string roofBottomHeight = string.Empty;
+
+        private string partNameTopChord = string.Empty;
+        private string profileTopChord = string.Empty;
+        private string materialTopChord = string.Empty;
+        private string classTopChord = string.Empty;
+        private string heightRoofRidge = string.Empty;
+
+        private string partNameBottomChord = string.Empty;
+        private string profileBottomChord = string.Empty;
+        private string materialBottomChord = string.Empty;
+        private string classBottomChord = string.Empty;
+        private string heightRoofBottom = string.Empty;
+
+
+        private string bay = string.Empty;     
         private string frameOption;
 
-        [StructuresDialog("name", typeof(TD.String))]
-        public string PartName
-        {
-            get { return partName; }
-            set { partName = value; OnPropertyChanged("PartName"); }
-        }
+
         [StructuresDialog("partNameColumns", typeof(TD.String))]
         public string PartNameColumns
         {
@@ -37,12 +43,94 @@ namespace LSTK.Frame
             get { return profileColumns; }
             set { profileColumns = value; OnPropertyChanged("ProfileColumns"); }
         }
+        [StructuresDialog("materialColumns", typeof(TD.String))]
+        public string MaterialColumns
+        {
+            get { return materialColumns; }
+            set { materialColumns = value; OnPropertyChanged("MaterialColumns"); }
+        }
+        [StructuresDialog("classColumns", typeof(TD.String))]
+        public string ClassColumns
+        {
+            get { return classColumns; }
+            set { classColumns = value; OnPropertyChanged("ClassColumns"); }
+        }
         [StructuresDialog("heightColumns", typeof(TD.String))]
         public string HeightColumns
         {
             get { return heightColumns; }
             set { heightColumns = value; OnPropertyChanged("HeightColumns"); }
         }
+
+
+
+        [StructuresDialog("partNameTopChord", typeof(TD.String))]
+        public string PartNameTopChord
+        {
+            get { return partNameTopChord; }
+            set { partNameTopChord = value; OnPropertyChanged("PartNameTopChord"); }
+        }
+
+        [StructuresDialog("profileTopChord", typeof(TD.String))]
+        public string ProfileTopChord
+        {
+            get { return profileTopChord; }
+            set { profileTopChord = value; OnPropertyChanged("ProfileTopChord"); }
+        }
+        [StructuresDialog("materialTopChord", typeof(TD.String))]
+        public string MaterialTopChord
+        {
+            get { return materialTopChord; }
+            set { materialTopChord = value; OnPropertyChanged("MaterialTopChord"); }
+        }
+        [StructuresDialog("classTopChord", typeof(TD.String))]
+        public string ClassTopChord
+        {
+            get { return classTopChord; }
+            set { classTopChord = value; OnPropertyChanged("ClassTopChord"); }
+        }
+        [StructuresDialog("heightRoofRidge", typeof(TD.String))]
+        public string HeightRoofRidge
+        {
+            get { return heightRoofRidge; }
+            set { heightRoofRidge = value; OnPropertyChanged("HeightRoofRidge"); }
+        }
+
+
+
+
+        [StructuresDialog("partNameBottomChord", typeof(TD.String))]
+        public string PartNameBottomChord
+        {
+            get { return partNameBottomChord; }
+            set { partNameBottomChord = value; OnPropertyChanged("PartNameBottomChord"); }
+        }
+
+        [StructuresDialog("profileBottomChord", typeof(TD.String))]
+        public string ProfileBottomChord
+        {
+            get { return profileBottomChord; }
+            set { profileBottomChord = value; OnPropertyChanged("ProfileBottomChord"); }
+        }
+        [StructuresDialog("materialBottomChord", typeof(TD.String))]
+        public string MaterialBottomChord
+        {
+            get { return materialBottomChord; }
+            set { materialBottomChord = value; OnPropertyChanged("MaterialBottomChord"); }
+        }
+        [StructuresDialog("classBottomChord", typeof(TD.String))]
+        public string ClassBottomChord
+        {
+            get { return classBottomChord; }
+            set { classBottomChord = value; OnPropertyChanged("ClassBottomChord"); }
+        }
+        [StructuresDialog("heightRoofBottom", typeof(TD.String))]
+        public string HeightRoofBottom
+        {
+            get { return heightRoofBottom; }
+            set { heightRoofBottom = value; OnPropertyChanged("HeightRoofBottom"); }
+        }
+
 
 
         [StructuresDialog("bay", typeof(TD.String))]
@@ -52,26 +140,7 @@ namespace LSTK.Frame
             set { bay = value; OnPropertyChanged("Bay"); }
         }
 
-        [StructuresDialog("profileTopChord", typeof(TD.String))]
-        public string ProfileTopChord
-        {
-            get { return profileTopChord; }
-            set { profileTopChord = value; OnPropertyChanged("ProfileTopChord"); }
-        }
 
-        [StructuresDialog("roofRidgeHeight", typeof(TD.String))]
-        public string RoofRidgeHeight
-        {
-            get { return roofRidgeHeight; }
-            set { roofRidgeHeight = value; OnPropertyChanged("RoofRidgeHeight"); }
-        }
-
-        [StructuresDialog("roofBottomHeight", typeof(TD.String))]
-        public string RoofBottomHeight
-        {
-            get { return roofBottomHeight; }
-            set { roofBottomHeight = value; OnPropertyChanged("RoofBottomHeight"); }
-        }
         [StructuresDialog("frameOption", typeof(TD.String))]
         public string FrameOption
         {
@@ -92,23 +161,6 @@ namespace LSTK.Frame
             {
                 handler(this, new PropertyChangedEventArgs(name));
             }
-        }
-        public void Run()
-        {
-            //FrameData frameData = new FrameData();
-            //TeklaPointSelector teklaPointSelector = new TeklaPointSelector();
-            //LocalPlaneManager localPlaneManager = new LocalPlaneManager();
-            //TeklaPartAttributeSetter teklaPartAttributeSetter = new TeklaPartAttributeSetter();
-            //TeklaPartCreator teklaPartCreator = new TeklaPartCreator(frameData, teklaPartAttributeSetter);
-            //FrameCreatorManager frameCreatorManager = new FrameCreatorManager(frameData, this, teklaPointSelector, localPlaneManager);
-
-            //frameCreatorManager.SetLocalWorkingPlane();
-            //frameCreatorManager.BuildFrameData();
-            //frameCreatorManager.CreateColumns(teklaPartCreator);
-            //frameCreatorManager.SetCurrentPlane();
-            //frameCreatorManager.Commit();
-
-            //MessageBox.Show($"Start.\nPart: {PartNameColumns}\nProfileColumns: {ProfileColumns}\nProfileTopChord: {ProfileTopChord}\nHeightColumns: {HeightColumns}\nBayOverall: {BayOverall}");
         }
     }
 }

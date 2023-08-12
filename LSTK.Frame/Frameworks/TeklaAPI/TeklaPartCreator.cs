@@ -8,42 +8,55 @@ namespace LSTK.Frame.Frameworks.TeklaAPI
     public class TeklaPartCreator : ITeklaAccess
     {
         private readonly Model _model;
-        private readonly FrameData _frameData;
         private readonly TeklaPartAttributeSetter _teklaPartAttributeSetter;
-        public TeklaPartCreator(Model model, FrameData frameData, TeklaPartAttributeSetter teklaPartAttributeSetter)
+        public TeklaPartCreator(Model model, TeklaPartAttributeSetter teklaPartAttributeSetter)
         {
             _model = model;
-            _frameData = frameData;
             _teklaPartAttributeSetter = teklaPartAttributeSetter;
         }
         public bool CommitChanges()
         {
             return _model.CommitChanges();
         }
-        public bool CreateLeftColumn()
+        public bool CreateLeftColumn(FrameData frameData)
         {
-            return CreatePart(_frameData.ColumnsData.LeftColumn);
+            return CreatePart(frameData.ColumnsData.LeftColumn);
         }
 
-        public bool CreateRightColumn()
+        public bool CreateRightColumn(FrameData frameData)
         {
-            return CreatePart(_frameData.ColumnsData.RightColumn);
+            return CreatePart(frameData.ColumnsData.RightColumn);
         }
+
+        public bool CreateLeftTopChord(FrameData frameData)
+        {
+            return CreatePart(frameData.TrussData.LeftTopChord);
+        }
+        public bool CreateRightTopChord(FrameData frameData)
+        {
+            return CreatePart(frameData.TrussData.RightTopChord);
+        }
+
         private bool CreatePart(ElementData element)
         {
             Beam beam = new Beam();
 
-            bool res = _teklaPartAttributeSetter.SetCoordinatesToStartColumn(beam, TeklaPointConverter.ConvertPoint(element.StartPoint), TeklaPointConverter.ConvertPoint(element.EndPoint));
+            bool res = _teklaPartAttributeSetter.SetPartName(beam, element.PartName);
             if (!res) return res;
-            res = _teklaPartAttributeSetter.SetProfileToStartColumn(beam, element.Profile);
+            res = _teklaPartAttributeSetter.SetProfile(beam, element.Profile);
             if (!res) return res;
-            res = _teklaPartAttributeSetter.SetMaterialToStartColumn(beam, element.Material);
+            res = _teklaPartAttributeSetter.SetMaterial(beam, element.Material);
             if (!res) return res;
-            res = _teklaPartAttributeSetter.SetPositionRotationToStartColumn(beam, SetRotationPosition(element));
+            res = _teklaPartAttributeSetter.SetClass(beam, element.Class);
             if (!res) return res;
-            res = _teklaPartAttributeSetter.SetPositionPlaneToStartColumn(beam, SetPlanePosition(element));
+            res = _teklaPartAttributeSetter.SetRotationPosition(beam, SetRotationPosition(element));
             if (!res) return res;
-            res = _teklaPartAttributeSetter.SetPositionDepthToStartColumn(beam, SetDepthPosition(element));
+            res = _teklaPartAttributeSetter.SetPlanePosition(beam, SetPlanePosition(element));
+            if (!res) return res;
+            res = _teklaPartAttributeSetter.SetDepthPosition(beam, SetDepthPosition(element));
+            if (!res) return res;
+
+            res = _teklaPartAttributeSetter.SetPoints(beam, TeklaPointConverter.ConvertPoint(element.StartPoint), TeklaPointConverter.ConvertPoint(element.EndPoint));
             if (!res) return res;
 
             res = TeklaElementInsertHandler.InsertElement(beam);

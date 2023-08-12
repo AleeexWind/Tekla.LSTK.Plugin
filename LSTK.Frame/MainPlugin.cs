@@ -6,10 +6,6 @@ using LSTK.Frame.Entities;
 using LSTK.Frame.Frameworks.TeklaAPI;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Tekla.Structures.Geometry3d;
 using Tekla.Structures.Model;
 using Tekla.Structures.Plugins;
 using Point = Tekla.Structures.Geometry3d.Point;
@@ -78,16 +74,17 @@ namespace LSTK.Frame
 
                 FrameData frameData = new FrameData();
                 TeklaPartAttributeSetter teklaPartAttributeSetter = new TeklaPartAttributeSetter();
-                ITeklaAccess teklaAccess = new TeklaPartCreator(Model, frameData, teklaPartAttributeSetter);
+                ITeklaAccess teklaAccess = new TeklaPartCreator(Model, teklaPartAttributeSetter);
 
                 List<IDataCalculator> calculators = new List<IDataCalculator>()
                 {
-                    new ColumnsDataCalculator(frameData)
+                    new ColumnsDataCalculator(),
+                    new TopChordTrussDataCalculator()
                 };
 
                 LocalPlaneManager localPlaneManager = new LocalPlaneManager(Model);
 
-                FrameCreatorManager frameCreatorManager = new FrameCreatorManager(teklaAccess, calculators, localPlaneManager);
+                FrameCreatorManager frameCreatorManager = new FrameCreatorManager(frameData, teklaAccess, calculators, localPlaneManager);
 
                 InterfaceDataController interfaceDataController = new InterfaceDataController(frameCreatorManager);
 
@@ -103,39 +100,6 @@ namespace LSTK.Frame
             return true;
         }
 
-        //public override bool Run(List<InputDefinition> Input)
-        //{
-        //    try
-        //    {
-        //        GetValuesFromDialog();
-
-        //        Point Point1 = (Point)(Input[0]).GetInput();
-        //        Point Point2 = (Point)(Input[1]).GetInput();
-        //        Data.StartPoint = Point1;
-        //        Data.DirectionPoint = Point2;
-
-
-        //        FrameData frameData = new FrameData();
-        //        LocalPlaneManager localPlaneManager = new LocalPlaneManager(Model);
-        //        TeklaPartAttributeSetter teklaPartAttributeSetter = new TeklaPartAttributeSetter();
-        //        TeklaPartCreator teklaPartCreator = new TeklaPartCreator(frameData, teklaPartAttributeSetter);
-        //        FrameCreatorManager frameCreatorManager = new FrameCreatorManager(frameData, Data, localPlaneManager);
-
-        //        frameCreatorManager.SetLocalWorkingPlane();
-        //        frameCreatorManager.BuildFrameData();
-        //        frameCreatorManager.CreateColumns(teklaPartCreator);
-        //        frameCreatorManager.SetCurrentPlane();
-        //        frameCreatorManager.Commit();
-
-
-        //    }
-        //    catch (Exception Ex)
-        //    {              
-        //        throw;
-        //    }
-        //    return true;
-        //}
-
         private void GetValuesFromDialog()
         {
             _partNameColumns = Data.PartNameColumns;
@@ -143,8 +107,8 @@ namespace LSTK.Frame
             _heightColumns = Data.HeightColumns;
             _profileTopChord = Data.ProfileTopChord;
             _bay = Data.Bay;
-            _roofRidgeHeight = Data.RoofRidgeHeight;
-            _roofBottomHeight = Data.RoofBottomHeight;
+            _roofRidgeHeight = Data.HeightRoofRidge;
+            _roofBottomHeight = Data.HeightRoofBottom;
             _frameOption = Data.FrameOption;
 
             if (IsDefaultValue(_partNameColumns))
@@ -167,56 +131,44 @@ namespace LSTK.Frame
         //
 
         //Columns section
-        [StructuresField("profileColumns")]
-        public string ProfileColumns;
-
         [StructuresField("partNameColumns")]
         public string PartNameColumns;
-
+        [StructuresField("profileColumns")]
+        public string ProfileColumns;
         [StructuresField("materialColumns")]
         public string MaterialColumns;
-
         [StructuresField("classColumns")]
         public string ClassColumns;
-
         [StructuresField("heightColumns")]
         public string HeightColumns;
 
 
 
         //TopChord section
-        [StructuresField("profileTopChord")]
-        public string ProfileTopChord;
-
         [StructuresField("partNameTopChord")]
         public string PartNameTopChord;
-
+        [StructuresField("profileTopChord")]
+        public string ProfileTopChord;
         [StructuresField("materialTopChord")]
         public string MaterialTopChord;
-
         [StructuresField("classTopChord")]
         public string ClassTopChord;
-
-        [StructuresField("roofRidgeHeight")]
-        public string RoofRidgeHeight;
+        [StructuresField("heightRoofRidge")]
+        public string HeightRoofRidge;
 
 
 
         //BottomChord section
-        [StructuresField("profileBottomChord")]
-        public string ProfileBottomChord;
-
         [StructuresField("partNameBottomChord")]
         public string PartNameBottomChord;
-
+        [StructuresField("profileBottomChord")]
+        public string ProfileBottomChord;
         [StructuresField("materialBottomChord")]
         public string MaterialBottomChord;
-
         [StructuresField("classBottomChord")]
         public string ClassBottomChord;
-
-        [StructuresField("roofBottomHeight")]
-        public string RoofBottomHeight;
+        [StructuresField("heightRoofBottom")]
+        public string HeightRoofBottom;
 
 
         //Common

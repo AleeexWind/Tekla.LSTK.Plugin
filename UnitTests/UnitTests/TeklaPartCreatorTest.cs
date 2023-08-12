@@ -25,15 +25,15 @@ namespace UnitTests.UnitTests
                 HeightColumns = 3000
             };
 
-            ColumnsDataCalculator columnsDataCalculator = new ColumnsDataCalculator(frameData);
-            columnsDataCalculator.Calculate(frameInputData);
+            ColumnsDataCalculator columnsDataCalculator = new ColumnsDataCalculator();
+            columnsDataCalculator.Calculate(frameData, frameInputData);
             
 
-            ITeklaAccess teklaPartCreator = new TeklaPartCreator(new Model(), frameData, teklaPartAttributeSetter);
+            ITeklaAccess teklaPartCreator = new TeklaPartCreator(new Model(), teklaPartAttributeSetter);
 
             //Act
-            bool leftColumn = teklaPartCreator.CreateLeftColumn();
-            bool rightColumn = teklaPartCreator.CreateRightColumn();
+            bool leftColumn = teklaPartCreator.CreateLeftColumn(frameData);
+            bool rightColumn = teklaPartCreator.CreateRightColumn(frameData);
 
             //Assert
             Assert.True(leftColumn);

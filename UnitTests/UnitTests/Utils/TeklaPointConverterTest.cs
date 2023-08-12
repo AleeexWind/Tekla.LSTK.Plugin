@@ -1,9 +1,4 @@
 ﻿using LSTK.Frame.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using PointTekla = Tekla.Structures.Geometry3d;
 using PointPlugin = LSTK.Frame.Entities;
 using Xunit;

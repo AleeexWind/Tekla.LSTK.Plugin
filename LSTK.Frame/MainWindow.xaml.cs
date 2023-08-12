@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using Tekla.Structures.Dialog;
 
 namespace LSTK.Frame
@@ -52,24 +51,62 @@ namespace LSTK.Frame
             this.ToggleSelection();
         }
 
+
+
+
         private void WpfProfileCatalogColumns_SelectClicked(object sender, EventArgs e)
         {
             this.profileCatalogColumns.SelectedProfile = this.dataModel.ProfileColumns;
         }
-
         private void WpfProfileCatalogColumns_SelectionDone(object sender, EventArgs e)
         {
             this.dataModel.ProfileColumns = this.profileCatalogColumns.SelectedProfile;
         }
+        private void WpfMaterialCatalogColumns_SelectClicked(object sender, EventArgs e)
+        {
+            this.materialCatalogColumns.SelectedMaterial = this.dataModel.MaterialColumns;
+        }
+        private void WpfMaterialCatalogColumns_SelectionDone(object sender, EventArgs e)
+        {
+            this.dataModel.MaterialColumns = this.materialCatalogColumns.SelectedMaterial;
+        }
+
+
+
 
         private void profileCatalogTopChord_SelectClicked(object sender, EventArgs e)
         {
             this.profileCatalogTopChord.SelectedProfile = this.dataModel.ProfileTopChord;
         }
-
         private void profileCatalogTopChord_SelectionDone(object sender, EventArgs e)
         {
             this.dataModel.ProfileTopChord = this.profileCatalogTopChord.SelectedProfile;
+        }
+        private void WpfMaterialCatalogTopChord_SelectClicked(object sender, EventArgs e)
+        {
+            this.materialCatalogTopChord.SelectedMaterial = this.dataModel.MaterialTopChord;
+        }
+        private void WpfMaterialCatalogTopChord_SelectionDone(object sender, EventArgs e)
+        {
+            this.dataModel.MaterialTopChord = this.materialCatalogTopChord.SelectedMaterial;
+        }
+
+
+        private void profileCatalogBottomChord_SelectClicked(object sender, EventArgs e)
+        {
+            this.profileCatalogBottomChord.SelectedProfile = this.dataModel.ProfileBottomChord;
+        }
+        private void profileCatalogBottomChord_SelectionDone(object sender, EventArgs e)
+        {
+            this.dataModel.ProfileBottomChord = this.profileCatalogBottomChord.SelectedProfile;
+        }
+        private void WpfMaterialCatalogBottomChord_SelectClicked(object sender, EventArgs e)
+        {
+            this.materialCatalogBottomChord.SelectedMaterial = this.dataModel.MaterialBottomChord;
+        }
+        private void WpfMaterialCatalogBottomChord_SelectionDone(object sender, EventArgs e)
+        {
+            this.dataModel.MaterialBottomChord = this.materialCatalogBottomChord.SelectedMaterial;
         }
     }
 }

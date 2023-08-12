@@ -1,22 +1,13 @@
 ﻿using LSTK.Frame.BusinessRules.DataBoundaries;
 using LSTK.Frame.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LSTK.Frame.BusinessRules.UseCases.Calculators
 {
     public class ColumnsDataCalculator : IDataCalculator
     {
-        private FrameData _frameData;
         private FrameInputData _frameInputData;
-        public ColumnsDataCalculator(FrameData frameData)
-        {
-            _frameData = frameData;
-        }
-        public void Calculate(FrameInputData frameInputData)
+
+        public void Calculate(FrameData frameData, FrameInputData frameInputData)
         {
             _frameInputData = frameInputData;
             ColumnsData columnsData = new ColumnsData()
@@ -25,7 +16,7 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators
                 RightColumn = CalcRightColumn()
             };
 
-            _frameData.ColumnsData = columnsData;
+            frameData.ColumnsData = columnsData;
         }
         private ElementData CalcLeftColumn()
         {
@@ -70,7 +61,7 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators
                 Profile = _frameInputData.ProfileColumns,
                 PartName =_frameInputData.PartNameColumns,
                 Material = _frameInputData.MaterialColumns,
-                Class = _frameInputData.MaterialColumns,
+                Class = _frameInputData.ClassColumns,
                 RotationPosition = _frameInputData.RotationPositionColumns,
                 PlanePosition = _frameInputData.PlanePositionColumns,
                 DepthPosition = _frameInputData.DepthPositionColumns
