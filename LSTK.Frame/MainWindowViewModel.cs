@@ -26,9 +26,15 @@ namespace LSTK.Frame
         private string classBottomChord = string.Empty;
         private string heightRoofBottom = string.Empty;
 
+        private string partNameGroup = string.Empty;
+        private string profileGroup = string.Empty;
+        private string materialGroup = string.Empty;
+        private string classGroup = string.Empty;
 
         private string bay = string.Empty;     
         private string frameOption;
+        private string topChordLineOption;
+        private string columnLineOption;
 
 
         [StructuresDialog("partNameColumns", typeof(TD.String))]
@@ -132,6 +138,32 @@ namespace LSTK.Frame
         }
 
 
+        [StructuresDialog("partNameGroup", typeof(TD.String))]
+        public string PartNameGroup
+        {
+            get { return partNameGroup; }
+            set { partNameGroup = value; OnPropertyChanged("PartNameGroup"); }
+        }
+
+        [StructuresDialog("profileGroup", typeof(TD.String))]
+        public string ProfileGroup
+        {
+            get { return profileGroup; }
+            set { profileGroup = value; OnPropertyChanged("ProfileGroup"); }
+        }
+        [StructuresDialog("materialGroup", typeof(TD.String))]
+        public string MaterialGroup
+        {
+            get { return materialGroup; }
+            set { materialGroup = value; OnPropertyChanged("MaterialGroup"); }
+        }
+        [StructuresDialog("classGroup", typeof(TD.String))]
+        public string ClassGroup
+        {
+            get { return classGroup; }
+            set { classGroup = value; OnPropertyChanged("ClassGroup"); }
+        }
+
 
         [StructuresDialog("bay", typeof(TD.String))]
         public string Bay
@@ -151,6 +183,28 @@ namespace LSTK.Frame
         {
             "Whole",
             "Half"
+        };
+        [StructuresDialog("topChordLineOption", typeof(TD.String))]
+        public string TopChordLineOption
+        {
+            get { return topChordLineOption; }
+            set { topChordLineOption = value; OnPropertyChanged("TopChordLineOption"); }
+        }
+        public List<string> TopChordLineOptionList { get; set; } = new List<string>()
+        {
+            "Center",
+            "Below"
+        };
+        [StructuresDialog("columnLineOption", typeof(TD.String))]
+        public string ColumnLineOption
+        {
+            get { return columnLineOption; }
+            set { columnLineOption = value; OnPropertyChanged("ColumnLineOption"); }
+        }
+        public List<string> ColumnLineOptionList { get; set; } = new List<string>()
+        {
+            "Center",
+            "Inside"
         };
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -19,14 +19,14 @@ namespace LSTK.Frame
         private Model _model;
         private PluginData _data;
 
-        private string _partNameColumns = string.Empty;
-        private string _profileColumns = string.Empty;
-        private string _heightColumns = string.Empty;
-        private string _profileTopChord = string.Empty;
-        private string _bay = string.Empty;
-        private string _roofRidgeHeight = string.Empty;
-        private string _roofBottomHeight = string.Empty;
-        private string _frameOption;
+        //private string _partNameColumns = string.Empty;
+        //private string _profileColumns = string.Empty;
+        //private string _heightColumns = string.Empty;
+        //private string _profileTopChord = string.Empty;
+        //private string _bay = string.Empty;
+        //private string _roofRidgeHeight = string.Empty;
+        //private string _roofBottomHeight = string.Empty;
+        //private string _frameOption;
         private Model Model
         {
             get { return this._model; }
@@ -103,25 +103,25 @@ namespace LSTK.Frame
 
         private void GetValuesFromDialog()
         {
-            _partNameColumns = Data.PartNameColumns;
-            _profileColumns = Data.ProfileColumns;
-            _heightColumns = Data.HeightColumns;
-            _profileTopChord = Data.ProfileTopChord;
-            _bay = Data.Bay;
-            _roofRidgeHeight = Data.HeightRoofRidge;
-            _roofBottomHeight = Data.HeightRoofBottom;
-            _frameOption = Data.FrameOption;
+            //_partNameColumns = Data.PartNameColumns;
+            //_profileColumns = Data.ProfileColumns;
+            //_heightColumns = Data.HeightColumns;
+            //_profileTopChord = Data.ProfileTopChord;
+            //_bay = Data.Bay;
+            //_roofRidgeHeight = Data.HeightRoofRidge;
+            //_roofBottomHeight = Data.HeightRoofBottom;
+            //_frameOption = Data.FrameOption;
 
-            if (IsDefaultValue(_partNameColumns))
-                _partNameColumns = "TEST";
-            if (IsDefaultValue(_profileColumns))
-                _profileColumns = "ПСУ400х100х20х3,0";
-            if (IsDefaultValue(_heightColumns))
-                _heightColumns = "5000";
-            if (IsDefaultValue(_profileTopChord))
-                _profileTopChord = "ПСУ300х100х20х2,0";
-            if (IsDefaultValue(_bay))
-                _bay = "20000";
+            //if (IsDefaultValue(_partNameColumns))
+            //    _partNameColumns = "TEST";
+            //if (IsDefaultValue(_profileColumns))
+            //    _profileColumns = "ПСУ400х100х20х3,0";
+            //if (IsDefaultValue(_heightColumns))
+            //    _heightColumns = "5000";
+            //if (IsDefaultValue(_profileTopChord))
+            //    _profileTopChord = "ПСУ300х100х20х2,0";
+            //if (IsDefaultValue(_bay))
+            //    _bay = "20000";
         }
     }
     public class PluginData
@@ -144,7 +144,6 @@ namespace LSTK.Frame
         public string HeightColumns;
 
 
-
         //TopChord section
         [StructuresField("partNameTopChord")]
         public string PartNameTopChord;
@@ -156,7 +155,6 @@ namespace LSTK.Frame
         public string ClassTopChord;
         [StructuresField("heightRoofRidge")]
         public string HeightRoofRidge;
-
 
 
         //BottomChord section
@@ -171,13 +169,26 @@ namespace LSTK.Frame
         [StructuresField("heightRoofBottom")]
         public string HeightRoofBottom;
 
+        //BottomChord section
+        [StructuresField("partNameGroup")]
+        public string PartNameGroup;
+        [StructuresField("profileGroup")]
+        public string ProfileGroup;
+        [StructuresField("materialGroup")]
+        public string MaterialGroup;
+        [StructuresField("classGroup")]
+        public string ClassGroup;
+
 
         //Common
         [StructuresField("bay")]
         public string Bay;
-
         [StructuresField("frameOption")]
         public string FrameOption;
+        [StructuresField("topChordLineOption")]
+        public string TopChordLineOption;
+        [StructuresField("columnLineOption")]
+        public string ColumnLineOption;
         #endregion
 
         public Point StartPoint { get; set; }

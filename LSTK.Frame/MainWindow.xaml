@@ -9,7 +9,7 @@
              x:Class="LSTK.Frame.MainWindow"
              mc:Ignorable="d" 
              d:DesignHeight="600"
-             Title="{tsd:Loc albl_LSTK_Frame_plug-in}" Height="700" Width="700
+             Title="{tsd:Loc albl_LSTK_Frame_plug-in}" Height="700" Width="1000
     " HorizontalAlignment="Stretch">
     <Grid HorizontalAlignment="Stretch" Margin="0,0,0,0">
         <Grid.RowDefinitions>
@@ -41,6 +41,7 @@
 
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.5*"/>
                 <ColumnDefinition Width="0.5*"/>
                 <ColumnDefinition Width="0.5*"/>
             </Grid.ColumnDefinitions>
@@ -134,6 +135,42 @@
             </StackPanel>
 
 
+            <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal">
+                <Label x:Name="label_PartName_Group" Content="{tsd:Loc albl_PartName_Group}" Height="30" Width="150"/>
+                <UIControls:WpfFilterCheckBox VerticalAlignment="Center" AttributeName="partNameGroup"/>
+                <TextBox x:Name="tb_PartName_Group" Width="120" Height="23" VerticalAlignment="Center" Text="{Binding PartNameGroup, Mode=TwoWay}" TextWrapping="Wrap"  />
+            </StackPanel>
+            <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
+                <Label x:Name="label_Profile_Group" Content="{tsd:Loc albl_Profile_Group}" Height="30" Width="150"/>
+                <UIControls:WpfFilterCheckBox VerticalAlignment="Center" AttributeName="profileGroup" />
+                <TextBox
+                    x:Name="tb_Profile_Group"
+                    Width="120"
+                    Height="23"
+                    Text="{Binding ProfileGroup, Mode=TwoWay}"/>
+                <UIControls:WpfProfileCatalog x:Name="profileCatalogGroup" HorizontalAlignment="Left" VerticalAlignment="Center" SelectClicked="profileCatalogGroup_SelectClicked" SelectionDone="profileCatalogGroup_SelectionDone"/>
+            </StackPanel>
+            <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal">
+                <Label x:Name="label_Material_Group" Content="{tsd:Loc albl_Material_Group}" Height="30" Width="150"/>
+                <UIControls:WpfFilterCheckBox VerticalAlignment="Center" AttributeName="materialGroup" />
+                <TextBox
+                    x:Name="tb_Material_Group"
+                    Width="120"
+                    Height="23"
+                    Text="{Binding MaterialGroup, Mode=TwoWay}"/>
+                <UIControls:WpfMaterialCatalog x:Name="materialCatalogGroup" HorizontalAlignment="Left" VerticalAlignment="Center" SelectClicked="WpfMaterialCatalogGroup_SelectClicked" SelectionDone="WpfMaterialCatalogGroup_SelectionDone"/>
+            </StackPanel>
+            <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal">
+                <Label x:Name="label_Class_Group" Content="{tsd:Loc albl_Class_Group}" Height="30" Width="150"/>
+                <UIControls:WpfFilterCheckBox VerticalAlignment="Center" AttributeName="classGroup" />
+                <TextBox
+                    x:Name="tb_Class_Group"
+                    Width="120"
+                    Height="23"
+                    Text="{Binding ClassGroup, Mode=TwoWay}"/>
+            </StackPanel>
+
+
             <StackPanel Grid.Row="12" Orientation="Horizontal">
                 <Label x:Name="label_PartName_BottomChord" Content="{tsd:Loc albl_PartName_BottomChord}" Height="30" Width="150"/>
                 <UIControls:WpfFilterCheckBox VerticalAlignment="Center" AttributeName="partNameTopChord"/>
@@ -179,7 +216,7 @@
             </StackPanel>
 
 
-            <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal">
+            <StackPanel Grid.Column="2" Grid.Row="0" Orientation="Horizontal">
                 <Label x:Name="label_Bay" Content="{tsd:Loc albl_Bay}" Height="30" Width="150"/>
                 <UIControls:WpfFilterCheckBox VerticalAlignment="Center" AttributeName="bay" />
                 <TextBox
@@ -188,10 +225,20 @@
                     Height="23"
                     Text="{Binding Bay, Mode=TwoWay}"/>
             </StackPanel>
-            <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
+            <StackPanel Grid.Column="2" Grid.Row="1" Orientation="Horizontal">
                 <Label x:Name="label_FrameOption" Content="{tsd:Loc albl_FrameOption}" Height="30" Width="150"/>
                 <UIControls:WpfFilterCheckBox VerticalAlignment="Center" AttributeName="frameOption"/>
-                <ComboBox x:Name="cmb_FrameOption" Height="25" Width="150" ItemsSource="{Binding FrameOptionList}" SelectedItem ="{Binding FrameOption, Mode=TwoWay}"/>
+                <ComboBox x:Name="cmb_FrameOption" Height="25" Width="120" ItemsSource="{Binding FrameOptionList}" SelectedItem ="{Binding FrameOption, Mode=TwoWay}"/>
+            </StackPanel>
+            <StackPanel Grid.Column="2" Grid.Row="2" Orientation="Horizontal">
+                <Label x:Name="label_TopChordLineOption" Content="{tsd:Loc albl_TopChordLineOption}" Height="30" Width="150"/>
+                <UIControls:WpfFilterCheckBox VerticalAlignment="Center" AttributeName="topChordLineOption"/>
+                <ComboBox x:Name="cmb_TopChordLineOption" Height="25" Width="120" ItemsSource="{Binding TopChordLineOptionList}" SelectedItem ="{Binding TopChordLineOption, Mode=TwoWay}"/>
+            </StackPanel>
+            <StackPanel Grid.Column="2" Grid.Row="3" Orientation="Horizontal">
+                <Label x:Name="label_ColumnLineOption" Content="{tsd:Loc albl_ColumnLineOption}" Height="30" Width="150"/>
+                <UIControls:WpfFilterCheckBox VerticalAlignment="Center" AttributeName="columnLineOption"/>
+                <ComboBox x:Name="cmb_ColumnLineOption" Height="25" Width="120" ItemsSource="{Binding ColumnLineOptionList}" SelectedItem ="{Binding ColumnLineOption, Mode=TwoWay}"/>
             </StackPanel>
         </Grid>
         <UIControls:WpfOkApplyModifyGetOnOffCancel

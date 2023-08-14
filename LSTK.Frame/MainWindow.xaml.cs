@@ -108,5 +108,22 @@ namespace LSTK.Frame
         {
             this.dataModel.MaterialBottomChord = this.materialCatalogBottomChord.SelectedMaterial;
         }
+
+        private void profileCatalogGroup_SelectClicked(object sender, EventArgs e)
+        {
+            this.profileCatalogGroup.SelectedProfile = this.dataModel.ProfileGroup;
+        }
+        private void profileCatalogGroup_SelectionDone(object sender, EventArgs e)
+        {
+            this.dataModel.ProfileGroup = this.profileCatalogGroup.SelectedProfile;
+        }
+        private void WpfMaterialCatalogGroup_SelectClicked(object sender, EventArgs e)
+        {
+            this.materialCatalogGroup.SelectedMaterial = this.dataModel.MaterialGroup;
+        }
+        private void WpfMaterialCatalogGroup_SelectionDone(object sender, EventArgs e)
+        {
+            this.dataModel.MaterialGroup = this.materialCatalogGroup.SelectedMaterial;
+        }
     }
 }

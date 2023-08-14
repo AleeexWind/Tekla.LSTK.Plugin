@@ -1,5 +1,6 @@
 ﻿using Tekla.Structures.Model;
 using Tekla.Structures.Geometry3d;
+using Tekla.Structures.Catalogs;
 
 namespace LSTK.Frame.Frameworks.TeklaAPI
 {
@@ -21,6 +22,18 @@ namespace LSTK.Frame.Frameworks.TeklaAPI
         {
             try
             {
+                LibraryProfileItem libraryProfileItem = new LibraryProfileItem();
+                libraryProfileItem.Select(profile);
+
+                CrossSection crossSection = libraryProfileItem.GetCrossSection();
+
+
+                foreach(var t in libraryProfileItem.aProfileItemParameters)
+                {
+                    ProfileItemParameter profileItemParameter = t as ProfileItemParameter;
+                }
+                
+
                 beam.Profile.ProfileString = profile;
                 return true;
             }

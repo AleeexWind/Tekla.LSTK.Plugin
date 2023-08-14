@@ -35,8 +35,15 @@ namespace LSTK.Frame.Adapters.Controllers
                 ClassBottomChord = pluginData.ClassBottomChord,
                 HeightRoofBottom = double.Parse(pluginData.HeightRoofBottom, System.Globalization.CultureInfo.InvariantCulture),
 
+                PartNameGroup = pluginData.PartNameGroup,
+                ProfileGroup = pluginData.ProfileGroup,
+                MaterialGroup = pluginData.MaterialGroup,
+                ClassGroup = pluginData.ClassGroup,
+
                 Bay = double.Parse(pluginData.Bay, System.Globalization.CultureInfo.InvariantCulture),
                 FrameOption = pluginData.FrameOption,
+                TopChordLineOption = pluginData.TopChordLineOption,
+                ColumnLineOption = pluginData.ColumnLineOption,
                 StartPoint = TransformatePoint(pluginData.StartPoint),
                 DirectionPoint = TransformatePoint(pluginData.DirectionPoint)
             };

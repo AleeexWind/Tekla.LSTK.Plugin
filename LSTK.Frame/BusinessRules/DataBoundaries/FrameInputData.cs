@@ -36,10 +36,21 @@ namespace LSTK.Frame.BusinessRules.DataBoundaries
         public string PlanePositionBottomChord { get; set; } = "MIDDLE";
         public string DepthPositionBottomChord { get; set; } = "MIDDLE";
 
+        //Group elements section
+        public string PartNameGroup { get; set; } = string.Empty;
+        public string ProfileGroup { get; set; } = string.Empty;
+        public string MaterialGroup { get; set; } = string.Empty;
+        public string ClassGroup { get; set; } = string.Empty;
+        public string RotationPositionGroup { get; set; } = "FRONT";
+        public string PlanePositionGroup { get; set; } = "MIDDLE";
+        public string DepthPositionGroup { get; set; } = "MIDDLE";
+
 
         //Common
         public double Bay { get; set; }
         public string FrameOption { get; set; } = string.Empty;
+        public string TopChordLineOption { get; set; } = string.Empty;
+        public string ColumnLineOption { get; set; } = string.Empty;
 
         public Point StartPoint { get; set; } = new Point();
         public Point DirectionPoint { get; set; } = new Point();

@@ -1,5 +1,6 @@
 ﻿using LSTK.Frame.BusinessRules.DataBoundaries;
 using LSTK.Frame.Entities;
+using System;
 
 namespace LSTK.Frame.BusinessRules.UseCases.Calculators
 {
@@ -30,6 +31,7 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators
                 Y = _frameInputData.HeightColumns + _frameInputData.HeightRoofRidge,
                 Z = 0.0
             };
+
             ElementData elementData = CalcCommonData(startPoint, endPoint);
             return elementData;
         }
@@ -47,11 +49,20 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators
                 Y = _frameInputData.HeightColumns,
                 Z = 0.0
             };
+
+
             ElementData elementData = CalcCommonData(startPoint, endPoint);
             return elementData;
         }
         private ElementData CalcCommonData(Point startPoint, Point endPoint)
         {
+            if (_frameInputData.TopChordLineOption.Equals("Below"))
+            {
+                (Point, Point) newCoord = GetParallelLineCoordinate(startPoint, endPoint, 150);
+                startPoint = newCoord.Item1;
+                endPoint = newCoord.Item2;
+            }
+
             ElementData elementData = new ElementData()
             {
                 PartName =_frameInputData.PartNameTopChord,
@@ -65,6 +76,25 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators
                 EndPoint = endPoint,
             };
             return elementData;
+        }
+
+        private (Point start, Point end) GetParallelLineCoordinate(Point start, Point end, double dist)
+        {
+            double xV = start.X - end.X;
+            double yV = start.Y - end.Y;
+
+            double len = Math.Sqrt(Math.Pow(end.X - start.X, 2) + Math.Pow(end.Y - start.Y, 2));
+
+            double udx = xV / len;
+            double udy = yV / len;
+
+            double fX = start.X - udy * dist;
+            double fY = start.Y + udx * dist;
+
+            double sX = fX - xV;
+            double sY = fY - yV;
+
+            return (new Point() { X = fX, Y = fY }, new Point() { X = sX, Y = sY });
         }
     }
 }
