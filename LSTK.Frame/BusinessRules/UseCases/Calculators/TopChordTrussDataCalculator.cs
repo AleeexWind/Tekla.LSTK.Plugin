@@ -1,5 +1,6 @@
 ﻿using LSTK.Frame.BusinessRules.DataBoundaries;
 using LSTK.Frame.Entities;
+using LSTK.Frame.Frameworks.TeklaAPI;
 using System;
 
 namespace LSTK.Frame.BusinessRules.UseCases.Calculators
@@ -7,9 +8,11 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators
     public class TopChordTrussDataCalculator : IDataCalculator
     {
         private FrameInputData _frameInputData;
+        private FrameData _frameData;
         public void Calculate(FrameData frameData, FrameInputData frameInputData)
         {
             _frameInputData = frameInputData;
+            _frameData = frameData;
             TrussData trussData = new TrussData()
             {
                 LeftTopChord = CalcLeftTopChord(),
@@ -32,7 +35,27 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators
                 Z = 0.0
             };
 
-            ElementData elementData = CalcCommonData(startPoint, endPoint);
+            double profileHeight = TeklaPartAttributeGetter.GetProfileHeight(_frameInputData.ProfileTopChord);
+
+            (Point, Point) newCoord = (startPoint, endPoint);
+            if (_frameInputData.TopChordLineOption.Equals("Below") && _frameInputData.ColumnLineOption.Equals("Inside"))
+            {
+                newCoord = GetParallelLineCoordinate(startPoint, endPoint, profileHeight/2);
+            }
+            else if (_frameInputData.TopChordLineOption.Equals("Below") && _frameInputData.ColumnLineOption.Equals("Center"))
+            {
+                startPoint.X = -(_frameData.ColumnsData.LeftColumn.ProfileHeight)/2;
+                newCoord = GetParallelLineCoordinate(startPoint, endPoint, profileHeight/2);
+            }
+            else if(_frameInputData.TopChordLineOption.Equals("Center") && _frameInputData.ColumnLineOption.Equals("Inside"))
+            {
+                //startPoint.X = _frameData.ColumnsData.LeftColumn.ProfileHeight/2;
+                //newCoord = GetParallelLineCoordinate(startPoint, endPoint, profileHeight/2);
+                newCoord.Item1.X = _frameData.ColumnsData.LeftColumn.ProfileHeight/2;
+            }
+
+
+            ElementData elementData = CalcCommonData(newCoord.Item1, newCoord.Item2, profileHeight);
             return elementData;
         }
         private ElementData CalcRightTopChord()
@@ -49,32 +72,67 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators
                 Y = _frameInputData.HeightColumns,
                 Z = 0.0
             };
+            double profileHeight = TeklaPartAttributeGetter.GetProfileHeight(_frameInputData.ProfileTopChord);
 
-
-            ElementData elementData = CalcCommonData(startPoint, endPoint);
-            return elementData;
-        }
-        private ElementData CalcCommonData(Point startPoint, Point endPoint)
-        {
-            if (_frameInputData.TopChordLineOption.Equals("Below"))
+            (Point, Point) newCoord = (startPoint, endPoint);
+            if (_frameInputData.TopChordLineOption.Equals("Below") && _frameInputData.ColumnLineOption.Equals("Inside"))
             {
-                (Point, Point) newCoord = GetParallelLineCoordinate(startPoint, endPoint, 150);
-                startPoint = newCoord.Item1;
-                endPoint = newCoord.Item2;
+                newCoord = GetParallelLineCoordinate(startPoint, endPoint, profileHeight/2);
+            }
+            else if (_frameInputData.TopChordLineOption.Equals("Below") && _frameInputData.ColumnLineOption.Equals("Center"))
+            {
+                endPoint.X = endPoint.X + _frameData.ColumnsData.LeftColumn.ProfileHeight/2;
+                newCoord = GetParallelLineCoordinate(startPoint, endPoint, profileHeight/2);
+            }
+            else if (_frameInputData.TopChordLineOption.Equals("Center") && _frameInputData.ColumnLineOption.Equals("Inside"))
+            {
+                //endPoint.X = endPoint.X - _frameData.ColumnsData.LeftColumn.ProfileHeight/2;
+                //newCoord = GetParallelLineCoordinate(startPoint, endPoint, profileHeight/2);
+                newCoord.Item2.X = endPoint.X - _frameData.ColumnsData.LeftColumn.ProfileHeight/2;
             }
 
+            ElementData elementData = CalcCommonData(newCoord.Item1, newCoord.Item2, profileHeight);
+            return elementData;
+        }
+        private ElementData CalcCommonData(Point startPoint, Point endPoint, double profileHeight)
+        {
             ElementData elementData = new ElementData()
             {
                 PartName =_frameInputData.PartNameTopChord,
                 Profile = _frameInputData.ProfileTopChord,
+                ProfileHeight = profileHeight,
                 Material = _frameInputData.MaterialTopChord,
                 Class = _frameInputData.ClassTopChord,
                 RotationPosition = _frameInputData.RotationPositionTopChord,
                 PlanePosition = _frameInputData.PlanePositionTopChord,
                 DepthPosition = _frameInputData.DepthPositionTopChord,
                 StartPoint = startPoint,
-                EndPoint = endPoint,
+                EndPoint = endPoint
             };
+
+            //TeklaPartAttributeGetter.GetProfileHeight(elementData, elementData.Profile);
+            //(Point, Point) newCoord = (startPoint, endPoint);
+            //if (_frameInputData.TopChordLineOption.Equals("Below") && _frameInputData.ColumnLineOption.Equals("Inside"))
+            //{
+            //    newCoord = GetParallelLineCoordinate(startPoint, endPoint, elementData.ProfileHeight/2);
+            //}
+            //else if (_frameInputData.TopChordLineOption.Equals("Below") && _frameInputData.ColumnLineOption.Equals("Center"))
+            //{
+            //    startPoint.X = -(_frameData.ColumnsData.LeftColumn.ProfileHeight)/2;
+            //    newCoord = GetParallelLineCoordinate(startPoint, endPoint, elementData.ProfileHeight/2);
+
+            //}
+            //else
+            //{
+            //    newCoord = GetParallelLineCoordinate(startPoint, endPoint, -elementData.ProfileHeight/2);
+            //}
+            //startPoint = newCoord.Item1;
+            //endPoint = newCoord.Item2;
+
+            //elementData.StartPoint = startPoint;
+            //elementData.EndPoint = endPoint;
+
+
             return elementData;
         }
 

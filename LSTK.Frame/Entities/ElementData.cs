@@ -12,6 +12,7 @@ namespace LSTK.Frame.Entities
         public Point EndPoint { get; set; } = new Point();
 
         public string Profile { get; set; } = string.Empty;
+        public double ProfileHeight { get; set; }
         public string PartName { get; set; } = string.Empty;
         public string Material { get; set; } = string.Empty;
         public string Class { get; set; } = string.Empty;

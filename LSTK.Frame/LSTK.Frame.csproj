@@ -82,6 +82,7 @@
     <Compile Include="BusinessRules\UseCases\Calculators\TopChordTrussDataCalculator.cs" />
     <Compile Include="Frameworks\TeklaAPI\LocalPlaneManager.cs" />
     <Compile Include="Frameworks\TeklaAPI\TeklaElementInsertHandler.cs" />
+    <Compile Include="Frameworks\TeklaAPI\TeklaPartAttributeGetter.cs" />
     <Compile Include="Frameworks\TeklaAPI\TeklaPartAttributeSetter.cs" />
     <Compile Include="Frameworks\TeklaAPI\TeklaPartCreator.cs" />
     <Compile Include="BusinessRules\UseCases\Calculators\ColumnsDataCalculator.cs" />

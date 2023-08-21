@@ -25,9 +25,6 @@ namespace LSTK.Frame.Frameworks.TeklaAPI
                 LibraryProfileItem libraryProfileItem = new LibraryProfileItem();
                 libraryProfileItem.Select(profile);
 
-                CrossSection crossSection = libraryProfileItem.GetCrossSection();
-
-
                 foreach(var t in libraryProfileItem.aProfileItemParameters)
                 {
                     ProfileItemParameter profileItemParameter = t as ProfileItemParameter;
