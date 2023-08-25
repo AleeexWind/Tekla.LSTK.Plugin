@@ -19,30 +19,22 @@ namespace LSTK.Frame
         private Model _model;
         private PluginData _data;
 
-        //private string _partNameColumns = string.Empty;
-        //private string _profileColumns = string.Empty;
-        //private string _heightColumns = string.Empty;
-        //private string _profileTopChord = string.Empty;
-        //private string _bay = string.Empty;
-        //private string _roofRidgeHeight = string.Empty;
-        //private string _roofBottomHeight = string.Empty;
-        //private string _frameOption;
-        private Model Model
-        {
-            get { return this._model; }
-            set { this._model = value; }
-        }
+        //private Model Model
+        //{
+        //    get { return this._model; }
+        //    set { this._model = value; }
+        //}
 
-        private PluginData Data
-        {
-            get { return this._data; }
-            set { this._data = value; }
-        }
+        //private PluginData Data
+        //{
+        //    get { return this._data; }
+        //    set { this._data = value; }
+        //}
 
         public MainPlugin(PluginData data)
         {
-            Model = new Model();
-            Data = data;
+            _model = new Model();
+            _data = data;
         }
 
 
@@ -69,12 +61,12 @@ namespace LSTK.Frame
 
                 Point Point1 = (Point)Input[0].GetInput();
                 Point Point2 = (Point)Input[1].GetInput();
-                Data.StartPoint = Point1;
-                Data.DirectionPoint = Point2;
+                _data.StartPoint = Point1;
+                _data.DirectionPoint = Point2;
 
                 FrameData frameData = new FrameData();
                 TeklaPartAttributeSetter teklaPartAttributeSetter = new TeklaPartAttributeSetter();
-                ITeklaAccess teklaAccess = new TeklaPartCreator(Model, teklaPartAttributeSetter);
+                ITeklaAccess teklaAccess = new TeklaPartCreator(_model, teklaPartAttributeSetter);
 
                 List<IDataCalculator> calculators = new List<IDataCalculator>()
                 {
@@ -83,7 +75,7 @@ namespace LSTK.Frame
                     new BottomChordTrussDataCalculator()
                 };
 
-                LocalPlaneManager localPlaneManager = new LocalPlaneManager(Model);
+                LocalPlaneManager localPlaneManager = new LocalPlaneManager(_model);
 
                 FrameCreatorManager frameCreatorManager = new FrameCreatorManager(frameData, teklaAccess, calculators, localPlaneManager);
 
@@ -189,6 +181,8 @@ namespace LSTK.Frame
         public string TopChordLineOption;
         [StructuresField("columnLineOption")]
         public string ColumnLineOption;
+        [StructuresField("panels")]
+        public string Panels;
         #endregion
 
         public Point StartPoint { get; set; }

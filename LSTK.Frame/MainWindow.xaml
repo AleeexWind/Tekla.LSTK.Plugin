@@ -240,6 +240,15 @@
                 <UIControls:WpfFilterCheckBox VerticalAlignment="Center" AttributeName="columnLineOption"/>
                 <ComboBox x:Name="cmb_ColumnLineOption" Height="25" Width="120" ItemsSource="{Binding ColumnLineOptionList}" SelectedItem ="{Binding ColumnLineOption, Mode=TwoWay}"/>
             </StackPanel>
+            <StackPanel Grid.Column="2" Grid.Row="4" Orientation="Horizontal">
+                <Label x:Name="label_Panels" Content="{tsd:Loc albl_Panels}" Height="30" Width="150"/>
+                <UIControls:WpfFilterCheckBox VerticalAlignment="Center" AttributeName="panels" />
+                <TextBox
+                    x:Name="tb_Panels"
+                    Width="120"
+                    Height="23"
+                    Text="{Binding Panels, Mode=TwoWay}"/>
+            </StackPanel>
         </Grid>
         <UIControls:WpfOkApplyModifyGetOnOffCancel
             Grid.Row="2"

@@ -51,6 +51,7 @@ namespace LSTK.Frame.BusinessRules.DataBoundaries
         public string FrameOption { get; set; } = string.Empty;
         public string TopChordLineOption { get; set; } = string.Empty;
         public string ColumnLineOption { get; set; } = string.Empty;
+        public string Panels { get; set; }
 
         public Point StartPoint { get; set; } = new Point();
         public Point DirectionPoint { get; set; } = new Point();

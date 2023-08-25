@@ -44,6 +44,7 @@ namespace LSTK.Frame.Adapters.Controllers
                 FrameOption = pluginData.FrameOption,
                 TopChordLineOption = pluginData.TopChordLineOption,
                 ColumnLineOption = pluginData.ColumnLineOption,
+                Panels = pluginData.Panels,
                 StartPoint = TransformatePoint(pluginData.StartPoint),
                 DirectionPoint = TransformatePoint(pluginData.DirectionPoint)
             };

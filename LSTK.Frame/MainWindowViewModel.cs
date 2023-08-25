@@ -13,7 +13,6 @@ namespace LSTK.Frame
         private string classColumns = string.Empty;
         private string heightColumns = string.Empty;
 
-
         private string partNameTopChord = string.Empty;
         private string profileTopChord = string.Empty;
         private string materialTopChord = string.Empty;
@@ -35,6 +34,7 @@ namespace LSTK.Frame
         private string frameOption;
         private string topChordLineOption;
         private string columnLineOption;
+        private string panels = string.Empty;
 
 
         [StructuresDialog("partNameColumns", typeof(TD.String))]
@@ -171,8 +171,6 @@ namespace LSTK.Frame
             get { return bay; }
             set { bay = value; OnPropertyChanged("Bay"); }
         }
-
-
         [StructuresDialog("frameOption", typeof(TD.String))]
         public string FrameOption
         {
@@ -206,6 +204,12 @@ namespace LSTK.Frame
             "Center",
             "Inside"
         };
+        [StructuresDialog("panels", typeof(TD.String))]
+        public string Panels
+        {
+            get { return panels; }
+            set { panels = value; OnPropertyChanged("Panels"); }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string name)
