@@ -72,7 +72,8 @@ namespace LSTK.Frame
                 {
                     new ColumnsDataCalculator(),
                     new TopChordTrussDataCalculator(),
-                    new BottomChordTrussDataCalculator()
+                    new BottomChordTrussDataCalculator(),
+                    new TrussPostsCalculator()
                 };
 
                 LocalPlaneManager localPlaneManager = new LocalPlaneManager(_model);

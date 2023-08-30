@@ -1,6 +1,7 @@
 ﻿using LSTK.Frame.BusinessRules.Gateways;
 using LSTK.Frame.Entities;
 using LSTK.Frame.Utils;
+using System.Linq;
 using Tekla.Structures.Model;
 
 namespace LSTK.Frame.Frameworks.TeklaAPI
@@ -43,6 +44,22 @@ namespace LSTK.Frame.Frameworks.TeklaAPI
         public bool CreateRightBottomChord(FrameData frameData)
         {
             return CreatePart(frameData.TrussData.RightBottomChord);
+        }
+        public bool CreateTrussPosts(FrameData frameData)
+        {
+            bool result = true;
+            if(!frameData.TrussData.TrussPosts.Any())
+            {
+                return false;
+            }
+            foreach (var trussPost in frameData.TrussData.TrussPosts)
+            {
+                if(! CreatePart(trussPost))
+                {
+                    return false;
+                }
+            }
+            return result;
         }
 
         private bool CreatePart(ElementData element)

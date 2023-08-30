@@ -10,6 +10,7 @@ namespace LSTK.Frame.BusinessRules.Gateways
         bool CreateRightTopChord(FrameData frameData);
         bool CreateLeftBottomChord(FrameData frameData);
         bool CreateRightBottomChord(FrameData frameData);
+        bool CreateTrussPosts(FrameData frameData);
         bool CommitChanges();
     }
 }
