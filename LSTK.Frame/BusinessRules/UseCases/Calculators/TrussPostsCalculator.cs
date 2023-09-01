@@ -70,12 +70,17 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators
                         Y = _frameData.TrussData.RightBottomChord.StartPoint.Y,
                         Z = 0.0
                     };
-                    Point endPoint = new Point()
-                    {
-                        X = previousCoord,
-                        Y = _frameData.TrussData.RightBottomChord.StartPoint.Y + 1000,
-                        Z = 0.0
-                    };
+
+                    double allLength = _frameData.TrussData.LeftTopChord.EndPoint.X - _frameData.TrussData.LeftTopChord.StartPoint.X;
+                    double allHeigtht = _frameData.TrussData.LeftTopChord.EndPoint.Y - _frameData.TrussData.LeftTopChord.StartPoint.Y;
+
+                    double lengthFromZero = previousCoord -_frameData.TrussData.LeftTopChord.StartPoint.X;
+                    double offsetY = _frameData.TrussData.RightBottomChord.StartPoint.Y + _frameInputData.HeightRoofBottom;
+                    double additionalOffset = _frameData.TrussData.LeftTopChord.StartPoint.Y - _frameData.ColumnsData.LeftColumn.EndPoint.Y;
+
+                    offsetY += additionalOffset;
+
+                    Point endPoint = GetTrussPostEndPointOnTheLine(lengthFromZero, allLength, allHeigtht, offsetY, previousCoord);
 
                     double profileHeight = TeklaPartAttributeGetter.GetProfileHeight(_frameInputData.ProfileGroup);
                     ElementData elementData = CalcCommonDataForTrussPost(startPoint, endPoint, profileHeight);
@@ -84,6 +89,17 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators
             }
 
             return result;
+        }
+        private Point GetTrussPostEndPointOnTheLine(double lengthFromZero, double allLength, double allHeight, double offsetY, double coordX)
+        {
+            Point point = new Point();
+            double height = lengthFromZero * allHeight / allLength;
+
+            point.X = coordX;
+            point.Y = offsetY + height;
+            point.Z = 0.0;
+
+            return point;
         }
         private ElementData CalcCommonDataForTrussPost(Point startPoint, Point endPoint, double profileHeight)
         {
