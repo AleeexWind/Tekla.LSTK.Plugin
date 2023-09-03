@@ -64,7 +64,10 @@ namespace LSTK.Frame.BusinessRules.UseCases
 
             return res;
         }
+        public void CreateSchema()
+        {
 
+        }
         public void TransferInputData(FrameInputData inputData)
         {
             _frameInputData = inputData;

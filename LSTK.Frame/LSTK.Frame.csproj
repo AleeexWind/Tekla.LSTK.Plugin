@@ -75,6 +75,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Adapters\Controllers\InterfaceDataController.cs" />
+    <Compile Include="Adapters\Presenters\FirstSchemaPresenter.cs" />
+    <Compile Include="BusinessRules\DataBoundaries\IFirstSchemaBoundary.cs" />
     <Compile Include="BusinessRules\DataBoundaries\IFrameDataInputBoundary.cs" />
     <Compile Include="BusinessRules\Gateways\ITeklaAccess.cs" />
     <Compile Include="BusinessRules\UseCases\Calculators\BottomChordTrussDataCalculator.cs" />
@@ -116,9 +118,7 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Adapters\Presenters\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>set path=D:\Applications\MyApps\Tekla.LSTK\WPF\Tekla.LSTK.Plugin\LSTK.Frame\bin\Debug\LSTK.Frame.dll

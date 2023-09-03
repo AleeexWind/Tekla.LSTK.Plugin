@@ -9,12 +9,13 @@
              x:Class="LSTK.Frame.MainWindow"
              mc:Ignorable="d" 
              d:DesignHeight="600"
-             Title="{tsd:Loc albl_LSTK_Frame_plug-in}" Height="700" Width="1000
+             Title="{tsd:Loc albl_LSTK_Frame_plug-in}" Height="750" Width="1000
     " HorizontalAlignment="Stretch">
     <Grid HorizontalAlignment="Stretch" Margin="0,0,0,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" MinHeight="48" />
-            <RowDefinition/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="0.5*"/>
             <RowDefinition Height="Auto" MinHeight="48"/>
         </Grid.RowDefinitions>
         <UIControls:WpfSaveLoad Grid.Row="0" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Top" Height="51" />
@@ -249,9 +250,18 @@
                     Height="23"
                     Text="{Binding Panels, Mode=TwoWay}"/>
             </StackPanel>
+            <Button Grid.Column="2" Grid.Row="5" x:Name="b_schema" Content="Build Schema" Click="b_schema_Click"/>
+
+        </Grid>
+        <Grid x:Name="g_schema"  Grid.Row="2">
+            <!--<Path Stroke="Blue" MouseDown="Path_MouseDown" StrokeThickness="5">
+                <Path.Data>
+                    <LineGeometry StartPoint="0,0" EndPoint="200,130"/>
+                </Path.Data>
+            </Path>-->
         </Grid>
         <UIControls:WpfOkApplyModifyGetOnOffCancel
-            Grid.Row="2"
+            Grid.Row="3"
             ApplyClicked="WPFOkApplyModifyGetOnOffCancel_ApplyClicked"
             CancelClicked="WPFOkApplyModifyGetOnOffCancel_CancelClicked"
             GetClicked="WPFOkApplyModifyGetOnOffCancel_GetClicked"

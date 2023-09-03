@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using LSTK.Frame.Entities;
+using System.Collections.Generic;
 using System.ComponentModel;
 using Tekla.Structures.Dialog;
 using TD = Tekla.Structures.Datatype;
@@ -35,6 +36,12 @@ namespace LSTK.Frame
         private string topChordLineOption;
         private string columnLineOption;
         private string panels = string.Empty;
+
+        public List<(Point, Point)> SchemaPoints = new List<(Point, Point)>()
+        {
+            (new Point(){ X = 0, Y = 0, Z = 0}, new Point(){ X = 100, Y = 100, Z = 0}),
+            (new Point(){ X = 100, Y = 100, Z = 0}, new Point(){ X = 200, Y = 0, Z = 0})
+        };
 
 
         [StructuresDialog("partNameColumns", typeof(TD.String))]

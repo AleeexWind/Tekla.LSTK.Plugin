@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Windows;
+using System.Windows.Media;
+using System.Windows.Shapes;
 using Tekla.Structures.Dialog;
 
 namespace LSTK.Frame
@@ -124,6 +127,31 @@ namespace LSTK.Frame
         private void WpfMaterialCatalogGroup_SelectionDone(object sender, EventArgs e)
         {
             this.dataModel.MaterialGroup = this.materialCatalogGroup.SelectedMaterial;
+        }
+
+        private void Path_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            MessageBox.Show("of");
+        }
+
+        private void b_schema_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (var points in dataModel.SchemaPoints)
+            {
+                string _brushColor = "Blue";
+                SolidColorBrush brushColor = (SolidColorBrush)new BrushConverter().ConvertFromString(_brushColor);
+
+                Point startPoint = new Point() { X = points.Item1.X, Y = points.Item1.Y };
+                Point endPoint = new Point() { X = points.Item2.X, Y = points.Item2.Y };
+                LineGeometry pg = new LineGeometry(startPoint, endPoint);
+                Path pgObject = new Path
+                {
+                    Stroke = brushColor,
+                    StrokeThickness = 5,
+                    Data = pg
+                };
+                this.g_schema.Children.Add(pgObject);
+            } 
         }
     }
 }
