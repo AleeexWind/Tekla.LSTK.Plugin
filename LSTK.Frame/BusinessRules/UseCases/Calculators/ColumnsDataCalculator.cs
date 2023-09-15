@@ -9,10 +9,10 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators
     {
         private FrameInputData _frameInputData;
 
-        public void Calculate(FrameData frameData, FrameInputData frameInputData)
+        public void Calculate(FrameData frameData, InputData inputData)
         {
 
-            _frameInputData = frameInputData;
+            _frameInputData = inputData as FrameInputData;
             ColumnsData columnsData = new ColumnsData()
             {
                 LeftColumn = CalcLeftColumn(),

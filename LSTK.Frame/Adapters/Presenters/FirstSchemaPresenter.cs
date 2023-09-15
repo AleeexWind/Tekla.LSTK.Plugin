@@ -2,17 +2,41 @@
 using LSTK.Frame.Entities;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LSTK.Frame.Adapters.Presenters
 {
-    class FirstSchemaPresenter : IFirstSchemaBoundary
+    class FirstSchemaPresenter : IFirstSchemaOutputBoundary
     {
-        public void BuildSchema(List<ElementData> elementDatas)
+        private readonly MainWindowViewModel _mainWindowViewModel;
+        public FirstSchemaPresenter(MainWindowViewModel mainWindowViewModel)
         {
-            throw new NotImplementedException();
+            _mainWindowViewModel = mainWindowViewModel;
+        }
+        //public void BuildSchema(MainWindowViewModel mainWindowViewModel, List<ElementData> elementDatas, double coordXmax, double coordYmax)
+        //{
+        //    mainWindowViewModel.FrameWidthForSchema = coordXmax;
+        //    mainWindowViewModel.FrameHeightForSchema = coordYmax;
+
+        //    foreach (var elemData in elementDatas)
+        //    {
+        //        var coord = (new Point() { X = elemData.StartPoint.X, Y = elemData.StartPoint.Y, Z = elemData.StartPoint.Z }, 
+        //            new Point() { X = elemData.EndPoint.X, Y = elemData.EndPoint.Y, Z = elemData.EndPoint.Z });
+        //        mainWindowViewModel.SchemaPoints.Add(coord);
+        //    }
+        //}
+
+        public void TransferSchema(List<ElementData> elementDatas, double coordXmax, double coordYmax)
+        {
+            _mainWindowViewModel.FrameWidthForSchema = coordXmax;
+            _mainWindowViewModel.FrameHeightForSchema = coordYmax;
+
+            foreach (var elemData in elementDatas)
+            {
+                var coord = (new Point() { X = elemData.StartPoint.X, Y = elemData.StartPoint.Y, Z = elemData.StartPoint.Z },
+                    new Point() { X = elemData.EndPoint.X, Y = elemData.EndPoint.Y, Z = elemData.EndPoint.Z });
+                _mainWindowViewModel.SchemaPoints.Add(coord);
+            }
+            _mainWindowViewModel.OnViewUpdate?.Invoke(this, new EventArgs());
         }
     }
 }

@@ -1,4 +1,12 @@
-﻿using LSTK.Frame.Entities;
+﻿using LSTK.Frame.Adapters.Controllers;
+using LSTK.Frame.Adapters.Presenters;
+using LSTK.Frame.BusinessRules.DataBoundaries;
+using LSTK.Frame.BusinessRules.UseCases;
+using LSTK.Frame.BusinessRules.UseCases.Calculators;
+using LSTK.Frame.BusinessRules.UseCases.Calculators.SchemaCalculators;
+using LSTK.Frame.Entities;
+using LSTK.Frame.Utils;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Tekla.Structures.Dialog;
@@ -8,6 +16,8 @@ namespace LSTK.Frame
 {
     public class MainWindowViewModel : INotifyPropertyChanged
     {
+        public EventHandler OnBuildSchema;
+        public EventHandler OnViewUpdate;
         private string partNameColumns = string.Empty;
         private string profileColumns = string.Empty;
         private string materialColumns = string.Empty;
@@ -37,12 +47,15 @@ namespace LSTK.Frame
         private string columnLineOption;
         private string panels = string.Empty;
 
-        public List<(Point, Point)> SchemaPoints = new List<(Point, Point)>()
-        {
-            (new Point(){ X = 0, Y = 0, Z = 0}, new Point(){ X = 100, Y = 100, Z = 0}),
-            (new Point(){ X = 100, Y = 100, Z = 0}, new Point(){ X = 200, Y = 0, Z = 0})
-        };
+        public List<(Point, Point)> SchemaPoints = new List<(Point, Point)>();
 
+        //public List<(Point, Point)> SchemaPoints = new List<(Point, Point)>()
+        //{
+        //    (new Point(){ X = 0, Y = 0, Z = 0}, new Point(){ X = 1000, Y = 1000, Z = 0}),
+        //    (new Point(){ X = 1000, Y = 1000, Z = 0}, new Point(){ X = 2000, Y = 0, Z = 0})
+        //};
+        public double FrameWidthForSchema { get; set; }
+        public double FrameHeightForSchema { get; set; }
 
         [StructuresDialog("partNameColumns", typeof(TD.String))]
         public string PartNameColumns
@@ -226,6 +239,20 @@ namespace LSTK.Frame
             {
                 handler(this, new PropertyChangedEventArgs(name));
             }
+        }
+
+
+        private IFirstSchemaInputBoundary _firstSchemaInputBoundary;
+        public MainWindowViewModel()
+        {
+            IFirstSchemaOutputBoundary firstSchemaOutputBoundary = new FirstSchemaPresenter(this);
+            List<IDataCalculator> calculators = new List<IDataCalculator>()
+                {
+                    new TopChordSchemaCalculator(),
+                    new BottomChordSchemaCalculator()
+                };
+            _firstSchemaInputBoundary = new SchemaCreateManager(calculators, firstSchemaOutputBoundary);
+            BuildSchemaController buildSchemaController = new BuildSchemaController(_firstSchemaInputBoundary, this);
         }
     }
 }

@@ -9,9 +9,9 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators
     {
         private FrameInputData _frameInputData;
         private FrameData _frameData;
-        public void Calculate(FrameData frameData, FrameInputData frameInputData)
+        public void Calculate(FrameData frameData, InputData inputData)
         {
-            _frameInputData = frameInputData;
+            _frameInputData = inputData as FrameInputData;
             _frameData = frameData;
             TrussData trussData = new TrussData()
             {

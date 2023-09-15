@@ -15,6 +15,7 @@ namespace LSTK.Frame.BusinessRules.UseCases
         private readonly FrameData _frameData;
         private readonly List<IDataCalculator> _calculators;
         private readonly LocalPlaneManager _localPlaneManager;
+        private readonly IFirstSchemaOutputBoundary _firstSchemaBoundary;
 
 
         public FrameCreatorManager(FrameData frameData, ITeklaAccess teklaAccess, List<IDataCalculator> calculators, LocalPlaneManager localPlaneManager)
@@ -66,11 +67,29 @@ namespace LSTK.Frame.BusinessRules.UseCases
         }
         public void CreateSchema()
         {
-
+            foreach (IDataCalculator calc in _calculators)
+            {
+                calc.Calculate(_frameData, _frameInputData);
+            }
+            //_firstSchemaBoundary.BuildSchema(GetAllElementsOfTruss(), _frameInputData.Bay/2, _frameInputData.HeightRoofBottom + _frameInputData.HeightRoofRidge);
         }
+
         public void TransferInputData(FrameInputData inputData)
         {
             _frameInputData = inputData;
+        }
+        private List<ElementData> GetAllElementsOfTruss()
+        {
+            List<ElementData> result = new List<ElementData>
+            {
+                _frameData.TrussData.LeftTopChord,
+                _frameData.TrussData.RightTopChord,
+                _frameData.TrussData.LeftBottomChord,
+                _frameData.TrussData.RightBottomChord
+            };
+            result.AddRange(_frameData.TrussData.TrussPosts);
+
+            return result;
         }
     }
 }

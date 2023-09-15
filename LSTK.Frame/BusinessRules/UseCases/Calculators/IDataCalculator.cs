@@ -5,6 +5,6 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators
 {
     public interface IDataCalculator
     {
-        void Calculate(FrameData frameData, FrameInputData frameInputData);
+        void Calculate(FrameData frameData, InputData inputData);
     }
 }

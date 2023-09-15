@@ -11,9 +11,9 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators
     public class BottomChordTrussDataCalculator : IDataCalculator
     {
         private FrameInputData _frameInputData;
-        public void Calculate(FrameData frameData, FrameInputData frameInputData)
+        public void Calculate(FrameData frameData, InputData inputData)
         {
-            _frameInputData = frameInputData;
+            _frameInputData = inputData as FrameInputData;
             frameData.TrussData.LeftBottomChord = CalcLeftBottomChord();
             frameData.TrussData.RightBottomChord = CalcRightBottomChord();
         }

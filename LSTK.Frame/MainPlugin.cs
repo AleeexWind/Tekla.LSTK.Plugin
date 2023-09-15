@@ -4,6 +4,7 @@ using LSTK.Frame.BusinessRules.UseCases;
 using LSTK.Frame.BusinessRules.UseCases.Calculators;
 using LSTK.Frame.Entities;
 using LSTK.Frame.Frameworks.TeklaAPI;
+using LSTK.Frame.Utils;
 using System;
 using System.Collections.Generic;
 using Tekla.Structures.Model;
@@ -18,6 +19,7 @@ namespace LSTK.Frame
     {
         private Model _model;
         private PluginData _data;
+        private FrameCreatorManager _frameCreatorManager;
 
         //private Model Model
         //{
@@ -35,6 +37,38 @@ namespace LSTK.Frame
         {
             _model = new Model();
             _data = data;
+            try
+            {
+                ServiceProvider.GetService<MainWindowViewModel>();
+            }
+            catch (Exception)
+            {
+                _data = data;
+            }
+           // ServiceProvider.AddService<MainWindowViewModel>();
+            
+            //FrameData frameData = new FrameData();
+            //TeklaPartAttributeSetter teklaPartAttributeSetter = new TeklaPartAttributeSetter();
+            //ITeklaAccess teklaAccess = new TeklaPartCreator(_model, teklaPartAttributeSetter);
+
+            //List<IDataCalculator> calculators = new List<IDataCalculator>()
+            //    {
+            //        new ColumnsDataCalculator(),
+            //        new TopChordTrussDataCalculator(),
+            //        new BottomChordTrussDataCalculator(),
+            //        new TrussPostsCalculator()
+            //    };
+
+            //LocalPlaneManager localPlaneManager = new LocalPlaneManager(_model);
+
+            //_frameCreatorManager = new FrameCreatorManager(frameData, teklaAccess, calculators, localPlaneManager);
+
+            //InterfaceDataController interfaceDataController = new InterfaceDataController(_frameCreatorManager);
+
+
+
+
+            //BuildSchemaController buildSchemaController = new BuildSchemaController(_data, dataModel, interfaceDataController);
         }
 
 
@@ -85,7 +119,7 @@ namespace LSTK.Frame
                 interfaceDataController.GatherInput(_data);
                 interfaceDataController.SendInput();
 
-                frameCreatorManager.CreateFrame();
+                _frameCreatorManager.CreateFrame();
             }
             catch (Exception Ex)
             {

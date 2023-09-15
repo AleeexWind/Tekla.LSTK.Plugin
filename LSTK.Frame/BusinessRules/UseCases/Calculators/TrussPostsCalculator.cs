@@ -14,9 +14,9 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators
         private FrameInputData _frameInputData;
         private FrameData _frameData;
         private readonly List<double> _trussPostDistances = new List<double>();
-        public void Calculate(FrameData frameData, FrameInputData frameInputData)
+        public void Calculate(FrameData frameData, InputData inputData)
         {
-            _frameInputData = frameInputData;
+            _frameInputData = inputData as FrameInputData;
             _frameData = frameData;
             ParsePanelsString();
             _frameData.TrussData.TrussPosts = CalcTrussPosts();

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LSTK.Frame.Utils;
+using System;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -12,12 +13,27 @@ namespace LSTK.Frame
     public partial class MainWindow : PluginWindowBase
     {
         public MainWindowViewModel dataModel;
-
         public MainWindow(MainWindowViewModel DataModel)
         {
             InitializeComponent();
+            //try
+            //{
+            //    ServiceProvider.AddService<MainWindowViewModel>();
+            //}
+            //catch (Exception ex)
+            //{
+
+            //}
             dataModel = DataModel;
+            dataModel.OnViewUpdate += BuildSchema;
+
         }
+        //public MainWindow(MainWindowViewModel DataModel)
+        //{
+        //    InitializeComponent();
+        //    dataModel = DataModel;
+        //    ServiceProvider.AddService<MainWindowViewModel>();
+        //}
         private void WPFOkApplyModifyGetOnOffCancel_ApplyClicked(object sender, EventArgs e)
         {
             this.Apply();
@@ -136,13 +152,42 @@ namespace LSTK.Frame
 
         private void b_schema_Click(object sender, RoutedEventArgs e)
         {
+            dataModel.OnBuildSchema?.Invoke(this, new EventArgs());
+
+
+            //double scaleX = GetSchemaScaleX();
+            //double scaleY = GetSchemaScaleY();
+
+            //foreach (var points in dataModel.SchemaPoints)
+            //{
+            //    string _brushColor = "Blue";
+            //    SolidColorBrush brushColor = (SolidColorBrush)new BrushConverter().ConvertFromString(_brushColor);
+
+            //    Point startPoint = new Point() { X = points.Item1.X * scaleX, Y = points.Item1.Y * scaleY };
+            //    Point endPoint = new Point() { X = points.Item2.X * scaleX, Y = points.Item2.Y * scaleY };
+            //    LineGeometry pg = new LineGeometry(startPoint, endPoint);
+            //    Path pgObject = new Path
+            //    {
+            //        Stroke = brushColor,
+            //        StrokeThickness = 5,
+            //        Data = pg
+            //    };
+            //    this.g_schema.Children.Add(pgObject);
+            //} 
+        }
+
+        void BuildSchema(object sender, EventArgs e)
+        {
+            double scaleX = GetSchemaScaleX();
+            double scaleY = GetSchemaScaleY();
+
             foreach (var points in dataModel.SchemaPoints)
             {
                 string _brushColor = "Blue";
                 SolidColorBrush brushColor = (SolidColorBrush)new BrushConverter().ConvertFromString(_brushColor);
 
-                Point startPoint = new Point() { X = points.Item1.X, Y = points.Item1.Y };
-                Point endPoint = new Point() { X = points.Item2.X, Y = points.Item2.Y };
+                Point startPoint = new Point() { X = points.Item1.X * scaleX*0.2, Y = points.Item1.Y * scaleY *0.2 };
+                Point endPoint = new Point() { X = points.Item2.X * scaleX*0.2, Y = points.Item2.Y * scaleY *0.2 };
                 LineGeometry pg = new LineGeometry(startPoint, endPoint);
                 Path pgObject = new Path
                 {
@@ -151,7 +196,16 @@ namespace LSTK.Frame
                     Data = pg
                 };
                 this.g_schema.Children.Add(pgObject);
-            } 
+            }
+        }
+
+        private double GetSchemaScaleX()
+        {
+            return g_schema.ActualWidth / dataModel.FrameWidthForSchema;
+        }
+        private double GetSchemaScaleY()
+        {
+            return g_schema.ActualHeight / dataModel.FrameHeightForSchema;
         }
     }
 }

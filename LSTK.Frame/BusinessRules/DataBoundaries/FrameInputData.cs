@@ -2,7 +2,7 @@
 
 namespace LSTK.Frame.BusinessRules.DataBoundaries
 {
-    public class FrameInputData
+    public class FrameInputData : InputData
     {
         //Columns section
         public string PartNameColumns { get; set; } = string.Empty;
