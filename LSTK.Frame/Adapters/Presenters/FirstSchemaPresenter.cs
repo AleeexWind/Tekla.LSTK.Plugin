@@ -25,10 +25,12 @@ namespace LSTK.Frame.Adapters.Presenters
         //    }
         //}
 
-        public void TransferSchema(List<ElementData> elementDatas, double coordXmax, double coordYmax)
+        public void TransferSchema(List<ElementData> elementDatas, double coordXmax, double coordYmax, double yOffset)
         {
+            _mainWindowViewModel.SchemaPoints.Clear();
             _mainWindowViewModel.FrameWidthForSchema = coordXmax;
             _mainWindowViewModel.FrameHeightForSchema = coordYmax;
+            _mainWindowViewModel.YoffsetSchema = yOffset;
 
             foreach (var elemData in elementDatas)
             {

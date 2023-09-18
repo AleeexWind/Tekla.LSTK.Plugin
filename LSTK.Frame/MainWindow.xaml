@@ -253,7 +253,7 @@
             <Button Grid.Column="2" Grid.Row="5" x:Name="b_schema" Content="Build Schema" Click="b_schema_Click"/>
 
         </Grid>
-        <Grid x:Name="g_schema"  Grid.Row="2">
+        <Grid x:Name="g_schema"  Grid.Row="2" Width="990" Height="110">
             <!--<Path Stroke="Blue" MouseDown="Path_MouseDown" StrokeThickness="5">
                 <Path.Data>
                     <LineGeometry StartPoint="0,0" EndPoint="200,130"/>

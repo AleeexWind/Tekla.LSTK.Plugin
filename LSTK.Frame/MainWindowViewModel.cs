@@ -56,6 +56,7 @@ namespace LSTK.Frame
         //};
         public double FrameWidthForSchema { get; set; }
         public double FrameHeightForSchema { get; set; }
+        public double YoffsetSchema { get; set; }
 
         [StructuresDialog("partNameColumns", typeof(TD.String))]
         public string PartNameColumns

@@ -13,6 +13,7 @@ namespace LSTK.Frame
     public partial class MainWindow : PluginWindowBase
     {
         public MainWindowViewModel dataModel;
+        int i = 2;
         public MainWindow(MainWindowViewModel DataModel)
         {
             InitializeComponent();
@@ -152,7 +153,9 @@ namespace LSTK.Frame
 
         private void b_schema_Click(object sender, RoutedEventArgs e)
         {
+            this.g_schema.Children.Clear();
             dataModel.OnBuildSchema?.Invoke(this, new EventArgs());
+
 
 
             //double scaleX = GetSchemaScaleX();
@@ -180,14 +183,15 @@ namespace LSTK.Frame
         {
             double scaleX = GetSchemaScaleX();
             double scaleY = GetSchemaScaleY();
+            double yOffset = GetSchemaYoffset();
 
             foreach (var points in dataModel.SchemaPoints)
             {
                 string _brushColor = "Blue";
                 SolidColorBrush brushColor = (SolidColorBrush)new BrushConverter().ConvertFromString(_brushColor);
 
-                Point startPoint = new Point() { X = points.Item1.X * scaleX*0.2, Y = points.Item1.Y * scaleY *0.2 };
-                Point endPoint = new Point() { X = points.Item2.X * scaleX*0.2, Y = points.Item2.Y * scaleY *0.2 };
+                Point startPoint = new Point() { X = points.Item1.X * scaleX, Y = (points.Item1.Y - yOffset)* scaleY };
+                Point endPoint = new Point() { X = points.Item2.X * scaleX, Y = (points.Item2.Y - yOffset) * scaleY };
                 LineGeometry pg = new LineGeometry(startPoint, endPoint);
                 Path pgObject = new Path
                 {
@@ -196,16 +200,20 @@ namespace LSTK.Frame
                     Data = pg
                 };
                 this.g_schema.Children.Add(pgObject);
-            }
+            }        
         }
 
         private double GetSchemaScaleX()
         {
-            return g_schema.ActualWidth / dataModel.FrameWidthForSchema;
+            return g_schema.ActualWidth / (dataModel.FrameWidthForSchema + 100);
         }
         private double GetSchemaScaleY()
         {
-            return g_schema.ActualHeight / dataModel.FrameHeightForSchema;
+            return g_schema.ActualHeight / (dataModel.FrameHeightForSchema + 100);
+        }
+        private double GetSchemaYoffset()
+        {
+            return dataModel.YoffsetSchema + 100;
         }
     }
 }

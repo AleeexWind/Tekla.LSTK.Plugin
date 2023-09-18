@@ -27,7 +27,8 @@ namespace LSTK.Frame.BusinessRules.UseCases
             {
                 calc.Calculate(_frameData, schemaInputData);
             }
-            _firstSchemaOutputBoundary.TransferSchema(GetAllElementsOfTruss(), schemaInputData.Bay/2, schemaInputData.HeightRoofBottom + schemaInputData.HeightRoofRidge);
+
+            _firstSchemaOutputBoundary.TransferSchema(GetAllElementsOfTruss(), schemaInputData.Bay, schemaInputData.HeightRoofBottom + schemaInputData.HeightRoofRidge, GetSchemaYoffset(schemaInputData));
         }
         private List<ElementData> GetAllElementsOfTruss()
         {
@@ -39,6 +40,13 @@ namespace LSTK.Frame.BusinessRules.UseCases
                 _frameData.TrussData.RightBottomChord
             };
             //result.AddRange(_frameData.TrussData.TrussPosts);
+
+            return result;
+        }
+        private double GetSchemaYoffset(SchemaInputData schemaInputData)
+        {
+            double columnHeight = schemaInputData.HeightColumns;
+            double result = columnHeight - schemaInputData.HeightRoofBottom;
 
             return result;
         }

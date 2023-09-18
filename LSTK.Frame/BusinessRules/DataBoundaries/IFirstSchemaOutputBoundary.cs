@@ -9,6 +9,6 @@ namespace LSTK.Frame.BusinessRules.DataBoundaries
 {
     public interface IFirstSchemaOutputBoundary
     {
-        void TransferSchema(List<ElementData> elementDatas, double coordXmax, double coordYmax);
+        void TransferSchema(List<ElementData> elementDatas, double coordXmax, double coordYmax, double yOffset);
     }
 }
