@@ -181,17 +181,19 @@ namespace LSTK.Frame
 
         void BuildSchema(object sender, EventArgs e)
         {
-            double scaleX = GetSchemaScaleX();
-            double scaleY = GetSchemaScaleY();
-            double yOffset = GetSchemaYoffset();
-
             foreach (var points in dataModel.SchemaPoints)
             {
                 string _brushColor = "Blue";
                 SolidColorBrush brushColor = (SolidColorBrush)new BrushConverter().ConvertFromString(_brushColor);
 
-                Point startPoint = new Point() { X = points.Item1.X * scaleX, Y = (points.Item1.Y - yOffset)* scaleY };
-                Point endPoint = new Point() { X = points.Item2.X * scaleX, Y = (points.Item2.Y - yOffset) * scaleY };
+                TransformCoordinatesForGrid(points, g_schema.ActualHeight);
+
+                //Point startPoint = new Point() { X = points.Item1.X * scaleX, Y = (points.Item1.Y - yOffset)* scaleY };
+                //Point endPoint = new Point() { X = points.Item2.X * scaleX, Y = (points.Item2.Y - yOffset) * scaleY };
+
+                Point startPoint = new Point() { X = points.Item1.X, Y = points.Item1.Y};
+                Point endPoint = new Point() { X = points.Item2.X, Y = points.Item2.Y };
+
                 LineGeometry pg = new LineGeometry(startPoint, endPoint);
                 Path pgObject = new Path
                 {
@@ -205,15 +207,47 @@ namespace LSTK.Frame
 
         private double GetSchemaScaleX()
         {
-            return g_schema.ActualWidth / (dataModel.FrameWidthForSchema + 100);
+            return (g_schema.ActualWidth  * 0.98) / (dataModel.FrameWidthForSchema);
         }
         private double GetSchemaScaleY()
         {
-            return g_schema.ActualHeight / (dataModel.FrameHeightForSchema + 100);
+            return (g_schema.ActualHeight * 0.98) / (dataModel.FrameHeightForSchema);
         }
         private double GetSchemaYoffset()
         {
-            return dataModel.YoffsetSchema + 100;
+            return dataModel.YoffsetSchema;
+        }
+        private void TransformCoordinatesForGrid((Entities.Point, Entities.Point) element, double maxY)
+        {
+            element.Item1.X = element.Item1.X * GetSchemaScaleX();
+            element.Item1.Y = (element.Item1.Y - GetSchemaYoffset()) * GetSchemaScaleY();
+
+            element.Item2.X = element.Item2.X * GetSchemaScaleX();
+            element.Item2.Y = (element.Item2.Y - GetSchemaYoffset()) * GetSchemaScaleY();
+
+            if (element.Item1.Y == element.Item2.Y)
+            {
+                double Y = maxY * 0.98 - element.Item1.Y;
+                element.Item1.Y = Y;
+                element.Item2.Y = Y;
+            }
+            else
+            {
+                double Y1 = element.Item1.Y;
+                double Y2 = element.Item2.Y;
+
+                element.Item1.Y = Y2;
+                element.Item2.Y = Y1;
+
+                double minY = element.Item1.Y;
+                if(element.Item1.Y > element.Item2.Y)
+                {
+                    minY = element.Item2.Y;
+                }
+
+                element.Item1.Y = Y2 - minY;
+                element.Item2.Y = Y1 - minY;
+            }
         }
     }
 }

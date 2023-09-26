@@ -36,9 +36,25 @@ namespace LSTK.Frame.Adapters.Presenters
             {
                 var coord = (new Point() { X = elemData.StartPoint.X, Y = elemData.StartPoint.Y, Z = elemData.StartPoint.Z },
                     new Point() { X = elemData.EndPoint.X, Y = elemData.EndPoint.Y, Z = elemData.EndPoint.Z });
+                //TransformCoordinatesForGrid(coord);
                 _mainWindowViewModel.SchemaPoints.Add(coord);
             }
             _mainWindowViewModel.OnViewUpdate?.Invoke(this, new EventArgs());
+        }
+        private void TransformCoordinatesForGrid((Point, Point) element)
+        {
+            double Y1 = element.Item1.Y;
+            double Y2 = element.Item2.Y;
+
+            if(Y1 == Y2)
+            {
+
+            }
+            else
+            {
+                element.Item2.Y = Y1;
+                element.Item1.Y = Y2;
+            }
         }
     }
 }
