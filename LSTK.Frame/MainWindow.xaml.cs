@@ -231,6 +231,21 @@ namespace LSTK.Frame
                 element.Item1.Y = Y;
                 element.Item2.Y = Y;
             }
+            else if(element.Item1.X == element.Item2.X)
+            {
+                double Ystart = maxY * 0.98;
+                double Yend;
+                if (element.Item1.Y > element.Item2.Y)
+                {
+                    Yend = Ystart - element.Item1.Y - element.Item2.Y;
+                }
+                else
+                {
+                    Yend = Ystart - element.Item2.Y - element.Item1.Y;
+                }
+                element.Item1.Y = Ystart;
+                element.Item2.Y = Yend;
+            }
             else
             {
                 double Y1 = element.Item1.Y;

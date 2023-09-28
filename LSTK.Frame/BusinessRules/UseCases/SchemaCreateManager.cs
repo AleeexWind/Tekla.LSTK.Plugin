@@ -1,11 +1,7 @@
 ﻿using LSTK.Frame.BusinessRules.DataBoundaries;
 using LSTK.Frame.BusinessRules.UseCases.Calculators;
 using LSTK.Frame.Entities;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LSTK.Frame.BusinessRules.UseCases
 {
@@ -39,7 +35,7 @@ namespace LSTK.Frame.BusinessRules.UseCases
                 _frameData.TrussData.LeftBottomChord,
                 _frameData.TrussData.RightBottomChord
             };
-            //result.AddRange(_frameData.TrussData.TrussPosts);
+            result.AddRange(_frameData.TrussData.TrussPosts);
 
             return result;
         }

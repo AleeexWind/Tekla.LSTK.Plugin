@@ -87,6 +87,7 @@
     <Compile Include="BusinessRules\UseCases\Calculators\IDataCalculator.cs" />
     <Compile Include="BusinessRules\UseCases\Calculators\SchemaCalculators\BottomChordSchemaCalculator.cs" />
     <Compile Include="BusinessRules\UseCases\Calculators\SchemaCalculators\TopChordSchemaCalculator.cs" />
+    <Compile Include="BusinessRules\UseCases\Calculators\SchemaCalculators\TrussPostsSchemaCalculator.cs" />
     <Compile Include="BusinessRules\UseCases\Calculators\SchemaCalculators\YoffsetSchemaCalculator.cs" />
     <Compile Include="BusinessRules\UseCases\Calculators\TopChordTrussDataCalculator.cs" />
     <Compile Include="BusinessRules\UseCases\Calculators\TrussPostsCalculator.cs" />

@@ -250,7 +250,8 @@ namespace LSTK.Frame
             List<IDataCalculator> calculators = new List<IDataCalculator>()
                 {
                     new TopChordSchemaCalculator(),
-                    new BottomChordSchemaCalculator()
+                    new BottomChordSchemaCalculator(),
+                    new TrussPostsSchemaCalculator(),
                 };
             _firstSchemaInputBoundary = new SchemaCreateManager(calculators, firstSchemaOutputBoundary);
             BuildSchemaController buildSchemaController = new BuildSchemaController(_firstSchemaInputBoundary, this);
