@@ -148,35 +148,21 @@ namespace LSTK.Frame
 
         private void Path_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            MessageBox.Show("of");
+            Path pgObject = sender as Path;
+            pgObject.Stroke = new SolidColorBrush(Colors.Black);
+            //MessageBox.Show("of");
         }
 
         private void b_schema_Click(object sender, RoutedEventArgs e)
         {
-            this.g_schema.Children.Clear();
+            foreach (var item in g_schema.Children)
+            {
+                Path pgObject = item as Path;
+                pgObject.MouseDown -= Path_MouseDown;
+
+            }
+            g_schema.Children.Clear();
             dataModel.OnBuildSchema?.Invoke(this, new EventArgs());
-
-
-
-            //double scaleX = GetSchemaScaleX();
-            //double scaleY = GetSchemaScaleY();
-
-            //foreach (var points in dataModel.SchemaPoints)
-            //{
-            //    string _brushColor = "Blue";
-            //    SolidColorBrush brushColor = (SolidColorBrush)new BrushConverter().ConvertFromString(_brushColor);
-
-            //    Point startPoint = new Point() { X = points.Item1.X * scaleX, Y = points.Item1.Y * scaleY };
-            //    Point endPoint = new Point() { X = points.Item2.X * scaleX, Y = points.Item2.Y * scaleY };
-            //    LineGeometry pg = new LineGeometry(startPoint, endPoint);
-            //    Path pgObject = new Path
-            //    {
-            //        Stroke = brushColor,
-            //        StrokeThickness = 5,
-            //        Data = pg
-            //    };
-            //    this.g_schema.Children.Add(pgObject);
-            //} 
         }
 
         void BuildSchema(object sender, EventArgs e)
@@ -201,17 +187,18 @@ namespace LSTK.Frame
                     StrokeThickness = 5,
                     Data = pg
                 };
+                pgObject.MouseDown += Path_MouseDown;
                 this.g_schema.Children.Add(pgObject);
             }        
         }
 
         private double GetSchemaScaleX()
         {
-            return (g_schema.ActualWidth  * 0.98) / (dataModel.FrameWidthForSchema);
+            return g_schema.ActualWidth  * 0.98 / dataModel.FrameWidthForSchema;
         }
         private double GetSchemaScaleY()
         {
-            return (g_schema.ActualHeight * 0.98) / (dataModel.FrameHeightForSchema);
+            return g_schema.ActualHeight * 0.98 / dataModel.FrameHeightForSchema;
         }
         private double GetSchemaYoffset()
         {
