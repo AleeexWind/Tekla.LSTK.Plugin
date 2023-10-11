@@ -1,16 +1,13 @@
 ﻿using LSTK.Frame.BusinessRules.DataBoundaries;
+using LSTK.Frame.BusinessRules.Models;
 using LSTK.Frame.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LSTK.Frame.BusinessRules.UseCases.Calculators.SchemaCalculators
 {
     public class BottomChordSchemaCalculator : IDataCalculator
     {
         private SchemaInputData _schemaInputData;
+        private readonly ElementGroupType _elementGroupType = ElementGroupType.BottomChord;
         public void Calculate(FrameData frameData, InputData inputData)
         {
             _schemaInputData = inputData as SchemaInputData;
@@ -32,11 +29,11 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.SchemaCalculators
                 Y = _schemaInputData.HeightColumns - _schemaInputData.HeightRoofBottom,
                 Z = 0.0
             };
-            ElementData elementData = new ElementData()
-            {
-                StartPoint = startPoint,
-                EndPoint = endPoint
-            };
+
+            ElementData elementData = CreateElementData();
+            elementData.StartPoint = startPoint;
+            elementData.EndPoint = endPoint;
+
             return elementData;
         }
         private ElementData CalcRightBottomChord()
@@ -53,12 +50,19 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.SchemaCalculators
                 Y = _schemaInputData.HeightColumns - _schemaInputData.HeightRoofBottom,
                 Z = 0.0
             };
-            ElementData elementData = new ElementData()
-            {
-                StartPoint = startPoint,
-                EndPoint = endPoint
-            };
+
+            ElementData elementData = CreateElementData();
+            elementData.StartPoint = startPoint;
+            elementData.EndPoint = endPoint;
+
             return elementData;
+        }
+        private ElementData CreateElementData()
+        {
+            return new ElementData()
+            {
+                ElementGroupType = _elementGroupType
+            };
         }
     }
 }

@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace LSTK.Frame.BusinessRules.DataBoundaries
 {
-    public interface IFirstSchemaInputBoundary
+    public interface ISchemaBuilder
     {
-       void CreateSchema(SchemaInputData schemaInputData);
+       void BuildSchema(SchemaInputData schemaInputData);
     }
 }

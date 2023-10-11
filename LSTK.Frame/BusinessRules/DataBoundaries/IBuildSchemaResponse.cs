@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LSTK.Frame.BusinessRules.DataBoundaries
 {
-    public interface IFirstSchemaOutputBoundary
+    public interface IBuildSchemaResponse
     {
         void TransferSchema(List<ElementData> elementDatas, double coordXmax, double coordYmax, double yOffset);
     }

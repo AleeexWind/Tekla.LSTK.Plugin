@@ -127,6 +127,46 @@ namespace LSTK.Frame
             }
             return true;
         }
+        //public override bool Run(List<InputDefinition> Input)
+        //{
+        //    try
+        //    {
+        //        GetValuesFromDialog();
+
+        //        Point Point1 = (Point)Input[0].GetInput();
+        //        Point Point2 = (Point)Input[1].GetInput();
+        //        _data.StartPoint = Point1;
+        //        _data.DirectionPoint = Point2;
+
+        //        FrameData frameData = new FrameData();
+        //        TeklaPartAttributeSetter teklaPartAttributeSetter = new TeklaPartAttributeSetter();
+        //        ITeklaAccess teklaAccess = new TeklaPartCreator(_model, teklaPartAttributeSetter);
+
+        //        List<IDataCalculator> calculators = new List<IDataCalculator>()
+        //        {
+        //            new ColumnsDataCalculator(),
+        //            new TopChordTrussDataCalculator(),
+        //            new BottomChordTrussDataCalculator(),
+        //            new TrussPostsCalculator()
+        //        };
+
+        //        LocalPlaneManager localPlaneManager = new LocalPlaneManager(_model);
+
+        //        FrameCreatorManager frameCreatorManager = new FrameCreatorManager(frameData, teklaAccess, calculators, localPlaneManager);
+
+        //        InterfaceDataController interfaceDataController = new InterfaceDataController(frameCreatorManager);
+
+        //        interfaceDataController.GatherInput(_data);
+        //        interfaceDataController.SendInput();
+
+        //        _frameCreatorManager.CreateFrame();
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        throw;
+        //    }
+        //    return true;
+        //}
 
         private void GetValuesFromDialog()
         {
@@ -222,5 +262,11 @@ namespace LSTK.Frame
 
         public Point StartPoint { get; set; }
         public Point DirectionPoint { get; set; }
+
+        [StructuresField("attributeGroups")]
+        public string AttributeGroups;
+
+        [StructuresField("elementPrototypes")]
+        public string ElementDataPrototypes;
     }
 }

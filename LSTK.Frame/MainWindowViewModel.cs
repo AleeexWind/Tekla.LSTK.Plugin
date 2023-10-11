@@ -1,11 +1,11 @@
 ﻿using LSTK.Frame.Adapters.Controllers;
 using LSTK.Frame.Adapters.Presenters;
 using LSTK.Frame.BusinessRules.DataBoundaries;
+using LSTK.Frame.BusinessRules.Models;
 using LSTK.Frame.BusinessRules.UseCases;
 using LSTK.Frame.BusinessRules.UseCases.Calculators;
 using LSTK.Frame.BusinessRules.UseCases.Calculators.SchemaCalculators;
 using LSTK.Frame.Entities;
-using LSTK.Frame.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,6 +17,8 @@ namespace LSTK.Frame
     public class MainWindowViewModel : INotifyPropertyChanged
     {
         public EventHandler OnBuildSchema;
+        public EventHandler OnDrawSchema;
+        public EventHandler<List<int>> OnSchemaAttributeSet;
         public EventHandler OnViewUpdate;
         private string partNameColumns = string.Empty;
         private string profileColumns = string.Empty;
@@ -47,13 +49,16 @@ namespace LSTK.Frame
         private string columnLineOption;
         private string panels = string.Empty;
 
+        private string attributeGroups = string.Empty;
+        private string elementDataPrototypes = string.Empty;
+
+        public List<int> SelectedElements = new List<int>();
+
+
         public List<(Point, Point)> SchemaPoints = new List<(Point, Point)>();
 
-        //public List<(Point, Point)> SchemaPoints = new List<(Point, Point)>()
-        //{
-        //    (new Point(){ X = 0, Y = 0, Z = 0}, new Point(){ X = 1000, Y = 1000, Z = 0}),
-        //    (new Point(){ X = 1000, Y = 1000, Z = 0}, new Point(){ X = 2000, Y = 0, Z = 0})
-        //};
+        public List<SchemaElement> SchemaElements = new List<SchemaElement>();
+
         public double FrameWidthForSchema { get; set; }
         public double FrameHeightForSchema { get; set; }
         public double YoffsetSchema { get; set; }
@@ -232,6 +237,19 @@ namespace LSTK.Frame
             set { panels = value; OnPropertyChanged("Panels"); }
         }
 
+        [StructuresDialog("attributeGroups", typeof(TD.String))]
+        public string AttributeGroups
+        {
+            get { return attributeGroups; }
+            set { attributeGroups = value; OnPropertyChanged("AttributeGroups"); }
+        }
+        [StructuresDialog("elementPrototypes", typeof(TD.String))]
+        public string ElementDataPrototypes
+        {
+            get { return elementDataPrototypes; }
+            set { elementDataPrototypes = value; OnPropertyChanged("ElementPrototypes"); }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string name)
         {
@@ -243,18 +261,18 @@ namespace LSTK.Frame
         }
 
 
-        private IFirstSchemaInputBoundary _firstSchemaInputBoundary;
-        public MainWindowViewModel()
-        {
-            IFirstSchemaOutputBoundary firstSchemaOutputBoundary = new FirstSchemaPresenter(this);
-            List<IDataCalculator> calculators = new List<IDataCalculator>()
-                {
-                    new TopChordSchemaCalculator(),
-                    new BottomChordSchemaCalculator(),
-                    new TrussPostsSchemaCalculator(),
-                };
-            _firstSchemaInputBoundary = new SchemaCreateManager(calculators, firstSchemaOutputBoundary);
-            BuildSchemaController buildSchemaController = new BuildSchemaController(_firstSchemaInputBoundary, this);
-        }
+        private ISchemaBuilder _firstSchemaInputBoundary;
+        //public MainWindowViewModel()
+        //{
+        //    IBuildSchemaResponse firstSchemaOutputBoundary = new BuildSchemaPresenter(this);
+        //    List<IDataCalculator> calculators = new List<IDataCalculator>()
+        //        {
+        //            new TopChordSchemaCalculator(),
+        //            new BottomChordSchemaCalculator(),
+        //            new TrussPostsSchemaCalculator(),
+        //        };
+        //    _firstSchemaInputBoundary = new SchemaCreateManager(calculators, firstSchemaOutputBoundary);
+        //    BuildSchemaController buildSchemaController = new BuildSchemaController(_firstSchemaInputBoundary, this);
+        //}
     }
 }

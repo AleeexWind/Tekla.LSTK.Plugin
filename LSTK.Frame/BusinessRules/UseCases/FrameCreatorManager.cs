@@ -15,7 +15,7 @@ namespace LSTK.Frame.BusinessRules.UseCases
         private readonly FrameData _frameData;
         private readonly List<IDataCalculator> _calculators;
         private readonly LocalPlaneManager _localPlaneManager;
-        private readonly IFirstSchemaOutputBoundary _firstSchemaBoundary;
+        private readonly IBuildSchemaResponse _firstSchemaBoundary;
 
 
         public FrameCreatorManager(FrameData frameData, ITeklaAccess teklaAccess, List<IDataCalculator> calculators, LocalPlaneManager localPlaneManager)

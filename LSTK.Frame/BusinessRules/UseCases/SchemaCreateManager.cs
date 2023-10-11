@@ -1,22 +1,25 @@
 ﻿using LSTK.Frame.BusinessRules.DataBoundaries;
+using LSTK.Frame.BusinessRules.Gateways;
 using LSTK.Frame.BusinessRules.UseCases.Calculators;
 using LSTK.Frame.Entities;
 using System.Collections.Generic;
 
 namespace LSTK.Frame.BusinessRules.UseCases
 {
-    public class SchemaCreateManager : IFirstSchemaInputBoundary
+    public class SchemaCreateManager : ISchemaBuilder
     {
-        private readonly IFirstSchemaOutputBoundary _firstSchemaOutputBoundary;
+        private readonly IBuildSchemaResponse _firstSchemaOutputBoundary;
         private readonly List<IDataCalculator> _calculators;
+        private readonly IDataAccess _dataAccess;
         private FrameData _frameData;
 
-        public SchemaCreateManager(List<IDataCalculator> calculators, IFirstSchemaOutputBoundary firstSchemaOutputBoundary)
+        public SchemaCreateManager(IDataAccess dataAccess, List<IDataCalculator> calculators, IBuildSchemaResponse firstSchemaOutputBoundary)
         {
+            _dataAccess = dataAccess;
             _calculators = calculators;
             _firstSchemaOutputBoundary = firstSchemaOutputBoundary;
         }
-        public void CreateSchema(SchemaInputData schemaInputData)
+        public void BuildSchema(SchemaInputData schemaInputData)
         {
             _frameData = new FrameData();
             foreach (IDataCalculator calc in _calculators)
@@ -37,6 +40,11 @@ namespace LSTK.Frame.BusinessRules.UseCases
             };
             result.AddRange(_frameData.TrussData.TrussPosts);
 
+            if(!AddElementsToDB(result))
+            {
+                //TODO: Logging
+            }
+
             return result;
         }
         private double GetSchemaYoffset(SchemaInputData schemaInputData)
@@ -45,6 +53,17 @@ namespace LSTK.Frame.BusinessRules.UseCases
             double result = columnHeight - schemaInputData.HeightRoofBottom;
 
             return result;
+        }
+        private bool AddElementsToDB(List<ElementData> elements)
+        {
+            foreach (var element in elements)
+            {
+                if(!_dataAccess.AddElementData(element))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

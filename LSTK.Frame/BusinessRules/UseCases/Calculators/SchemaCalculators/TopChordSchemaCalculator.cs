@@ -1,16 +1,13 @@
 ﻿using LSTK.Frame.BusinessRules.DataBoundaries;
+using LSTK.Frame.BusinessRules.Models;
 using LSTK.Frame.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LSTK.Frame.BusinessRules.UseCases.Calculators.SchemaCalculators
 {
     public class TopChordSchemaCalculator : IDataCalculator
     {
         private SchemaInputData _schemaInputData;
+        private readonly ElementGroupType _elementGroupType = ElementGroupType.TopChord;
         public void Calculate(FrameData frameData, InputData inputData)
         {
             _schemaInputData = inputData as SchemaInputData;
@@ -37,12 +34,10 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.SchemaCalculators
                 Z = 0.0
             };
 
+            ElementData elementData = CreateElementData();
+            elementData.StartPoint = startPoint;
+            elementData.EndPoint = endPoint;
 
-            ElementData elementData = new ElementData()
-            {
-                StartPoint = startPoint,
-                EndPoint = endPoint
-            };
             return elementData;
         }
         private ElementData CalcRightTopChord()
@@ -60,12 +55,18 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.SchemaCalculators
                 Z = 0.0
             };
 
-            ElementData elementData = new ElementData()
-            {
-                StartPoint = startPoint,
-                EndPoint = endPoint
-            };
+            ElementData elementData = CreateElementData();
+            elementData.StartPoint = startPoint;
+            elementData.EndPoint = endPoint;
+
             return elementData;
+        }
+        private ElementData CreateElementData()
+        {
+            return new ElementData()
+            {
+                ElementGroupType = _elementGroupType
+            };
         }
     }
 }

@@ -1,5 +1,15 @@
-﻿using LSTK.Frame.Utils;
+﻿using LSTK.Frame.Adapters.Controllers;
+using LSTK.Frame.Adapters.Controllers.Models;
+using LSTK.Frame.Adapters.Gateways;
+using LSTK.Frame.Adapters.Presenters;
+using LSTK.Frame.BusinessRules.DataBoundaries;
+using LSTK.Frame.BusinessRules.Gateways;
+using LSTK.Frame.BusinessRules.UseCases;
+using LSTK.Frame.BusinessRules.UseCases.Calculators;
+using LSTK.Frame.BusinessRules.UseCases.Calculators.SchemaCalculators;
+using LSTK.Frame.Frameworks.DataBase;
 using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -13,28 +23,58 @@ namespace LSTK.Frame
     public partial class MainWindow : PluginWindowBase
     {
         public MainWindowViewModel dataModel;
-        int i = 2;
+
+        private AttributeSetRequestModel _attributeSetRequestModel;
+        private AttributeGetRequestModel _attributeGetRequestModel;
+        private BuildSchemaRequestModel _buildSchemaRequestModel;
+
+        private List<(int, Path)> _schemaElements = new List<(int, Path)>();
+        private List<int> _selectedElements = new List<int>();
+
+
         public MainWindow(MainWindowViewModel DataModel)
         {
             InitializeComponent();
-            //try
-            //{
-            //    ServiceProvider.AddService<MainWindowViewModel>();
-            //}
-            //catch (Exception ex)
-            //{
-
-            //}
             dataModel = DataModel;
-            dataModel.OnViewUpdate += BuildSchema;
-
+            OnInitialization();
+            dataModel.OnDrawSchema += DrawSchema;
         }
-        //public MainWindow(MainWindowViewModel DataModel)
-        //{
-        //    InitializeComponent();
-        //    dataModel = DataModel;
-        //    ServiceProvider.AddService<MainWindowViewModel>();
-        //}
+        private void OnInitialization()
+        {
+            DataBase dataBase = new DataBase();
+            IDataAccess dataAccess = new DataHandler(dataBase);
+
+            //Schema build Use Case
+            _buildSchemaRequestModel = new BuildSchemaRequestModel();
+            IBuildSchemaResponse buildSchemaResponse = new BuildSchemaPresenter(dataModel);
+
+            List<IDataCalculator> calculators = new List<IDataCalculator>()
+                {
+                    new TopChordSchemaCalculator(),
+                    new BottomChordSchemaCalculator(),
+                    new TrussPostsSchemaCalculator(),
+                };
+            ISchemaBuilder schemaBuilder = new SchemaCreateManager(dataAccess, calculators, buildSchemaResponse);
+            BuildSchemaController buildSchemaController = new BuildSchemaController(schemaBuilder, _buildSchemaRequestModel);
+
+
+            //Attribute set Use Case
+            _attributeSetRequestModel = new AttributeSetRequestModel();
+           
+            IAttributeSetter attributeSetter = new AttributeSetManager(dataAccess);
+
+            AttributeSetController attributeSetController = new AttributeSetController(attributeSetter, _attributeSetRequestModel);
+
+
+            //Attribute get Use Case
+            _attributeGetRequestModel = new AttributeGetRequestModel();
+
+            IAttributeGetter attributeGetter = new AttributeGetManager(dataAccess);
+            IAttributeGetResponse attributeGetResponse = new AttributePresenter(dataModel);
+
+            AttributeGetController attributeGetController = new AttributeGetController(attributeGetter, attributeGetResponse, _attributeGetRequestModel);
+        }
+
         private void WPFOkApplyModifyGetOnOffCancel_ApplyClicked(object sender, EventArgs e)
         {
             this.Apply();
@@ -57,13 +97,6 @@ namespace LSTK.Frame
         {
             this.Apply();
             this.Close();
-            //this.Apply();
-            //new Task(delegate
-            //{
-            //    dataModel.Run();
-            //}).Start();
-            //this.Close();
-
         }
 
         private void WPFOkApplyModifyGetOnOffCancel_OnOffClicked(object sender, EventArgs e)
@@ -149,8 +182,12 @@ namespace LSTK.Frame
         private void Path_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             Path pgObject = sender as Path;
-            pgObject.Stroke = new SolidColorBrush(Colors.Black);
-            //MessageBox.Show("of");
+            pgObject.Stroke = new SolidColorBrush(Colors.Red);
+
+            //To do: implement element id selection
+            int elemId = 0;
+
+            _selectedElements.Add(elemId);
         }
 
         private void b_schema_Click(object sender, RoutedEventArgs e)
@@ -162,10 +199,29 @@ namespace LSTK.Frame
 
             }
             g_schema.Children.Clear();
-            dataModel.OnBuildSchema?.Invoke(this, new EventArgs());
+
+            _buildSchemaRequestModel.Bay = tb_Bay.Text;
+            _buildSchemaRequestModel.HeightRoofRidge = tb_Height_RoofRidge.Text;
+            _buildSchemaRequestModel.HeightRoofBottom = tb_Height_RoofBottom.Text;
+            _buildSchemaRequestModel.Panels = tb_Panels.Text;
+            _buildSchemaRequestModel.HeightColumns = tb_Height_Columns.Text;
+
+            _buildSchemaRequestModel.OnSendingRequest?.Invoke(this, new EventArgs());
+        }
+        private void b_acceptAttribute_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (var item in g_schema.Children)
+            {
+                Path pgObject = item as Path;
+                pgObject.Stroke = new SolidColorBrush(Colors.Blue);
+            }
+            List<int> ids = new List<int>();
+            ids.AddRange(_selectedElements);
+            dataModel.OnSchemaAttributeSet?.Invoke(this, ids);
+            _selectedElements.Clear();
         }
 
-        void BuildSchema(object sender, EventArgs e)
+        private void DrawSchema(object sender, EventArgs e)
         {
             foreach (var points in dataModel.SchemaPoints)
             {
@@ -174,10 +230,7 @@ namespace LSTK.Frame
 
                 TransformCoordinatesForGrid(points, g_schema.ActualHeight);
 
-                //Point startPoint = new Point() { X = points.Item1.X * scaleX, Y = (points.Item1.Y - yOffset)* scaleY };
-                //Point endPoint = new Point() { X = points.Item2.X * scaleX, Y = (points.Item2.Y - yOffset) * scaleY };
-
-                Point startPoint = new Point() { X = points.Item1.X, Y = points.Item1.Y};
+                Point startPoint = new Point() { X = points.Item1.X, Y = points.Item1.Y };
                 Point endPoint = new Point() { X = points.Item2.X, Y = points.Item2.Y };
 
                 LineGeometry pg = new LineGeometry(startPoint, endPoint);
@@ -188,8 +241,8 @@ namespace LSTK.Frame
                     Data = pg
                 };
                 pgObject.MouseDown += Path_MouseDown;
-                this.g_schema.Children.Add(pgObject);
-            }        
+                g_schema.Children.Add(pgObject);
+            }
         }
 
         private double GetSchemaScaleX()

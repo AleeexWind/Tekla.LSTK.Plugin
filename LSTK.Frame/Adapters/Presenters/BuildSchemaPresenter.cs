@@ -5,10 +5,10 @@ using System.Collections.Generic;
 
 namespace LSTK.Frame.Adapters.Presenters
 {
-    class FirstSchemaPresenter : IFirstSchemaOutputBoundary
+    class BuildSchemaPresenter : IBuildSchemaResponse
     {
         private readonly MainWindowViewModel _mainWindowViewModel;
-        public FirstSchemaPresenter(MainWindowViewModel mainWindowViewModel)
+        public BuildSchemaPresenter(MainWindowViewModel mainWindowViewModel)
         {
             _mainWindowViewModel = mainWindowViewModel;
         }
@@ -26,7 +26,7 @@ namespace LSTK.Frame.Adapters.Presenters
                     new Point() { X = elemData.EndPoint.X, Y = elemData.EndPoint.Y, Z = elemData.EndPoint.Z });
                 _mainWindowViewModel.SchemaPoints.Add(coord);
             }
-            _mainWindowViewModel.OnViewUpdate?.Invoke(this, new EventArgs());
+            _mainWindowViewModel.OnDrawSchema?.Invoke(this, new EventArgs());
         }
     }
 }

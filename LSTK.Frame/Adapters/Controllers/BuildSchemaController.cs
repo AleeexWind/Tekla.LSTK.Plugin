@@ -1,4 +1,5 @@
-﻿using LSTK.Frame.BusinessRules.DataBoundaries;
+﻿using LSTK.Frame.Adapters.Controllers.Models;
+using LSTK.Frame.BusinessRules.DataBoundaries;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,30 +10,32 @@ namespace LSTK.Frame.Adapters.Controllers
 {
     public class BuildSchemaController
     {
-        private readonly IFirstSchemaInputBoundary _firstSchemaInputBoundary;
-        private MainWindowViewModel _mainWindowViewModel;
+        private readonly ISchemaBuilder _schemaBuilder;
+        private readonly BuildSchemaRequestModel _buildSchemaRequestModel;
         private SchemaInputData _schemaInputData;
 
-        public BuildSchemaController(IFirstSchemaInputBoundary firstSchemaInputBoundary, MainWindowViewModel mainWindowViewModel)
+        public BuildSchemaController(ISchemaBuilder schemaBuilder, BuildSchemaRequestModel buildSchemaRequestModel)
         {
-            _firstSchemaInputBoundary = firstSchemaInputBoundary;
-            _mainWindowViewModel = mainWindowViewModel;
-            _mainWindowViewModel.OnBuildSchema += BuildSchema;
+            _schemaBuilder = schemaBuilder;
+            _buildSchemaRequestModel = buildSchemaRequestModel;
+            _buildSchemaRequestModel.OnSendingRequest += BuildSchema;
         }
+ 
         void BuildSchema(object sender, EventArgs e)
         {
             GatherInput();
-            _firstSchemaInputBoundary.CreateSchema(_schemaInputData);
+            _schemaBuilder.BuildSchema(_schemaInputData);
         }
+
         private void GatherInput()
         {
             SchemaInputData schemaInputData = new SchemaInputData()
             {
-                Bay = double.Parse(_mainWindowViewModel.Bay, System.Globalization.CultureInfo.InvariantCulture),
-                HeightRoofRidge = double.Parse(_mainWindowViewModel.HeightRoofRidge, System.Globalization.CultureInfo.InvariantCulture),
-                HeightRoofBottom = double.Parse(_mainWindowViewModel.HeightRoofBottom, System.Globalization.CultureInfo.InvariantCulture),
-                Panels = _mainWindowViewModel.Panels,
-                HeightColumns = double.Parse(_mainWindowViewModel.HeightColumns, System.Globalization.CultureInfo.InvariantCulture),
+                Bay = double.Parse(_buildSchemaRequestModel.Bay, System.Globalization.CultureInfo.InvariantCulture),
+                HeightRoofRidge = double.Parse(_buildSchemaRequestModel.HeightRoofRidge, System.Globalization.CultureInfo.InvariantCulture),
+                HeightRoofBottom = double.Parse(_buildSchemaRequestModel.HeightRoofBottom, System.Globalization.CultureInfo.InvariantCulture),
+                Panels = _buildSchemaRequestModel.Panels,
+                HeightColumns = double.Parse(_buildSchemaRequestModel.HeightColumns, System.Globalization.CultureInfo.InvariantCulture),
             };
             _schemaInputData = schemaInputData;
         }

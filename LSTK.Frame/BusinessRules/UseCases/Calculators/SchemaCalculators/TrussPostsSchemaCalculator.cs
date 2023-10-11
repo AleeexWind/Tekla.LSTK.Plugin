@@ -1,4 +1,5 @@
 ﻿using LSTK.Frame.BusinessRules.DataBoundaries;
+using LSTK.Frame.BusinessRules.Models;
 using LSTK.Frame.Entities;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.SchemaCalculators
         private List<double> _trussPostDistancesLeft;
         private double _previousCoord;
         private List<ElementData> _trussPostsElementsLeft;
+        private readonly ElementGroupType _elementGroupType = ElementGroupType.TrussPost;
         public void Calculate(FrameData frameData, InputData inputData)
         {
             _schemaInputData = inputData as SchemaInputData;
@@ -100,11 +102,10 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.SchemaCalculators
 
                     Point endPoint = GetTrussPostEndPointOnTheLine(lengthFromZero, allLength, allHeigtht, offsetY, _previousCoord);
 
-                    ElementData elementData = new ElementData()
-                    {
-                        StartPoint = startPoint,
-                        EndPoint = endPoint
-                    };
+                    ElementData elementData = CreateElementData();
+                    elementData.StartPoint = startPoint;
+                    elementData.EndPoint = endPoint;
+
                     result.Add(elementData);
                 }
             }
@@ -136,11 +137,10 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.SchemaCalculators
                         Z = 0
                     };
 
-                    ElementData elementData = new ElementData()
-                    {
-                        StartPoint = startPoint,
-                        EndPoint = endPoint
-                    };
+                    ElementData elementData = CreateElementData();
+                    elementData.StartPoint = startPoint;
+                    elementData.EndPoint = endPoint;
+
                     result.Add(elementData);
                 }
                 List<double> leftPostsYcoord = new List<double>(); 
@@ -167,6 +167,13 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.SchemaCalculators
             point.Z = 0.0;
 
             return point;
+        }
+        private ElementData CreateElementData()
+        {
+            return new ElementData()
+            {
+                ElementGroupType = _elementGroupType
+            };
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using LSTK.Frame.Entities;
+﻿using LSTK.Frame.BusinessRules.Models;
+using LSTK.Frame.Entities;
+using System.Collections.Generic;
 
 namespace LSTK.Frame.BusinessRules.DataBoundaries
 {
@@ -55,5 +57,8 @@ namespace LSTK.Frame.BusinessRules.DataBoundaries
 
         public Point StartPoint { get; set; } = new Point();
         public Point DirectionPoint { get; set; } = new Point();
+
+        public List<ElementDataPrototype> ElementDataPrototypes { get; set; } = new List<ElementDataPrototype>();
+        public List<AttributeGroup> AttributeGroups { get; set; } = new List<AttributeGroup>();
     }
 }
