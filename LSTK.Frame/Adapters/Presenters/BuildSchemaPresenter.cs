@@ -1,5 +1,6 @@
 ﻿using LSTK.Frame.BusinessRules.DataBoundaries;
 using LSTK.Frame.Entities;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 
@@ -26,6 +27,10 @@ namespace LSTK.Frame.Adapters.Presenters
                     new Point() { X = elemData.EndPoint.X, Y = elemData.EndPoint.Y, Z = elemData.EndPoint.Z });
                 _mainWindowViewModel.SchemaPoints.Add(coord);
             }
+
+            string prototypes = JsonConvert.SerializeObject(elementDatas);
+
+            _mainWindowViewModel.ElementPrototypes = prototypes;
             _mainWindowViewModel.OnDrawSchema?.Invoke(this, new EventArgs());
         }
     }

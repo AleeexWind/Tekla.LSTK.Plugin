@@ -50,14 +50,13 @@ namespace LSTK.Frame
         private string panels = string.Empty;
 
         private string attributeGroups = string.Empty;
-        private string elementDataPrototypes = string.Empty;
+        private string elementPrototypes = string.Empty;
 
         public List<int> SelectedElements = new List<int>();
 
+        public List<(Point, Point)> SchemaPoints { get; set; } = new List<(Point, Point)>();
 
-        public List<(Point, Point)> SchemaPoints = new List<(Point, Point)>();
-
-        public List<SchemaElement> SchemaElements = new List<SchemaElement>();
+        public List<SchemaElement> SchemaElements { get; set; } = new List<SchemaElement>();
 
         public double FrameWidthForSchema { get; set; }
         public double FrameHeightForSchema { get; set; }
@@ -244,10 +243,10 @@ namespace LSTK.Frame
             set { attributeGroups = value; OnPropertyChanged("AttributeGroups"); }
         }
         [StructuresDialog("elementPrototypes", typeof(TD.String))]
-        public string ElementDataPrototypes
+        public string ElementPrototypes
         {
-            get { return elementDataPrototypes; }
-            set { elementDataPrototypes = value; OnPropertyChanged("ElementPrototypes"); }
+            get { return elementPrototypes; }
+            set { elementPrototypes = value; OnPropertyChanged("ElementPrototypes"); }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

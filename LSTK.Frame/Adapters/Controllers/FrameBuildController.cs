@@ -16,20 +16,21 @@ namespace LSTK.Frame.Adapters.Controllers
         public void BuildFrame(PluginData pluginData)
         {
             FrameInputData inputData = GatherInput(pluginData);
-            _frameBuilder.BuildFrame(inputData);
+            //_frameBuilder.BuildFrame(inputData);
         }
         private FrameInputData GatherInput(PluginData pluginData)
         {
             FrameInputData inputData = new FrameInputData();
-            //try
-            //{
-            //    inputData.AttributeGroups = JsonConvert.DeserializeObject<List<AttributeGroup>>(pluginData.AttributeGroups);
-            //    inputData.ElementDataPrototypes = JsonConvert.DeserializeObject<List<ElementDataPrototype>>(pluginData.ElementDataPrototypes);
-            //}
-            //catch (System.Exception)
-            //{
-            //    throw;
-            //}
+            try
+            {
+                List<ElementData> elementDatas = JsonConvert.DeserializeObject<List<ElementData>>(pluginData.ElementPrototypes);
+                //inputData.AttributeGroups = JsonConvert.DeserializeObject<List<AttributeGroup>>(pluginData.AttributeGroups);
+                //inputData.ElementDataPrototypes = JsonConvert.DeserializeObject<List<ElementDataPrototype>>(pluginData.ElementDataPrototypes);
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
 
             return inputData;
         }

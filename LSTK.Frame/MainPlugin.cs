@@ -1,4 +1,6 @@
 ﻿using LSTK.Frame.Adapters.Controllers;
+using LSTK.Frame.Adapters.Gateways;
+using LSTK.Frame.BusinessRules.DataBoundaries;
 using LSTK.Frame.BusinessRules.Gateways;
 using LSTK.Frame.BusinessRules.UseCases;
 using LSTK.Frame.BusinessRules.UseCases.Calculators;
@@ -37,14 +39,14 @@ namespace LSTK.Frame
         {
             _model = new Model();
             _data = data;
-            try
-            {
-                ServiceProvider.GetService<MainWindowViewModel>();
-            }
-            catch (Exception)
-            {
-                _data = data;
-            }
+            //try
+            //{
+            //    ServiceProvider.GetService<MainWindowViewModel>();
+            //}
+            //catch (Exception)
+            //{
+            //    _data = data;
+            //}
            // ServiceProvider.AddService<MainWindowViewModel>();
             
             //FrameData frameData = new FrameData();
@@ -98,9 +100,32 @@ namespace LSTK.Frame
                 _data.StartPoint = Point1;
                 _data.DirectionPoint = Point2;
 
-                FrameData frameData = new FrameData();
+                //FrameData frameData = new FrameData();
+                //TeklaPartAttributeSetter teklaPartAttributeSetter = new TeklaPartAttributeSetter();
+                //ITeklaAccess teklaAccess = new TeklaPartCreator(_model, teklaPartAttributeSetter);
+
+                //List<IDataCalculator> calculators = new List<IDataCalculator>()
+                //{
+                //    new ColumnsDataCalculator(),
+                //    new TopChordTrussDataCalculator(),
+                //    new BottomChordTrussDataCalculator(),
+                //    new TrussPostsCalculator()
+                //};
+
+                //LocalPlaneManager localPlaneManager = new LocalPlaneManager(_model);
+
+                //FrameCreatorManager frameCreatorManager = new FrameCreatorManager(frameData, teklaAccess, calculators, localPlaneManager);
+
+                //InterfaceDataController interfaceDataController = new InterfaceDataController(frameCreatorManager);
+
+                //interfaceDataController.GatherInput(_data);
+                //interfaceDataController.SendInput();
+
+                //_frameCreatorManager.CreateFrame();
+
+
                 TeklaPartAttributeSetter teklaPartAttributeSetter = new TeklaPartAttributeSetter();
-                ITeklaAccess teklaAccess = new TeklaPartCreator(_model, teklaPartAttributeSetter);
+                LocalPlaneManager localPlaneManager = new LocalPlaneManager(_model);
 
                 List<IDataCalculator> calculators = new List<IDataCalculator>()
                 {
@@ -110,16 +135,10 @@ namespace LSTK.Frame
                     new TrussPostsCalculator()
                 };
 
-                LocalPlaneManager localPlaneManager = new LocalPlaneManager(_model);
-
-                FrameCreatorManager frameCreatorManager = new FrameCreatorManager(frameData, teklaAccess, calculators, localPlaneManager);
-
-                InterfaceDataController interfaceDataController = new InterfaceDataController(frameCreatorManager);
-
-                interfaceDataController.GatherInput(_data);
-                interfaceDataController.SendInput();
-
-                _frameCreatorManager.CreateFrame();
+                ITargetAppAccess targetAppAccess = new TeklaAccess(_model, localPlaneManager, teklaPartAttributeSetter);
+                IFrameBuilder frameBuilder = new FrameBuilder(targetAppAccess, calculators);
+                FrameBuildController frameBuildController = new FrameBuildController(frameBuilder);
+                frameBuildController.BuildFrame(_data);
             }
             catch (Exception Ex)
             {
@@ -127,6 +146,47 @@ namespace LSTK.Frame
             }
             return true;
         }
+        //public override bool Run(List<InputDefinition> Input)
+        //{
+        //    try
+        //    {
+        //        GetValuesFromDialog();
+
+        //        Point Point1 = (Point)Input[0].GetInput();
+        //        Point Point2 = (Point)Input[1].GetInput();
+        //        _data.StartPoint = Point1;
+        //        _data.DirectionPoint = Point2;
+
+        //        FrameData frameData = new FrameData();
+        //        TeklaPartAttributeSetter teklaPartAttributeSetter = new TeklaPartAttributeSetter();
+        //        ITeklaAccess teklaAccess = new TeklaPartCreator(_model, teklaPartAttributeSetter);
+
+        //        List<IDataCalculator> calculators = new List<IDataCalculator>()
+        //        {
+        //            new ColumnsDataCalculator(),
+        //            new TopChordTrussDataCalculator(),
+        //            new BottomChordTrussDataCalculator(),
+        //            new TrussPostsCalculator()
+        //        };
+
+        //        LocalPlaneManager localPlaneManager = new LocalPlaneManager(_model);
+
+        //        FrameCreatorManager frameCreatorManager = new FrameCreatorManager(frameData, teklaAccess, calculators, localPlaneManager);
+
+        //        InterfaceDataController interfaceDataController = new InterfaceDataController(frameCreatorManager);
+
+        //        interfaceDataController.GatherInput(_data);
+        //        interfaceDataController.SendInput();
+
+        //        _frameCreatorManager.CreateFrame();
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        throw;
+        //    }
+        //    return true;
+        //}
+
         //public override bool Run(List<InputDefinition> Input)
         //{
         //    try
@@ -267,6 +327,6 @@ namespace LSTK.Frame
         public string AttributeGroups;
 
         [StructuresField("elementPrototypes")]
-        public string ElementDataPrototypes;
+        public string ElementPrototypes;
     }
 }

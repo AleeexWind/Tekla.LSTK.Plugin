@@ -243,6 +243,7 @@ namespace LSTK.Frame
                 pgObject.MouseDown += Path_MouseDown;
                 g_schema.Children.Add(pgObject);
             }
+            tb_ElementPrototypes.Text = dataModel.ElementPrototypes;
         }
 
         private double GetSchemaScaleX()
