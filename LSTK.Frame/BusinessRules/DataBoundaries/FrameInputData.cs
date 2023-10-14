@@ -58,6 +58,7 @@ namespace LSTK.Frame.BusinessRules.DataBoundaries
         public Point StartPoint { get; set; } = new Point();
         public Point DirectionPoint { get; set; } = new Point();
 
+        public List<ElementData> ElementPrototypes { get; set; } = new List<ElementData>();
         public List<ElementDataPrototype> ElementDataPrototypes { get; set; } = new List<ElementDataPrototype>();
         public List<AttributeGroup> AttributeGroups { get; set; } = new List<AttributeGroup>();
     }

@@ -9,6 +9,6 @@ namespace LSTK.Frame.BusinessRules.DataBoundaries
 {
     public interface IFrameBuilder
     {
-        bool BuildFrame(FrameInputData inputData);
+        bool BuildFrame(FrameData2 frameData);
     }
 }

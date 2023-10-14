@@ -8,18 +8,11 @@ namespace LSTK.Frame.Adapters.Gateways
 {
     public class DataHandler : IDataAccess
     {
-        private readonly DataBase _dataBase;
-
-        public DataHandler(DataBase dataBase)
-        {
-            _dataBase = dataBase;
-        }
-
         public bool AddElementData(ElementData elementData)
         {
             try
             {
-                _dataBase.SchemaElements.Add(elementData);
+                DataBase.SchemaElements.Add(elementData);
                 return true;
             }
             catch (System.Exception)
@@ -30,17 +23,17 @@ namespace LSTK.Frame.Adapters.Gateways
 
         public AttributeGroup GetAttributeGroup(int attributeGroupId)
         {
-            return _dataBase.AttributeGroups.FirstOrDefault(x => x.Id.Equals(attributeGroupId));
+            return DataBase.AttributeGroups.FirstOrDefault(x => x.Id.Equals(attributeGroupId));
         }
 
         public ElementData GetElementData(int elementDataId)
         {
-            return _dataBase.SchemaElements.FirstOrDefault(x => x.Id.Equals(elementDataId));
+            return DataBase.SchemaElements.FirstOrDefault(x => x.Id.Equals(elementDataId));
         }
 
         public List<ElementData> GetElementDatas()
         {
-            return _dataBase.SchemaElements;
+            return DataBase.SchemaElements;
         }
     }
 }

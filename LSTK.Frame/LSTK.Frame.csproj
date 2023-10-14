@@ -83,7 +83,6 @@
     <Compile Include="Adapters\Controllers\FrameBuildController.cs" />
     <Compile Include="Adapters\Controllers\Models\BuildSchemaRequestModel.cs" />
     <Compile Include="BusinessRules\DataBoundaries\IAttributeGetResponse.cs" />
-    <Compile Include="Adapters\Controllers\InterfaceDataController.cs" />
     <Compile Include="Adapters\Controllers\Models\AttributeGetRequestModel.cs" />
     <Compile Include="Adapters\Controllers\Models\AttributeSetRequestModel.cs" />
     <Compile Include="Adapters\Controllers\Models\ElementAttributes.cs" />
@@ -102,6 +101,7 @@
     <Compile Include="BusinessRules\Gateways\IDataAccess.cs" />
     <Compile Include="BusinessRules\Gateways\ITargetAppAccess.cs" />
     <Compile Include="BusinessRules\Gateways\ITeklaAccess.cs" />
+    <Compile Include="BusinessRules\Models\FrameData.cs" />
     <Compile Include="Entities\AttributeGroup.cs" />
     <Compile Include="BusinessRules\Models\ElementGroupType.cs" />
     <Compile Include="BusinessRules\Models\ElementDataPrototype.cs" />
