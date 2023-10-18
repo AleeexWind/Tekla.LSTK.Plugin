@@ -82,6 +82,7 @@ namespace LSTK.Frame.BusinessRules.UseCases
 
             foreach (var elem in frameData.Elements)
             {
+                SetAttributesTemp(elem);
                 res = _targetAppAccess.CreatePart(elem);
                 if (!res) return res;
             }
@@ -93,6 +94,26 @@ namespace LSTK.Frame.BusinessRules.UseCases
             if (!res) return res;
 
             return res;
+        }
+        private void SetAttributesTemp(ElementData elementData)
+        {
+            AttributeGroup attributeGroup = new AttributeGroup()
+            {
+                Id = 1,
+                PartName = "Temp",
+                Profile = "ПСУ300х100х20х2,0",
+                Material = "09Г2С",
+                Class = "8"
+            };
+
+            elementData.Id = attributeGroup.Id;
+            elementData.PartName = attributeGroup.PartName;
+            elementData.Profile = attributeGroup.Profile;
+            elementData.Material = attributeGroup.Material;
+            elementData.Class = attributeGroup.Class;
+            elementData.RotationPosition = attributeGroup.RotationPosition;
+            elementData.PlanePosition = attributeGroup.PlanePosition;
+            elementData.DepthPosition = attributeGroup.DepthPosition;
         }
     }
 }

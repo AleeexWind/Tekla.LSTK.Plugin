@@ -1,6 +1,7 @@
 ﻿using LSTK.Frame.BusinessRules.DataBoundaries;
 using LSTK.Frame.BusinessRules.Models;
 using LSTK.Frame.Entities;
+using LSTK.Frame.Utils;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
@@ -25,6 +26,8 @@ namespace LSTK.Frame.Adapters.Controllers
             {
                 List<ElementData> elementDatas = JsonConvert.DeserializeObject<List<ElementData>>(pluginData.ElementPrototypes);
                 inputData.Elements = elementDatas;
+                inputData.StartPoint = TeklaPointConverter.ConvertPoint(pluginData.StartPoint);
+                inputData.DirectionPoint = TeklaPointConverter.ConvertPoint(pluginData.DirectionPoint);
             }
             catch (System.Exception)
             {

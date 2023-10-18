@@ -54,6 +54,7 @@ namespace LSTK.Frame
                     new TopChordSchemaCalculator(),
                     new BottomChordSchemaCalculator(),
                     new TrussPostsSchemaCalculator(),
+                    new ColumnsScemaCalculator()
                 };
             ISchemaBuilder schemaBuilder = new SchemaCreateManager(dataAccess, calculators, buildSchemaResponse);
             BuildSchemaController buildSchemaController = new BuildSchemaController(schemaBuilder, _buildSchemaRequestModel);
