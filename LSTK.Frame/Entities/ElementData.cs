@@ -6,6 +6,7 @@ namespace LSTK.Frame.Entities
     {
         public int Id { get; set; }
         public ElementGroupType ElementGroupType { get; set; }
+        public ElementSideType ElementSideType { get; set; }
         public Point StartPoint { get; set; } = new Point();
         public Point EndPoint { get; set; } = new Point();
 

@@ -70,7 +70,7 @@ namespace LSTK.Frame.BusinessRules.UseCases
         {
             _targetAppAccess = targetAppAccess;
         }
-        public bool BuildFrame(FrameData2 frameData)
+        public bool BuildFrame(FrameData frameData)
         {
             bool res;
             res = _targetAppAccess.RecieveCurrentWorkPlane();

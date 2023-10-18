@@ -2,24 +2,32 @@
 using LSTK.Frame.Entities;
 using LSTK.Frame.Frameworks.TeklaAPI;
 using System;
+using System.Collections.Generic;
 
 namespace LSTK.Frame.BusinessRules.UseCases.Calculators
 {
-    public class ColumnsDataCalculator : IDataCalculator
+    public class ColumnsScemaCalculator : IDataCalculator
     {
         private FrameInputData _frameInputData;
 
-        public void Calculate(FrameData frameData, InputData inputData)
+        public bool Calculate(List<ElementData> elementsDatas, InputData inputData)
         {
-
             _frameInputData = inputData as FrameInputData;
-            ColumnsData columnsData = new ColumnsData()
-            {
-                LeftColumn = CalcLeftColumn(),
-                RightColumn = CalcRightColumn()
-            };
 
-            frameData.ColumnsData = columnsData;
+            ElementData leftColumn = CalcLeftColumn();
+            ElementData rightColumn = CalcRightColumn();
+
+            if (leftColumn != null && rightColumn != null)
+            {
+                elementsDatas.Add(leftColumn);
+                elementsDatas.Add(rightColumn);
+                return true;
+            }
+            else
+            {
+                //TODO: Logging
+                return false;
+            }
         }
         private ElementData CalcLeftColumn()
         {
@@ -85,19 +93,6 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators
                 StartPoint = startPoint,
                 EndPoint = endPoint
             };
-
-            //TeklaPartAttributeGetter.GetProfileHeight(elementData, elementData.Profile);
-
-            //(Point, Point) newCoord = (startPoint, endPoint);
-            //if (_frameInputData.ColumnLineOption.Equals("Inside"))
-            //{
-            //    newCoord = GetParallelLineCoordinate(startPoint, endPoint, elementData.ProfileHeight);
-            //}
-            //startPoint = newCoord.Item1;
-            //endPoint = newCoord.Item2;
-
-            //elementData.StartPoint = startPoint;
-            //elementData.EndPoint = endPoint;
 
             return elementData;
         }

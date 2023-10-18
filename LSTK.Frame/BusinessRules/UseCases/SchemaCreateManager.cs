@@ -11,7 +11,8 @@ namespace LSTK.Frame.BusinessRules.UseCases
         private readonly IBuildSchemaResponse _firstSchemaOutputBoundary;
         private readonly List<IDataCalculator> _calculators;
         private readonly IDataAccess _dataAccess;
-        private FrameData _frameData;
+
+        private List<ElementData> _elementsDatas;
 
         public SchemaCreateManager(IDataAccess dataAccess, List<IDataCalculator> calculators, IBuildSchemaResponse firstSchemaOutputBoundary)
         {
@@ -21,32 +22,37 @@ namespace LSTK.Frame.BusinessRules.UseCases
         }
         public void BuildSchema(SchemaInputData schemaInputData)
         {
-            _frameData = new FrameData();
+            _elementsDatas = new List<ElementData>();
             foreach (IDataCalculator calc in _calculators)
             {
-                calc.Calculate(_frameData, schemaInputData);
+                calc.Calculate(_elementsDatas, schemaInputData);
             }
 
-            _firstSchemaOutputBoundary.TransferSchema(GetAllElementsOfTruss(), schemaInputData.Bay, schemaInputData.HeightRoofBottom + schemaInputData.HeightRoofRidge, GetSchemaYoffset(schemaInputData));
-        }
-        private List<ElementData> GetAllElementsOfTruss()
-        {
-            List<ElementData> result = new List<ElementData>
-            {
-                _frameData.TrussData.LeftTopChord,
-                _frameData.TrussData.RightTopChord,
-                _frameData.TrussData.LeftBottomChord,
-                _frameData.TrussData.RightBottomChord
-            };
-            result.AddRange(_frameData.TrussData.TrussPosts);
-
-            if(!AddElementsToDB(result))
+            if (!AddElementsToDB(_elementsDatas))
             {
                 //TODO: Logging
             }
 
-            return result;
+            _firstSchemaOutputBoundary.TransferSchema(_elementsDatas, schemaInputData.Bay, schemaInputData.HeightRoofBottom + schemaInputData.HeightRoofRidge, GetSchemaYoffset(schemaInputData));
         }
+        //private List<ElementData> GetAllElementsOfTruss()
+        //{
+        //    List<ElementData> result = new List<ElementData>
+        //    {
+        //        _frameData.TrussData.LeftTopChord,
+        //        _frameData.TrussData.RightTopChord,
+        //        _frameData.TrussData.LeftBottomChord,
+        //        _frameData.TrussData.RightBottomChord
+        //    };
+        //    result.AddRange(_frameData.TrussData.TrussPosts);
+
+        //    if(!AddElementsToDB(result))
+        //    {
+        //        //TODO: Logging
+        //    }
+
+        //    return result;
+        //}
         private double GetSchemaYoffset(SchemaInputData schemaInputData)
         {
             double columnHeight = schemaInputData.HeightColumns;

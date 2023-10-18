@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LSTK.Frame.BusinessRules.Models
 {
-    public class FrameData2
+    public class FrameData
     {
         public Point StartPoint { get; set; } = new Point();
         public Point DirectionPoint { get; set; } = new Point();

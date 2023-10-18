@@ -9,31 +9,46 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.SchemaCalculators
     public class TrussPostsSchemaCalculator : IDataCalculator
     {
         private SchemaInputData _schemaInputData;
-        private FrameData _frameData;
         private string[] _distances;
         private List<double> _trussPostDistancesLeft;
         private double _previousCoord;
         private List<ElementData> _trussPostsElementsLeft;
         private readonly ElementGroupType _elementGroupType = ElementGroupType.TrussPost;
-        public void Calculate(FrameData frameData, InputData inputData)
+
+        private ElementData _leftTopChord;
+        private ElementData _leftBottomChord;
+
+        public bool Calculate(List<ElementData> elementsDatas, InputData inputData)
         {
             _schemaInputData = inputData as SchemaInputData;
-            _frameData = frameData;
             _distances = ParsePanelsString();
             _previousCoord = 0;
-
-            List<ElementData> trussPostsElements = new List<ElementData>();
+            FilterElements(elementsDatas);
             _trussPostsElementsLeft = CalcLeftTrussPosts();
-            trussPostsElements.AddRange(_trussPostsElementsLeft);
-            trussPostsElements.AddRange(CalcRightThrussPosts());
+            List<ElementData> trussPostsElementsRight = CalcRightThrussPosts();
 
-            _frameData.TrussData.TrussPosts = trussPostsElements;
+
+            if(_trussPostsElementsLeft != null && trussPostsElementsRight != null)
+            {
+                elementsDatas.AddRange(_trussPostsElementsLeft);
+                elementsDatas.AddRange(trussPostsElementsRight);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         private string[] ParsePanelsString()
         {
             string[] p = _schemaInputData.Panels.Split(' ');
             return p;
+        }
+        private void FilterElements(List<ElementData> elementsDatas)
+        {
+            _leftTopChord = elementsDatas.FirstOrDefault(x => x.ElementGroupType.Equals(ElementGroupType.TopChord) && x.ElementSideType.Equals(ElementSideType.Left));
+            _leftBottomChord = elementsDatas.FirstOrDefault(x => x.ElementGroupType.Equals(ElementGroupType.BottomChord) && x.ElementSideType.Equals(ElementSideType.Left));
         }
 
         private List<double> GetLeftDistances(string[] distancesAsString)
@@ -87,16 +102,16 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.SchemaCalculators
                     Point startPoint = new Point()
                     {
                         X = _previousCoord,
-                        Y = _frameData.TrussData.RightBottomChord.StartPoint.Y,
+                        Y = _leftBottomChord.StartPoint.Y,
                         Z = 0.0
                     };
 
-                    double allLength = _frameData.TrussData.LeftTopChord.EndPoint.X - _frameData.TrussData.LeftTopChord.StartPoint.X;
-                    double allHeigtht = _frameData.TrussData.LeftTopChord.EndPoint.Y - _frameData.TrussData.LeftTopChord.StartPoint.Y;
+                    double allLength = _leftTopChord.EndPoint.X - _leftTopChord.StartPoint.X;
+                    double allHeigtht = _leftTopChord.EndPoint.Y - _leftTopChord.StartPoint.Y;
 
-                    double lengthFromZero = _previousCoord -_frameData.TrussData.LeftTopChord.StartPoint.X;
-                    double offsetY = _frameData.TrussData.RightBottomChord.StartPoint.Y + _schemaInputData.HeightRoofBottom;
-                    double additionalOffset = _frameData.TrussData.LeftTopChord.StartPoint.Y - _schemaInputData.HeightColumns;
+                    double lengthFromZero = _previousCoord - _leftTopChord.StartPoint.X;
+                    double offsetY = _leftBottomChord.StartPoint.Y + _schemaInputData.HeightRoofBottom;
+                    double additionalOffset = _leftTopChord.StartPoint.Y - _schemaInputData.HeightColumns;
 
                     offsetY += additionalOffset;
 
@@ -116,7 +131,7 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.SchemaCalculators
         private List<ElementData> CalcRightThrussPosts()
         {
             List<ElementData> result = new List<ElementData>();
-            List<double> trussPostDistancesRight = GetRightDistances(_trussPostDistancesLeft);           
+            List<double> trussPostDistancesRight = GetRightDistances(_trussPostDistancesLeft);
             if (trussPostDistancesRight.Any())
             {
                 trussPostDistancesRight.RemoveAt(trussPostDistancesRight.Count -1);
@@ -126,7 +141,7 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.SchemaCalculators
                     Point startPoint = new Point()
                     {
                         X = _previousCoord,
-                        Y = _frameData.TrussData.RightBottomChord.StartPoint.Y,
+                        Y = _leftBottomChord.StartPoint.Y,
                         Z = 0.0
                     };
 
@@ -143,7 +158,7 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.SchemaCalculators
 
                     result.Add(elementData);
                 }
-                List<double> leftPostsYcoord = new List<double>(); 
+                List<double> leftPostsYcoord = new List<double>();
                 foreach (var leftTrussPost in _trussPostsElementsLeft)
                 {
                     leftPostsYcoord.Add(leftTrussPost.EndPoint.Y);
