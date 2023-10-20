@@ -1,4 +1,5 @@
-﻿using LSTK.Frame.Entities;
+﻿using LSTK.Frame.BusinessRules.Models;
+using LSTK.Frame.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace LSTK.Frame.BusinessRules.DataBoundaries
 {
     public interface IBuildSchemaResponse
     {
-        void TransferSchema(List<ElementData> elementDatas, double coordXmax, double coordYmax, double yOffset);
+        void TransferSchema(BuiltSchemaData builtSchemaData);
     }
 }

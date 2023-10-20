@@ -1,5 +1,6 @@
 ﻿using LSTK.Frame.BusinessRules.DataBoundaries;
 using LSTK.Frame.BusinessRules.Gateways;
+using LSTK.Frame.BusinessRules.Models;
 using LSTK.Frame.BusinessRules.UseCases.Calculators;
 using LSTK.Frame.Entities;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ namespace LSTK.Frame.BusinessRules.UseCases
 {
     public class SchemaCreateManager : ISchemaBuilder
     {
-        private readonly IBuildSchemaResponse _firstSchemaOutputBoundary;
+        private readonly IBuildSchemaResponse _schemaResponse;
         private readonly List<IDataCalculator> _calculators;
         private readonly IDataAccess _dataAccess;
 
@@ -18,7 +19,7 @@ namespace LSTK.Frame.BusinessRules.UseCases
         {
             _dataAccess = dataAccess;
             _calculators = calculators;
-            _firstSchemaOutputBoundary = firstSchemaOutputBoundary;
+            _schemaResponse = firstSchemaOutputBoundary;
         }
         public void BuildSchema(SchemaInputData schemaInputData)
         {
@@ -27,13 +28,20 @@ namespace LSTK.Frame.BusinessRules.UseCases
             {
                 calc.Calculate(_elementsDatas, schemaInputData);
             }
-
+            SetIds(_elementsDatas);
             if (!AddElementsToDB(_elementsDatas))
             {
                 //TODO: Logging
             }
+            BuiltSchemaData builtSchemaData = new BuiltSchemaData()
+            {
+                ElementDatas = _elementsDatas,
+                CoordXmax = schemaInputData.Bay,
+                CoordYmax = schemaInputData.HeightRoofBottom + schemaInputData.HeightRoofRidge,
+                Yoffset = GetSchemaYoffset(schemaInputData)
+            };
 
-            _firstSchemaOutputBoundary.TransferSchema(_elementsDatas, schemaInputData.Bay, schemaInputData.HeightRoofBottom + schemaInputData.HeightRoofRidge, GetSchemaYoffset(schemaInputData));
+            _schemaResponse.TransferSchema(builtSchemaData);
         }
         //private List<ElementData> GetAllElementsOfTruss()
         //{
@@ -70,6 +78,15 @@ namespace LSTK.Frame.BusinessRules.UseCases
                 }
             }
             return true;
+        }
+        private void SetIds(List<ElementData> elementDatas)
+        {
+            int previousId = 1;
+            foreach (ElementData el in elementDatas)
+            {
+                el.Id = previousId;
+                previousId++;
+            }
         }
     }
 }

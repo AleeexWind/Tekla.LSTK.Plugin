@@ -11,6 +11,7 @@ using LSTK.Frame.Entities;
 using LSTK.Frame.Frameworks.DataBase;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -189,6 +190,8 @@ namespace LSTK.Frame
             //To do: implement element id selection
             int elemId = 0;
 
+            int selElemId = _schemaElements.FirstOrDefault(x => x.Item2.Equals(pgObject)).Item1;
+
             _selectedElements.Add(elemId);
         }
 
@@ -223,12 +226,39 @@ namespace LSTK.Frame
             _selectedElements.Clear();
         }
 
+        //private void DrawSchemaOld(object sender, EventArgs e)
+        //{
+        //    foreach (var points in dataModel.SchemaPoints)
+        //    {
+        //        string _brushColor = "Blue";
+        //        SolidColorBrush brushColor = (SolidColorBrush)new BrushConverter().ConvertFromString(_brushColor);
+
+        //        TransformCoordinatesForGrid(points, g_schema.ActualHeight);
+
+        //        System.Windows.Point startPoint = new System.Windows.Point() { X = points.Item1.X, Y = points.Item1.Y };
+        //        System.Windows.Point endPoint = new System.Windows.Point() { X = points.Item2.X, Y = points.Item2.Y };
+
+        //        LineGeometry pg = new LineGeometry(startPoint, endPoint);
+        //        Path pgObject = new Path
+        //        {
+        //            Stroke = brushColor,
+        //            StrokeThickness = 5,
+        //            Data = pg
+        //        };
+        //        pgObject.MouseDown += Path_MouseDown;
+        //        g_schema.Children.Add(pgObject);
+        //    }
+        //    tb_ElementPrototypes.Text = dataModel.ElementPrototypes;
+        //    List<ElementData> el = DataBase.SchemaElements;
+        //}
         private void DrawSchema(object sender, EventArgs e)
         {
-            foreach (var points in dataModel.SchemaPoints)
+            foreach (var element in dataModel.SchemaElements)
             {
                 string _brushColor = "Blue";
                 SolidColorBrush brushColor = (SolidColorBrush)new BrushConverter().ConvertFromString(_brushColor);
+
+                (LSTK.Frame.Entities.Point, LSTK.Frame.Entities.Point) points = (element.StartPoint, element.EndPoint);
 
                 TransformCoordinatesForGrid(points, g_schema.ActualHeight);
 
@@ -242,6 +272,7 @@ namespace LSTK.Frame
                     StrokeThickness = 5,
                     Data = pg
                 };
+                _schemaElements.Add((element.Id, pgObject));
                 pgObject.MouseDown += Path_MouseDown;
                 g_schema.Children.Add(pgObject);
             }

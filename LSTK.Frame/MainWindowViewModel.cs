@@ -54,7 +54,7 @@ namespace LSTK.Frame
 
         public List<int> SelectedElements = new List<int>();
 
-        public List<(Point, Point)> SchemaPoints { get; set; } = new List<(Point, Point)>();
+        //public List<(Point, Point)> SchemaPoints { get; set; } = new List<(Point, Point)>();
 
         public List<SchemaElement> SchemaElements { get; set; } = new List<SchemaElement>();
 

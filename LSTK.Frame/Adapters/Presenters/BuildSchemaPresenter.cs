@@ -15,25 +15,50 @@ namespace LSTK.Frame.Adapters.Presenters
         {
             _mainWindowViewModel = mainWindowViewModel;
         }
-
-        public void TransferSchema(List<ElementData> elementDatas, double coordXmax, double coordYmax, double yOffset)
+        public void TransferSchema(BuiltSchemaData builtSchemaData)
         {
-            _mainWindowViewModel.SchemaPoints.Clear();
-            _mainWindowViewModel.FrameWidthForSchema = coordXmax;
-            _mainWindowViewModel.FrameHeightForSchema = coordYmax;
-            _mainWindowViewModel.YoffsetSchema = yOffset;
+            _mainWindowViewModel.SchemaElements.Clear();
+            _mainWindowViewModel.FrameWidthForSchema = builtSchemaData.CoordXmax;
+            _mainWindowViewModel.FrameHeightForSchema = builtSchemaData.CoordYmax;
+            _mainWindowViewModel.YoffsetSchema = builtSchemaData.Yoffset;
 
-            foreach (var elemData in elementDatas.Where(x => !x.ElementGroupType.Equals(ElementGroupType.Column)))
+            foreach (var elemData in builtSchemaData.ElementDatas.Where(x => !x.ElementGroupType.Equals(ElementGroupType.Column)))
             {
-                var coord = (new Point() { X = elemData.StartPoint.X, Y = elemData.StartPoint.Y, Z = elemData.StartPoint.Z },
-                    new Point() { X = elemData.EndPoint.X, Y = elemData.EndPoint.Y, Z = elemData.EndPoint.Z });
-                _mainWindowViewModel.SchemaPoints.Add(coord);
+                //var coord = (new Point() { X = elemData.StartPoint.X, Y = elemData.StartPoint.Y, Z = elemData.StartPoint.Z },
+                //    new Point() { X = elemData.EndPoint.X, Y = elemData.EndPoint.Y, Z = elemData.EndPoint.Z });
+                SchemaElement schemaElement = new SchemaElement()
+                {
+                    StartPoint = new Point() { X = elemData.StartPoint.X, Y = elemData.StartPoint.Y, Z = elemData.StartPoint.Z },
+                    EndPoint = new Point() { X = elemData.EndPoint.X, Y = elemData.EndPoint.Y, Z = elemData.EndPoint.Z },
+                    Id = elemData.Id
+                };
+
+                _mainWindowViewModel.SchemaElements.Add(schemaElement);
             }
 
-            string prototypes = JsonConvert.SerializeObject(elementDatas);
+            string prototypes = JsonConvert.SerializeObject(builtSchemaData.ElementDatas);
 
             _mainWindowViewModel.ElementPrototypes = prototypes;
             _mainWindowViewModel.OnDrawSchema?.Invoke(this, new EventArgs());
         }
+        //public void TransferSchema(List<ElementData> elementDatas, double coordXmax, double coordYmax, double yOffset)
+        //{
+        //    _mainWindowViewModel.SchemaPoints.Clear();
+        //    _mainWindowViewModel.FrameWidthForSchema = coordXmax;
+        //    _mainWindowViewModel.FrameHeightForSchema = coordYmax;
+        //    _mainWindowViewModel.YoffsetSchema = yOffset;
+
+        //    foreach (var elemData in elementDatas.Where(x => !x.ElementGroupType.Equals(ElementGroupType.Column)))
+        //    {
+        //        var coord = (new Point() { X = elemData.StartPoint.X, Y = elemData.StartPoint.Y, Z = elemData.StartPoint.Z },
+        //            new Point() { X = elemData.EndPoint.X, Y = elemData.EndPoint.Y, Z = elemData.EndPoint.Z });
+        //        _mainWindowViewModel.SchemaPoints.Add(coord);
+        //    }
+
+        //    string prototypes = JsonConvert.SerializeObject(elementDatas);
+
+        //    _mainWindowViewModel.ElementPrototypes = prototypes;
+        //    _mainWindowViewModel.OnDrawSchema?.Invoke(this, new EventArgs());
+        //}
     }
 }
