@@ -9,6 +9,7 @@ namespace LSTK.Frame.BusinessRules.UseCases
     public class AttributeSetManager : IAttributeSetter
     {
         private readonly IDataAccess _dataAccess;
+        List<ElementData> elementDatas1;
         public AttributeSetManager(IDataAccess dataAccess)
         {
             _dataAccess = dataAccess;
@@ -17,16 +18,18 @@ namespace LSTK.Frame.BusinessRules.UseCases
         {
             try
             {
+                elementDatas1 = _dataAccess.GetElementDatas();
                 List<ElementData> elementDatas = new List<ElementData>();
                 foreach (int id in elementIds)
                 {
                     ElementData elementData = _dataAccess.GetElementData(id);
-                    if(elementData == null || !SetAttributes(elementData, attributeGroup))
+
+                    if(elementData == null || !SetAttributes(elementData, attributeGroup) || !_dataAccess.UpdateElementData(elementData))
                     {
                         return false;
                     }
                 }
-
+                elementDatas1 = _dataAccess.GetElementDatas();
                 return true;
             }
             catch
@@ -34,6 +37,27 @@ namespace LSTK.Frame.BusinessRules.UseCases
                 return false;
             }
         }
+        //public bool SetAttributesToElements(List<int> elementIds, AttributeGroup attributeGroup)
+        //{
+        //    try
+        //    {
+        //        List<ElementData> elementDatas = new List<ElementData>();
+        //        foreach (int id in elementIds)
+        //        {
+        //            ElementData elementData = _dataAccess.GetElementData(id);
+        //            if (elementData == null || !SetAttributes(elementData, attributeGroup))
+        //            {
+        //                return false;
+        //            }
+        //        }
+
+        //        return true;
+        //    }
+        //    catch
+        //    {
+        //        return false;
+        //    }
+        //}
         private bool SetAttributes(ElementData elementData, AttributeGroup attributeGroup)
         {
             try
@@ -51,6 +75,29 @@ namespace LSTK.Frame.BusinessRules.UseCases
             {
                 return false;
             }
+        }
+        private ElementData CreateElement(AttributeGroup attributeGroup)
+        {
+            ElementData result = null;
+            try
+            {
+                result = new ElementData()
+                {
+                    PartName = attributeGroup.PartName,
+                    Profile = attributeGroup.Profile,
+                    Material = attributeGroup.Material,
+                    Class = attributeGroup.Class,
+                    RotationPosition = attributeGroup.RotationPosition,
+                    PlanePosition = attributeGroup.PlanePosition,
+                    DepthPosition = attributeGroup.DepthPosition
+                };
+
+            }
+            catch
+            {
+                //TODO: Logging
+            }
+            return result;
         }
     }
 }

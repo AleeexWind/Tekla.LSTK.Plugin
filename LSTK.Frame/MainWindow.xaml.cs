@@ -187,12 +187,17 @@ namespace LSTK.Frame
             Path pgObject = sender as Path;
             pgObject.Stroke = new SolidColorBrush(Colors.Red);
 
-            //To do: implement element id selection
-            int elemId = 0;
-
             int selElemId = _schemaElements.FirstOrDefault(x => x.Item2.Equals(pgObject)).Item1;
 
-            _selectedElements.Add(elemId);
+            if(_selectedElements.Contains(selElemId))
+            {
+                _selectedElements.Remove(selElemId);
+                pgObject.Stroke = new SolidColorBrush(Colors.Blue);
+            }
+            else
+            {
+                _selectedElements.Add(selElemId);
+            }
         }
 
         private void b_schema_Click(object sender, RoutedEventArgs e)
@@ -215,16 +220,27 @@ namespace LSTK.Frame
         }
         private void b_acceptAttribute_Click(object sender, RoutedEventArgs e)
         {
-            foreach (var item in g_schema.Children)
-            {
-                Path pgObject = item as Path;
-                pgObject.Stroke = new SolidColorBrush(Colors.Blue);
-            }
-            List<int> ids = new List<int>();
-            ids.AddRange(_selectedElements);
-            dataModel.OnSchemaAttributeSet?.Invoke(this, ids);
+            _attributeSetRequestModel.ElementIds = _selectedElements;
+            _attributeSetRequestModel.PartName = tb_PartName_Group.Text;
+            _attributeSetRequestModel.Profile = tb_Profile_Group.Text;
+            _attributeSetRequestModel.Material = tb_Material_Group.Text;
+            _attributeSetRequestModel.Class = tb_Class_Group.Text;
+
+            _attributeSetRequestModel.OnSendingRequest?.Invoke(this, new EventArgs());
             _selectedElements.Clear();
         }
+        //private void b_acceptAttribute_Click(object sender, RoutedEventArgs e)
+        //{
+        //    foreach (var item in g_schema.Children)
+        //    {
+        //        Path pgObject = item as Path;
+        //        pgObject.Stroke = new SolidColorBrush(Colors.Blue);
+        //    }
+        //    List<int> ids = new List<int>();
+        //    ids.AddRange(_selectedElements);
+        //    dataModel.OnSchemaAttributeSet?.Invoke(this, ids);
+        //    _selectedElements.Clear();
+        //}
 
         //private void DrawSchemaOld(object sender, EventArgs e)
         //{

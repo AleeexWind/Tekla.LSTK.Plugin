@@ -28,12 +28,66 @@ namespace LSTK.Frame.Adapters.Gateways
 
         public ElementData GetElementData(int elementDataId)
         {
-            return DataBase.SchemaElements.FirstOrDefault(x => x.Id.Equals(elementDataId));
+            ElementData result = null;
+            ElementData foundElement = DataBase.SchemaElements.FirstOrDefault(x => x.Id.Equals(elementDataId));
+            if(foundElement != null)
+            {
+                result = CloneElementData(foundElement);
+            }
+            return result;
         }
 
         public List<ElementData> GetElementDatas()
         {
             return DataBase.SchemaElements;
+        }
+
+        public bool UpdateElementData(ElementData elementData)
+        {
+            ElementData foundElement = DataBase.SchemaElements.FirstOrDefault(x => x.Id.Equals(elementData.Id));
+            if(foundElement != null)
+            {
+                foundElement.Id = elementData.Id;
+                foundElement.ElementGroupType = elementData.ElementGroupType;
+                foundElement.ElementSideType = elementData.ElementSideType;
+                foundElement.StartPoint = elementData.StartPoint;
+                foundElement.EndPoint = elementData.EndPoint;
+                foundElement.Profile = elementData.Profile;
+                foundElement.ProfileHeight = elementData.ProfileHeight;
+                foundElement.PartName = elementData.PartName;
+                foundElement.Material = elementData.Material;
+                foundElement.Class = elementData.Class;
+                foundElement.RotationPosition = elementData.RotationPosition;
+                foundElement.PlanePosition = elementData.PlanePosition;
+                foundElement.DepthPosition = elementData.DepthPosition;
+                foundElement.AttributeGroupId = elementData.AttributeGroupId;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        private ElementData CloneElementData(ElementData elementData)
+        {
+            ElementData clonedElement = new ElementData()
+            {
+                Id = elementData.Id,
+                ElementGroupType = elementData.ElementGroupType,
+                ElementSideType = elementData.ElementSideType,
+                StartPoint = elementData.StartPoint,
+                EndPoint = elementData.EndPoint,
+                Profile = elementData.Profile,
+                ProfileHeight = elementData.ProfileHeight,
+                PartName = elementData.PartName,
+                Material = elementData.Material,
+                Class = elementData.Class,
+                RotationPosition = elementData.RotationPosition,
+                PlanePosition = elementData.PlanePosition,
+                DepthPosition = elementData.DepthPosition,
+                AttributeGroupId = elementData.AttributeGroupId
+            };
+            return clonedElement;
         }
     }
 }

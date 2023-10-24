@@ -10,5 +10,6 @@ namespace LSTK.Frame.BusinessRules.Gateways
         AttributeGroup GetAttributeGroup(int attributeGroupId);
         bool AddElementData(ElementData elementData);
         List<ElementData> GetElementDatas();
+        bool UpdateElementData(ElementData elementData);
     }
 }

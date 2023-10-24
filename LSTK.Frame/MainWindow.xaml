@@ -168,7 +168,7 @@
                     x:Name="tb_Class_Group"
                     Width="120"
                     Height="23"
-                    Text="{Binding ClassGroup, Mode=TwoWay}"/>
+                    Text="{Binding ClassGroup, Mode=TwoWay}" Margin="0,4,0,0" VerticalAlignment="Top"/>
             </StackPanel>
 
 
