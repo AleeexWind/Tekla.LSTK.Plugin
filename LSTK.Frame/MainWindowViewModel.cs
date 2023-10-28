@@ -1,11 +1,4 @@
-﻿using LSTK.Frame.Adapters.Controllers;
-using LSTK.Frame.Adapters.Presenters;
-using LSTK.Frame.BusinessRules.DataBoundaries;
-using LSTK.Frame.BusinessRules.Models;
-using LSTK.Frame.BusinessRules.UseCases;
-using LSTK.Frame.BusinessRules.UseCases.Calculators;
-using LSTK.Frame.BusinessRules.UseCases.Calculators.SchemaCalculators;
-using LSTK.Frame.Entities;
+﻿using LSTK.Frame.BusinessRules.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,45 +9,38 @@ namespace LSTK.Frame
 {
     public class MainWindowViewModel : INotifyPropertyChanged
     {
-        public EventHandler OnBuildSchema;
-        public EventHandler OnDrawSchema;
-        public EventHandler<List<int>> OnSchemaAttributeSet;
-        public EventHandler OnViewUpdate;
-        private string partNameColumns = string.Empty;
-        private string profileColumns = string.Empty;
-        private string materialColumns = string.Empty;
-        private string classColumns = string.Empty;
+        public EventHandler OnBuildSchema { get; set; }
+        public EventHandler OnDrawSchema { get; set; }
+
+        public EventHandler<List<int>> OnSchemaAttributeSet { get; set; }
+        public EventHandler OnViewUpdate { get; set; }
+
+        private string frameOption;
+        private string bay = string.Empty;
         private string heightColumns = string.Empty;
 
-        private string partNameTopChord = string.Empty;
-        private string profileTopChord = string.Empty;
-        private string materialTopChord = string.Empty;
-        private string classTopChord = string.Empty;
         private string heightRoofRidge = string.Empty;
-
-        private string partNameBottomChord = string.Empty;
-        private string profileBottomChord = string.Empty;
-        private string materialBottomChord = string.Empty;
-        private string classBottomChord = string.Empty;
         private string heightRoofBottom = string.Empty;
+        private string panels = string.Empty;
 
         private string partNameGroup = string.Empty;
         private string profileGroup = string.Empty;
         private string materialGroup = string.Empty;
         private string classGroup = string.Empty;
 
-        private string bay = string.Empty;     
-        private string frameOption;
         private string topChordLineOption;
+        private string bottomChordLineOption;
         private string columnLineOption;
-        private string panels = string.Empty;
+        private string centralColumnLineOption;
+        private string doubleProfileOption;
+        private string profileGap = string.Empty;
 
         private string attributeGroups = string.Empty;
         private string elementPrototypes = string.Empty;
 
-        public List<int> SelectedElements = new List<int>();
+        public bool ToBeBuilt { get; set; }
 
-        //public List<(Point, Point)> SchemaPoints { get; set; } = new List<(Point, Point)>();
+        public List<int> SelectedElements = new List<int>();
 
         public List<SchemaElement> SchemaElements { get; set; } = new List<SchemaElement>();
 
@@ -62,30 +48,6 @@ namespace LSTK.Frame
         public double FrameHeightForSchema { get; set; }
         public double YoffsetSchema { get; set; }
 
-        [StructuresDialog("partNameColumns", typeof(TD.String))]
-        public string PartNameColumns
-        {
-            get { return partNameColumns; }
-            set { partNameColumns = value; OnPropertyChanged("PartNameColumns"); }
-        }
-        [StructuresDialog("profileColumns", typeof(TD.String))]
-        public string ProfileColumns
-        {
-            get { return profileColumns; }
-            set { profileColumns = value; OnPropertyChanged("ProfileColumns"); }
-        }
-        [StructuresDialog("materialColumns", typeof(TD.String))]
-        public string MaterialColumns
-        {
-            get { return materialColumns; }
-            set { materialColumns = value; OnPropertyChanged("MaterialColumns"); }
-        }
-        [StructuresDialog("classColumns", typeof(TD.String))]
-        public string ClassColumns
-        {
-            get { return classColumns; }
-            set { classColumns = value; OnPropertyChanged("ClassColumns"); }
-        }
         [StructuresDialog("heightColumns", typeof(TD.String))]
         public string HeightColumns
         {
@@ -93,33 +55,6 @@ namespace LSTK.Frame
             set { heightColumns = value; OnPropertyChanged("HeightColumns"); }
         }
 
-
-
-        [StructuresDialog("partNameTopChord", typeof(TD.String))]
-        public string PartNameTopChord
-        {
-            get { return partNameTopChord; }
-            set { partNameTopChord = value; OnPropertyChanged("PartNameTopChord"); }
-        }
-
-        [StructuresDialog("profileTopChord", typeof(TD.String))]
-        public string ProfileTopChord
-        {
-            get { return profileTopChord; }
-            set { profileTopChord = value; OnPropertyChanged("ProfileTopChord"); }
-        }
-        [StructuresDialog("materialTopChord", typeof(TD.String))]
-        public string MaterialTopChord
-        {
-            get { return materialTopChord; }
-            set { materialTopChord = value; OnPropertyChanged("MaterialTopChord"); }
-        }
-        [StructuresDialog("classTopChord", typeof(TD.String))]
-        public string ClassTopChord
-        {
-            get { return classTopChord; }
-            set { classTopChord = value; OnPropertyChanged("ClassTopChord"); }
-        }
         [StructuresDialog("heightRoofRidge", typeof(TD.String))]
         public string HeightRoofRidge
         {
@@ -127,41 +62,12 @@ namespace LSTK.Frame
             set { heightRoofRidge = value; OnPropertyChanged("HeightRoofRidge"); }
         }
 
-
-
-
-        [StructuresDialog("partNameBottomChord", typeof(TD.String))]
-        public string PartNameBottomChord
-        {
-            get { return partNameBottomChord; }
-            set { partNameBottomChord = value; OnPropertyChanged("PartNameBottomChord"); }
-        }
-
-        [StructuresDialog("profileBottomChord", typeof(TD.String))]
-        public string ProfileBottomChord
-        {
-            get { return profileBottomChord; }
-            set { profileBottomChord = value; OnPropertyChanged("ProfileBottomChord"); }
-        }
-        [StructuresDialog("materialBottomChord", typeof(TD.String))]
-        public string MaterialBottomChord
-        {
-            get { return materialBottomChord; }
-            set { materialBottomChord = value; OnPropertyChanged("MaterialBottomChord"); }
-        }
-        [StructuresDialog("classBottomChord", typeof(TD.String))]
-        public string ClassBottomChord
-        {
-            get { return classBottomChord; }
-            set { classBottomChord = value; OnPropertyChanged("ClassBottomChord"); }
-        }
         [StructuresDialog("heightRoofBottom", typeof(TD.String))]
         public string HeightRoofBottom
         {
             get { return heightRoofBottom; }
             set { heightRoofBottom = value; OnPropertyChanged("HeightRoofBottom"); }
         }
-
 
         [StructuresDialog("partNameGroup", typeof(TD.String))]
         public string PartNameGroup
@@ -189,7 +95,6 @@ namespace LSTK.Frame
             set { classGroup = value; OnPropertyChanged("ClassGroup"); }
         }
 
-
         [StructuresDialog("bay", typeof(TD.String))]
         public string Bay
         {
@@ -213,10 +118,22 @@ namespace LSTK.Frame
             get { return topChordLineOption; }
             set { topChordLineOption = value; OnPropertyChanged("TopChordLineOption"); }
         }
+        [StructuresDialog("bottomChordLineOption", typeof(TD.String))]
+        public string BottomChordLineOption
+        {
+            get { return bottomChordLineOption; }
+            set { bottomChordLineOption = value; OnPropertyChanged("BottomChordLineOption"); }
+        }
         public List<string> TopChordLineOptionList { get; set; } = new List<string>()
         {
             "Center",
             "Below"
+        };
+        public List<string> BottomChordLineOptionList { get; set; } = new List<string>()
+        {
+            "Center",
+            "Below",
+            "Above"
         };
         [StructuresDialog("columnLineOption", typeof(TD.String))]
         public string ColumnLineOption
@@ -229,6 +146,37 @@ namespace LSTK.Frame
             "Center",
             "Inside"
         };
+        [StructuresDialog("centralColumnLineOption", typeof(TD.String))]
+        public string CentralColumnLineOption
+        {
+            get { return centralColumnLineOption; }
+            set { centralColumnLineOption = value; OnPropertyChanged("centralColumnLineOption"); }
+        }
+        public List<string> CentralColumnLineOptionList { get; set; } = new List<string>()
+        {
+            "Center",
+            "Inside"
+        };
+
+        [StructuresDialog("doubleProfileOption", typeof(TD.String))]
+        public string DoubleProfileOption
+        {
+            get { return doubleProfileOption; }
+            set { doubleProfileOption = value; OnPropertyChanged("doubleProfileOption"); }
+        }
+        public List<string> DoubleProfileOptionList { get; set; } = new List<string>()
+        {
+            "Yes",
+            "No"
+        };
+
+        [StructuresDialog("profileGap", typeof(TD.String))]
+        public string ProfileGap
+        {
+            get { return profileGap; }
+            set { profileGap = value; OnPropertyChanged("ProfileGap"); }
+        }
+
         [StructuresDialog("panels", typeof(TD.String))]
         public string Panels
         {
@@ -258,20 +206,5 @@ namespace LSTK.Frame
                 handler(this, new PropertyChangedEventArgs(name));
             }
         }
-
-
-        private ISchemaBuilder _firstSchemaInputBoundary;
-        //public MainWindowViewModel()
-        //{
-        //    IBuildSchemaResponse firstSchemaOutputBoundary = new BuildSchemaPresenter(this);
-        //    List<IDataCalculator> calculators = new List<IDataCalculator>()
-        //        {
-        //            new TopChordSchemaCalculator(),
-        //            new BottomChordSchemaCalculator(),
-        //            new TrussPostsSchemaCalculator(),
-        //        };
-        //    _firstSchemaInputBoundary = new SchemaCreateManager(calculators, firstSchemaOutputBoundary);
-        //    BuildSchemaController buildSchemaController = new BuildSchemaController(_firstSchemaInputBoundary, this);
-        //}
     }
 }

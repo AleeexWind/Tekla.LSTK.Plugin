@@ -29,6 +29,8 @@ namespace LSTK.Frame
         private AttributeSetRequestModel _attributeSetRequestModel;
         private AttributeGetRequestModel _attributeGetRequestModel;
         private BuildSchemaRequestModel _buildSchemaRequestModel;
+        private FrameReceiverRequestModel _frameReceiverRequestModel;
+
 
         private List<(int, Path)> _schemaElements = new List<(int, Path)>();
         private List<int> _selectedElements = new List<int>();
@@ -40,6 +42,7 @@ namespace LSTK.Frame
             dataModel = DataModel;
             OnInitialization();
             dataModel.OnDrawSchema += DrawSchema;
+            dataModel.OnBuildSchema += TryToBuildFrame;
         }
         private void OnInitialization()
         {
@@ -76,6 +79,11 @@ namespace LSTK.Frame
             IAttributeGetResponse attributeGetResponse = new AttributePresenter(dataModel);
 
             AttributeGetController attributeGetController = new AttributeGetController(attributeGetter, attributeGetResponse, _attributeGetRequestModel);
+
+            _frameReceiverRequestModel = new FrameReceiverRequestModel();
+            IFrameReceiverResponse frameReceiverResponse = new FrameReceiverPresenter(dataModel);
+            IFrameReceiver frameReceiver = new FrameReceiver(frameReceiverResponse, dataAccess);
+            FrameReceiverController frameReceiverController = new FrameReceiverController(frameReceiver, _frameReceiverRequestModel);
         }
 
         private void WPFOkApplyModifyGetOnOffCancel_ApplyClicked(object sender, EventArgs e)
@@ -98,8 +106,7 @@ namespace LSTK.Frame
         }
         private void WPFOkApplyModifyGetOnOffCancel_OkClicked(object sender, EventArgs e)
         {
-            this.Apply();
-            this.Close();
+            _frameReceiverRequestModel.OnSendingRequest?.Invoke(this, new EventArgs());
         }
 
         private void WPFOkApplyModifyGetOnOffCancel_OnOffClicked(object sender, EventArgs e)
@@ -107,63 +114,6 @@ namespace LSTK.Frame
             this.ToggleSelection();
         }
 
-
-
-
-        private void WpfProfileCatalogColumns_SelectClicked(object sender, EventArgs e)
-        {
-            this.profileCatalogColumns.SelectedProfile = this.dataModel.ProfileColumns;
-        }
-        private void WpfProfileCatalogColumns_SelectionDone(object sender, EventArgs e)
-        {
-            this.dataModel.ProfileColumns = this.profileCatalogColumns.SelectedProfile;
-        }
-        private void WpfMaterialCatalogColumns_SelectClicked(object sender, EventArgs e)
-        {
-            this.materialCatalogColumns.SelectedMaterial = this.dataModel.MaterialColumns;
-        }
-        private void WpfMaterialCatalogColumns_SelectionDone(object sender, EventArgs e)
-        {
-            this.dataModel.MaterialColumns = this.materialCatalogColumns.SelectedMaterial;
-        }
-
-
-
-
-        private void profileCatalogTopChord_SelectClicked(object sender, EventArgs e)
-        {
-            this.profileCatalogTopChord.SelectedProfile = this.dataModel.ProfileTopChord;
-        }
-        private void profileCatalogTopChord_SelectionDone(object sender, EventArgs e)
-        {
-            this.dataModel.ProfileTopChord = this.profileCatalogTopChord.SelectedProfile;
-        }
-        private void WpfMaterialCatalogTopChord_SelectClicked(object sender, EventArgs e)
-        {
-            this.materialCatalogTopChord.SelectedMaterial = this.dataModel.MaterialTopChord;
-        }
-        private void WpfMaterialCatalogTopChord_SelectionDone(object sender, EventArgs e)
-        {
-            this.dataModel.MaterialTopChord = this.materialCatalogTopChord.SelectedMaterial;
-        }
-
-
-        private void profileCatalogBottomChord_SelectClicked(object sender, EventArgs e)
-        {
-            this.profileCatalogBottomChord.SelectedProfile = this.dataModel.ProfileBottomChord;
-        }
-        private void profileCatalogBottomChord_SelectionDone(object sender, EventArgs e)
-        {
-            this.dataModel.ProfileBottomChord = this.profileCatalogBottomChord.SelectedProfile;
-        }
-        private void WpfMaterialCatalogBottomChord_SelectClicked(object sender, EventArgs e)
-        {
-            this.materialCatalogBottomChord.SelectedMaterial = this.dataModel.MaterialBottomChord;
-        }
-        private void WpfMaterialCatalogBottomChord_SelectionDone(object sender, EventArgs e)
-        {
-            this.dataModel.MaterialBottomChord = this.materialCatalogBottomChord.SelectedMaterial;
-        }
 
         private void profileCatalogGroup_SelectClicked(object sender, EventArgs e)
         {
@@ -229,44 +179,7 @@ namespace LSTK.Frame
             _attributeSetRequestModel.OnSendingRequest?.Invoke(this, new EventArgs());
             _selectedElements.Clear();
         }
-        //private void b_acceptAttribute_Click(object sender, RoutedEventArgs e)
-        //{
-        //    foreach (var item in g_schema.Children)
-        //    {
-        //        Path pgObject = item as Path;
-        //        pgObject.Stroke = new SolidColorBrush(Colors.Blue);
-        //    }
-        //    List<int> ids = new List<int>();
-        //    ids.AddRange(_selectedElements);
-        //    dataModel.OnSchemaAttributeSet?.Invoke(this, ids);
-        //    _selectedElements.Clear();
-        //}
 
-        //private void DrawSchemaOld(object sender, EventArgs e)
-        //{
-        //    foreach (var points in dataModel.SchemaPoints)
-        //    {
-        //        string _brushColor = "Blue";
-        //        SolidColorBrush brushColor = (SolidColorBrush)new BrushConverter().ConvertFromString(_brushColor);
-
-        //        TransformCoordinatesForGrid(points, g_schema.ActualHeight);
-
-        //        System.Windows.Point startPoint = new System.Windows.Point() { X = points.Item1.X, Y = points.Item1.Y };
-        //        System.Windows.Point endPoint = new System.Windows.Point() { X = points.Item2.X, Y = points.Item2.Y };
-
-        //        LineGeometry pg = new LineGeometry(startPoint, endPoint);
-        //        Path pgObject = new Path
-        //        {
-        //            Stroke = brushColor,
-        //            StrokeThickness = 5,
-        //            Data = pg
-        //        };
-        //        pgObject.MouseDown += Path_MouseDown;
-        //        g_schema.Children.Add(pgObject);
-        //    }
-        //    tb_ElementPrototypes.Text = dataModel.ElementPrototypes;
-        //    List<ElementData> el = DataBase.SchemaElements;
-        //}
         private void DrawSchema(object sender, EventArgs e)
         {
             foreach (var element in dataModel.SchemaElements)
@@ -295,7 +208,18 @@ namespace LSTK.Frame
             tb_ElementPrototypes.Text = dataModel.ElementPrototypes;
             List<ElementData> el = DataBase.SchemaElements;
         }
-
+        private void TryToBuildFrame(object sender, EventArgs e)
+        {
+            if(dataModel.ToBeBuilt)
+            {
+                this.Apply();
+                this.Close();
+            }
+            else
+            {
+                // To display the message about not valid schema or attributes
+            }
+        }
         private double GetSchemaScaleX()
         {
             return g_schema.ActualWidth  * 0.98 / dataModel.FrameWidthForSchema;

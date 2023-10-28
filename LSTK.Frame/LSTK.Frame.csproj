@@ -81,7 +81,10 @@
     <Compile Include="Adapters\Controllers\AttributeSetController.cs" />
     <Compile Include="Adapters\Controllers\BuildSchemaController.cs" />
     <Compile Include="Adapters\Controllers\FrameBuildController.cs" />
+    <Compile Include="Adapters\Controllers\FrameReceiverController.cs" />
     <Compile Include="Adapters\Controllers\Models\BuildSchemaRequestModel.cs" />
+    <Compile Include="Adapters\Controllers\Models\FrameReceiverRequestModel.cs" />
+    <Compile Include="Adapters\Presenters\FrameReceiverPresenter.cs" />
     <Compile Include="BusinessRules\DataBoundaries\IAttributeGetResponse.cs" />
     <Compile Include="Adapters\Controllers\Models\AttributeGetRequestModel.cs" />
     <Compile Include="Adapters\Controllers\Models\AttributeSetRequestModel.cs" />
@@ -93,6 +96,8 @@
     <Compile Include="BusinessRules\DataBoundaries\IAttributeGetter.cs" />
     <Compile Include="BusinessRules\DataBoundaries\IAttributeSetter.cs" />
     <Compile Include="BusinessRules\DataBoundaries\IBuildSchemaResponse.cs" />
+    <Compile Include="BusinessRules\DataBoundaries\IFrameReceiver.cs" />
+    <Compile Include="BusinessRules\DataBoundaries\IFrameReceiverResponse.cs" />
     <Compile Include="BusinessRules\DataBoundaries\ISchemaBuilder.cs" />
     <Compile Include="BusinessRules\DataBoundaries\IFrameBuilder.cs" />
     <Compile Include="BusinessRules\DataBoundaries\IFrameDataInputBoundary.cs" />
@@ -104,6 +109,7 @@
     <Compile Include="BusinessRules\Models\FrameData.cs" />
     <Compile Include="BusinessRules\UseCases\Calculators\FrameCalculators\ColumnsDataCalculator.cs" />
     <Compile Include="BusinessRules\UseCases\Calculators\SchemaCalculators\TrussPostsSchemaCalculator.cs" />
+    <Compile Include="BusinessRules\UseCases\FrameReceiver.cs" />
     <Compile Include="Entities\AttributeGroup.cs" />
     <Compile Include="BusinessRules\Models\ElementGroupType.cs" />
     <Compile Include="BusinessRules\Models\ElementDataPrototype.cs" />

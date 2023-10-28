@@ -82,7 +82,7 @@ namespace LSTK.Frame.BusinessRules.UseCases
 
             foreach (var elem in frameData.Elements)
             {
-                SetAttributesTemp(elem);
+                //SetAttributesTemp(elem);
                 res = _targetAppAccess.CreatePart(elem);
                 if (!res) return res;
             }

@@ -239,5 +239,14 @@ namespace LSTK.Frame
 
         [StructuresField("elementPrototypes")]
         public string ElementPrototypes;
+
+        [StructuresField("topChordLineOption")]
+        public string TopChordLineOption;
+        [StructuresField("bottomChordLineOption")]
+        public string BottomChordLineOption;
+        [StructuresField("columnLineOption")]
+        public string ColumnLineOption;
+        [StructuresField("centralColumnLineOption")]
+        public string CentralColumnLineOption;
     }
 }
