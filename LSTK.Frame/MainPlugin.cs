@@ -25,7 +25,6 @@ namespace LSTK.Frame
             _data = data;
         }
 
-
         public override List<InputDefinition> DefineInput()
         {
             TeklaPointSelector teklaPointSelector = new TeklaPointSelector();
