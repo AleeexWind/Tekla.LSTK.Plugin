@@ -241,11 +241,11 @@ namespace LSTK.Frame
 
         [StructuresField("topChordLineOption")]
         public string TopChordLineOption;
-        [StructuresField("bottomChordLineOption")]
+        [StructuresField("bottomChordLineOpt")]
         public string BottomChordLineOption;
         [StructuresField("columnLineOption")]
         public string ColumnLineOption;
-        [StructuresField("centralColumnLineOption")]
+        [StructuresField("centerColumnLineOpt")]
         public string CentralColumnLineOption;
     }
 }

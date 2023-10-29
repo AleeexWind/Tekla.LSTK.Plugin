@@ -118,7 +118,7 @@ namespace LSTK.Frame
             get { return topChordLineOption; }
             set { topChordLineOption = value; OnPropertyChanged("TopChordLineOption"); }
         }
-        [StructuresDialog("bottomChordLineOption", typeof(TD.String))]
+        [StructuresDialog("bottomChordLineOpt", typeof(TD.String))]
         public string BottomChordLineOption
         {
             get { return bottomChordLineOption; }
@@ -146,7 +146,7 @@ namespace LSTK.Frame
             "Center",
             "Inside"
         };
-        [StructuresDialog("centralColumnLineOption", typeof(TD.String))]
+        [StructuresDialog("centerColumnLineOpt", typeof(TD.String))]
         public string CentralColumnLineOption
         {
             get { return centralColumnLineOption; }
@@ -184,12 +184,6 @@ namespace LSTK.Frame
             set { panels = value; OnPropertyChanged("Panels"); }
         }
 
-        [StructuresDialog("attributeGroups", typeof(TD.String))]
-        public string AttributeGroups
-        {
-            get { return attributeGroups; }
-            set { attributeGroups = value; OnPropertyChanged("AttributeGroups"); }
-        }
         [StructuresDialog("elementPrototypes", typeof(TD.String))]
         public string ElementPrototypes
         {

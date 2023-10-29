@@ -22,7 +22,7 @@ namespace LSTK.Frame.Adapters.Presenters
             _mainWindowViewModel.FrameHeightForSchema = builtSchemaData.CoordYmax;
             _mainWindowViewModel.YoffsetSchema = builtSchemaData.Yoffset;
 
-            foreach (var elemData in builtSchemaData.ElementDatas.Where(x => !x.ElementGroupType.Equals(ElementGroupType.Column)))
+            foreach (var elemData in builtSchemaData.ElementDatas)
             {
                 //var coord = (new Point() { X = elemData.StartPoint.X, Y = elemData.StartPoint.Y, Z = elemData.StartPoint.Z },
                 //    new Point() { X = elemData.EndPoint.X, Y = elemData.EndPoint.Y, Z = elemData.EndPoint.Z });
