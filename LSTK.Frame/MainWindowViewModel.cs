@@ -11,6 +11,7 @@ namespace LSTK.Frame
     {
         public EventHandler OnBuildSchema { get; set; }
         public EventHandler OnDrawSchema { get; set; }
+        public EventHandler OnAttributeGet { get; set; }
 
         public EventHandler<List<int>> OnSchemaAttributeSet { get; set; }
         public EventHandler OnViewUpdate { get; set; }

@@ -8,6 +8,23 @@ namespace LSTK.Frame.Adapters.Gateways
 {
     public class DataHandler : IDataAccess
     {
+        private int _currentAttributeId;
+
+        public bool AddAttributeGroup(AttributeGroup attributeGroup)
+        {
+            try
+            {
+                attributeGroup.Id = _currentAttributeId;
+                DataBase.AttributeGroups.Add(attributeGroup);
+                _currentAttributeId++;
+                return true;
+            }
+            catch (System.Exception)
+            {
+                return false;
+            }
+        }
+
         public bool AddElementData(ElementData elementData)
         {
             try

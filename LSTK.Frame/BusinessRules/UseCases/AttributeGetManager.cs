@@ -24,7 +24,7 @@ namespace LSTK.Frame.BusinessRules.UseCases
             foreach (int id in elementIds)
             {
                 ElementData elementData = _dataAccess.GetElementData(id);
-                if (elementData == null)
+                if (elementData != null)
                 {
                     elementDatas.Add(elementData);
                 }

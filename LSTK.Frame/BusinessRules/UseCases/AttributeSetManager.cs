@@ -21,7 +21,8 @@ namespace LSTK.Frame.BusinessRules.UseCases
                 {
                     ElementData elementData = _dataAccess.GetElementData(id);
 
-                    if(elementData == null || !SetAttributes(elementData, attributeGroup) || !_dataAccess.UpdateElementData(elementData))
+                    if(elementData == null ||!_dataAccess.AddAttributeGroup(attributeGroup) || !SetAttributes(elementData, attributeGroup) || 
+                        !_dataAccess.UpdateElementData(elementData))
                     {
                         return false;
                     }
@@ -38,6 +39,7 @@ namespace LSTK.Frame.BusinessRules.UseCases
         {
             try
             {
+                elementData.AttributeGroupId = attributeGroup.Id;
                 elementData.PartName = attributeGroup.PartName;
                 elementData.Profile = attributeGroup.Profile;
                 elementData.Material = attributeGroup.Material;

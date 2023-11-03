@@ -43,6 +43,7 @@ namespace LSTK.Frame
             OnInitialization();
             dataModel.OnDrawSchema += DrawSchema;
             dataModel.OnBuildSchema += TryToBuildFrame;
+            dataModel.OnAttributeGet += ShowAttributes;
         }
         private void OnInitialization()
         {
@@ -177,7 +178,22 @@ namespace LSTK.Frame
             _attributeSetRequestModel.Class = tb_Class_Group.Text;
 
             _attributeSetRequestModel.OnSendingRequest?.Invoke(this, new EventArgs());
+
+            foreach (var elemId in _selectedElements)
+            {
+                var selPath = _schemaElements.FirstOrDefault(f => f.Item1.Equals(elemId));
+                if(selPath.Item2 != null)
+                {
+                    selPath.Item2.Stroke = new SolidColorBrush(Colors.Blue);
+                }
+            }
+
             _selectedElements.Clear();
+        }
+        private void b_getAttribute_Click(object sender, RoutedEventArgs e)
+        {
+            _attributeGetRequestModel.ElementIds = _selectedElements;
+            _attributeGetRequestModel.OnSendingRequest?.Invoke(this, new EventArgs());
         }
 
         private void DrawSchema(object sender, EventArgs e)
@@ -210,7 +226,19 @@ namespace LSTK.Frame
         }
         private void TryToBuildFrame(object sender, EventArgs e)
         {
-            if(dataModel.ToBeBuilt)
+            //if(dataModel.ToBeBuilt)
+            //{
+            //    this.Apply();
+            //    this.Close();
+            //}
+            //else
+            //{
+            //    // To display the message about not valid schema or attributes
+            //}
+        }
+        private void ShowAttributes(object sender, EventArgs e)
+        {
+            if (dataModel.ToBeBuilt)
             {
                 this.Apply();
                 this.Close();
