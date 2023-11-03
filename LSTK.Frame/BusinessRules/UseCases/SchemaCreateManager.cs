@@ -37,8 +37,9 @@ namespace LSTK.Frame.BusinessRules.UseCases
             {
                 ElementDatas = _elementsDatas,
                 CoordXmax = schemaInputData.Bay,
-                CoordYmax = schemaInputData.HeightRoofBottom + schemaInputData.HeightRoofRidge,
-                Yoffset = GetSchemaYoffset(schemaInputData)
+                //CoordYmax = schemaInputData.HeightRoofBottom + schemaInputData.HeightRoofRidge,
+                Yoffset = GetSchemaYoffset(schemaInputData),
+                CoordYmax = schemaInputData.HeightColumns + schemaInputData.HeightRoofRidge,
             };
 
             _schemaResponse.TransferSchema(builtSchemaData);
@@ -65,7 +66,7 @@ namespace LSTK.Frame.BusinessRules.UseCases
         {
             double columnHeight = schemaInputData.HeightColumns;
             double result = columnHeight - schemaInputData.HeightRoofBottom;
-
+            result = 0;
             return result;
         }
         private bool AddElementsToDB(List<ElementData> elements)

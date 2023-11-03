@@ -35,12 +35,11 @@ namespace LSTK.Frame
         private string doubleProfileOption;
         private string profileGap = string.Empty;
 
-        private string attributeGroups = string.Empty;
         private string elementPrototypes = string.Empty;
 
         public bool ToBeBuilt { get; set; }
 
-        public List<int> SelectedElements = new List<int>();
+        public List<int> SelectedElements { get; set; } = new List<int>();
 
         public List<SchemaElement> SchemaElements { get; set; } = new List<SchemaElement>();
 

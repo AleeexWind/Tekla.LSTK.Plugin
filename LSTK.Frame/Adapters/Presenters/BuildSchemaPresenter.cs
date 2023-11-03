@@ -24,6 +24,10 @@ namespace LSTK.Frame.Adapters.Presenters
 
             foreach (var elemData in builtSchemaData.ElementDatas)
             {
+                //if(!elemData.ElementGroupType.Equals(ElementGroupType.TrussPost))
+                //{
+                //    continue;
+                //}
                 //var coord = (new Point() { X = elemData.StartPoint.X, Y = elemData.StartPoint.Y, Z = elemData.StartPoint.Z },
                 //    new Point() { X = elemData.EndPoint.X, Y = elemData.EndPoint.Y, Z = elemData.EndPoint.Z });
                 SchemaElement schemaElement = new SchemaElement()

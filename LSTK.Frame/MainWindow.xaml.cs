@@ -240,44 +240,59 @@ namespace LSTK.Frame
             element.Item2.X = element.Item2.X * GetSchemaScaleX();
             element.Item2.Y = (element.Item2.Y - GetSchemaYoffset()) * GetSchemaScaleY();
 
-            if (element.Item1.Y == element.Item2.Y)
-            {
-                double Y = maxY * 0.98 - element.Item1.Y;
-                element.Item1.Y = Y;
-                element.Item2.Y = Y;
-            }
-            else if(element.Item1.X == element.Item2.X)
-            {
-                double Ystart = maxY * 0.98;
-                double Yend;
-                if (element.Item1.Y > element.Item2.Y)
-                {
-                    Yend = Ystart - element.Item1.Y - element.Item2.Y;
-                }
-                else
-                {
-                    Yend = Ystart - element.Item2.Y - element.Item1.Y;
-                }
-                element.Item1.Y = Ystart;
-                element.Item2.Y = Yend;
-            }
-            else
-            {
-                double Y1 = element.Item1.Y;
-                double Y2 = element.Item2.Y;
+            //if (element.Item1.Y == element.Item2.Y)
+            //{
+            //    double Y = maxY * 0.98 - element.Item1.Y;
+            //    element.Item1.Y = Y;
+            //    element.Item2.Y = Y;
+            //}
+            //else if(element.Item1.X == element.Item2.X && element.Item1.Y == 0.0)
+            //{
+            //    double Ystart = maxY * 0.98;
+            //    double Yend;
+            //    if (element.Item1.Y > element.Item2.Y)
+            //    {
+            //        Yend = Ystart - element.Item1.Y - element.Item2.Y;
+            //    }
+            //    else
+            //    {
+            //        Yend = Ystart - element.Item2.Y - element.Item1.Y;
+            //    }
+            //    element.Item1.Y = Ystart;
+            //    element.Item2.Y = Yend;
+            //}
+            //else if (element.Item1.X == element.Item2.X)
+            //{
+            //    double Ystart = maxY * 0.98;
+            //    double Yend;
+            //    if (element.Item1.Y > element.Item2.Y)
+            //    {
+            //        Yend = Ystart - element.Item1.Y - element.Item2.Y;
+            //    }
+            //    else
+            //    {
+            //        Yend = Ystart - element.Item2.Y - element.Item1.Y;
+            //    }
+            //    element.Item1.Y = Ystart;
+            //    element.Item2.Y = Yend;
+            //}
+            //else
+            //{
+            //    double Y1 = element.Item1.Y;
+            //    double Y2 = element.Item2.Y;
 
-                element.Item1.Y = Y2;
-                element.Item2.Y = Y1;
+            //    element.Item1.Y = Y2;
+            //    element.Item2.Y = Y1;
 
-                double minY = element.Item1.Y;
-                if(element.Item1.Y > element.Item2.Y)
-                {
-                    minY = element.Item2.Y;
-                }
+            //    double minY = element.Item1.Y;
+            //    if(element.Item1.Y > element.Item2.Y)
+            //    {
+            //        minY = element.Item2.Y;
+            //    }
 
-                element.Item1.Y = Y2 - minY;
-                element.Item2.Y = Y1 - minY;
-            }
+            //    element.Item1.Y = Y2 - minY;
+            //    element.Item2.Y = Y1 - minY;
+            //}
         }
     }
 }
