@@ -108,6 +108,7 @@ namespace LSTK.Frame
         private void WPFOkApplyModifyGetOnOffCancel_OkClicked(object sender, EventArgs e)
         {
             _frameReceiverRequestModel.OnSendingRequest?.Invoke(this, new EventArgs());
+            this.Close();
         }
 
         private void WPFOkApplyModifyGetOnOffCancel_OnOffClicked(object sender, EventArgs e)

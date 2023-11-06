@@ -17,11 +17,17 @@ namespace LSTK.Frame.BusinessRules.UseCases
             try
             {
                 List<ElementData> elementDatas = new List<ElementData>();
+
+                if(!_dataAccess.AddAttributeGroup(attributeGroup))
+                {
+                    return false;
+                }
+
                 foreach (int id in elementIds)
                 {
                     ElementData elementData = _dataAccess.GetElementData(id);
 
-                    if(elementData == null ||!_dataAccess.AddAttributeGroup(attributeGroup) || !SetAttributes(elementData, attributeGroup) || 
+                    if(elementData == null || !SetAttributes(elementData, attributeGroup) || 
                         !_dataAccess.UpdateElementData(elementData))
                     {
                         return false;
