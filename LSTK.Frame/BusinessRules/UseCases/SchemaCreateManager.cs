@@ -3,6 +3,7 @@ using LSTK.Frame.BusinessRules.Gateways;
 using LSTK.Frame.BusinessRules.Models;
 using LSTK.Frame.BusinessRules.UseCases.Calculators;
 using LSTK.Frame.Entities;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace LSTK.Frame.BusinessRules.UseCases
@@ -23,21 +24,29 @@ namespace LSTK.Frame.BusinessRules.UseCases
         }
         public void BuildSchema(SchemaInputData schemaInputData)
         {
-            _elementsDatas = new List<ElementData>();
-            foreach (IDataCalculator calc in _calculators)
+            if(!string.IsNullOrEmpty(schemaInputData.ExistedSchema))
             {
-                calc.Calculate(_elementsDatas, schemaInputData);
+                _elementsDatas = JsonConvert.DeserializeObject<List<ElementData>>(schemaInputData.ExistedSchema);
             }
-            SetIds(_elementsDatas);
+            else
+            {
+                _elementsDatas = new List<ElementData>();
+                foreach (IDataCalculator calc in _calculators)
+                {
+                    calc.Calculate(_elementsDatas, schemaInputData);
+                }
+                SetIds(_elementsDatas);             
+            }
+
             if (!AddElementsToDB(_elementsDatas))
             {
                 //TODO: Logging
             }
+
             BuiltSchemaData builtSchemaData = new BuiltSchemaData()
             {
                 ElementDatas = _elementsDatas,
                 CoordXmax = schemaInputData.Bay,
-                //CoordYmax = schemaInputData.HeightRoofBottom + schemaInputData.HeightRoofRidge,
                 Yoffset = GetSchemaYoffset(schemaInputData),
                 CoordYmax = schemaInputData.HeightColumns + schemaInputData.HeightRoofRidge,
             };
@@ -88,6 +97,11 @@ namespace LSTK.Frame.BusinessRules.UseCases
                 el.Id = previousId;
                 previousId++;
             }
+        }
+
+        private void BuildExistedSchema()
+        {
+
         }
     }
 }

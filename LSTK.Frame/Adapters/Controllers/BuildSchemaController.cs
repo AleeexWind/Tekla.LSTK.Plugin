@@ -23,8 +23,15 @@ namespace LSTK.Frame.Adapters.Controllers
  
         void BuildSchema(object sender, EventArgs e)
         {
-            GatherInput();
-            _schemaBuilder.BuildSchema(_schemaInputData);
+            if(IsValid())
+            {
+                GatherInput();
+                _schemaBuilder.BuildSchema(_schemaInputData);
+            }
+            else
+            {
+               //TODO: show error in status bar
+            }
         }
 
         private void GatherInput()
@@ -36,8 +43,20 @@ namespace LSTK.Frame.Adapters.Controllers
                 HeightRoofBottom = double.Parse(_buildSchemaRequestModel.HeightRoofBottom, System.Globalization.CultureInfo.InvariantCulture),
                 Panels = _buildSchemaRequestModel.Panels,
                 HeightColumns = double.Parse(_buildSchemaRequestModel.HeightColumns, System.Globalization.CultureInfo.InvariantCulture),
+                ExistedSchema = _buildSchemaRequestModel.ExistedSchema
             };
             _schemaInputData = schemaInputData;
+        }
+        private bool IsValid()
+        {
+            bool result = true;
+            if(string.IsNullOrEmpty(_buildSchemaRequestModel.Bay) || string.IsNullOrEmpty(_buildSchemaRequestModel.HeightRoofRidge) ||
+                string.IsNullOrEmpty(_buildSchemaRequestModel.HeightRoofBottom) || string.IsNullOrEmpty(_buildSchemaRequestModel.Panels) ||
+                string.IsNullOrEmpty(_buildSchemaRequestModel.HeightColumns))
+            {
+                result = false;
+            }
+            return result;
         }
     }
 }

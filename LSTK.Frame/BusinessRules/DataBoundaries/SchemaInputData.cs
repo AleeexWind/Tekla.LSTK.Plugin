@@ -13,5 +13,6 @@ namespace LSTK.Frame.BusinessRules.DataBoundaries
         public double HeightRoofBottom { get; set; }
         public string Panels { get; set; }
         public double HeightColumns { get; set; }
+        public string ExistedSchema { get; set; }
     }
 }

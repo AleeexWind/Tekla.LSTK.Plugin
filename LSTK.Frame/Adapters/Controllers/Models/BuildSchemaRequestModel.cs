@@ -9,6 +9,8 @@ namespace LSTK.Frame.Adapters.Controllers.Models
         public string HeightRoofBottom { get; set; }
         public string Panels { get; set; }
         public string HeightColumns { get; set; }
+        public string ExistedSchema { get; set; }
+        public bool FirstBuild { get; set; } = true;
         public EventHandler OnSendingRequest { get; set; }
     }
 }
