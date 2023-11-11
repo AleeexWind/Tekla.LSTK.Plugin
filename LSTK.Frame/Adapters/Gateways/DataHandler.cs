@@ -14,8 +14,9 @@ namespace LSTK.Frame.Adapters.Gateways
         {
             try
             {
-                attributeGroup.Id = _currentAttributeId;
-                DataBase.AttributeGroups.Add(attributeGroup);
+                attributeGroup.Id = DataBase.CurrentAttributeGroupId;
+                DataBase.CurrentAttributeGroupId++;
+                DataBase.AttributeGroups.Add(attributeGroup);              
                 _currentAttributeId++;
                 return true;
             }
@@ -28,7 +29,9 @@ namespace LSTK.Frame.Adapters.Gateways
         public bool AddElementData(ElementData elementData)
         {
             try
-            {
+            {             
+                elementData.Id = DataBase.CurrentElementDataId;
+                DataBase.CurrentElementDataId++;
                 DataBase.SchemaElements.Add(elementData);
                 return true;
             }

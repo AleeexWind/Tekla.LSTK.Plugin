@@ -242,6 +242,7 @@ namespace LSTK.Frame
 
         private void DrawSchema(object sender, EventArgs e)
         {
+            _schemaElements.Clear();
             foreach (var element in dataModel.SchemaElements)
             {
                 string _brushColor = "Blue";

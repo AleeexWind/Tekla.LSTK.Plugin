@@ -35,7 +35,7 @@ namespace LSTK.Frame.BusinessRules.UseCases
                 {
                     calc.Calculate(_elementsDatas, schemaInputData);
                 }
-                SetIds(_elementsDatas);             
+                //SetIds(_elementsDatas);             
             }
 
             if (!AddElementsToDB(_elementsDatas))
@@ -88,20 +88,6 @@ namespace LSTK.Frame.BusinessRules.UseCases
                 }
             }
             return true;
-        }
-        private void SetIds(List<ElementData> elementDatas)
-        {
-            int previousId = 1;
-            foreach (ElementData el in elementDatas)
-            {
-                el.Id = previousId;
-                previousId++;
-            }
-        }
-
-        private void BuildExistedSchema()
-        {
-
         }
     }
 }
