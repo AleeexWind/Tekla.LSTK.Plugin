@@ -10,5 +10,7 @@ namespace LSTK.Frame.BusinessRules.DataBoundaries
     public interface ISchemaBuilder
     {
        void BuildSchema(SchemaInputData schemaInputData);
+
+       void RebuildSchema(List<ElementData> elementsDatas);
     }
 }

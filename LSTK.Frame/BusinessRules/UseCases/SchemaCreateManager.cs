@@ -4,7 +4,9 @@ using LSTK.Frame.BusinessRules.Models;
 using LSTK.Frame.BusinessRules.UseCases.Calculators;
 using LSTK.Frame.Entities;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace LSTK.Frame.BusinessRules.UseCases
 {
@@ -51,8 +53,33 @@ namespace LSTK.Frame.BusinessRules.UseCases
                 CoordYmax = schemaInputData.HeightColumns + schemaInputData.HeightRoofRidge,
             };
 
-            _schemaResponse.TransferSchema(builtSchemaData);
+            _schemaResponse.DrawSchema(builtSchemaData);
         }
+
+
+
+        public void RebuildSchema(List<ElementData> elementsDatas)
+        {
+
+            _elementsDatas = elementsDatas;
+
+            double Ymax = GetMaxCoord(_elementsDatas, MaxYcoord);
+            double Xmax = GetMaxCoord(_elementsDatas, MaxXcoord);
+
+            if (!AddElementsToDB(_elementsDatas))
+            {
+                //TODO: Logging
+            }
+            BuiltSchemaData builtSchemaData = new BuiltSchemaData()
+            {
+                ElementDatas = _elementsDatas,
+                CoordXmax = Xmax,
+                Yoffset = 0,
+                CoordYmax = Ymax,
+            };
+            _schemaResponse.DrawSchema(builtSchemaData);
+        }
+
         //private List<ElementData> GetAllElementsOfTruss()
         //{
         //    List<ElementData> result = new List<ElementData>
@@ -88,6 +115,22 @@ namespace LSTK.Frame.BusinessRules.UseCases
                 }
             }
             return true;
+        }
+        private double GetMaxCoord(List<ElementData> collection, Func<List<Point>,double> func)
+        {
+            List<Point> allPoints = collection.Select(x => x.StartPoint).ToList();
+            allPoints.AddRange(collection.Select(x => x.EndPoint).ToList());
+
+            return func(allPoints);
+        }
+
+        private double MaxXcoord(List<Point> points)
+        {
+            return points.Max(x => x.X);
+        }
+        private double MaxYcoord(List<Point> points)
+        {
+            return points.Max(x => x.Y);
         }
     }
 }

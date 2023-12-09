@@ -9,6 +9,7 @@ using LSTK.Frame.BusinessRules.UseCases.Calculators;
 using LSTK.Frame.BusinessRules.UseCases.Calculators.SchemaCalculators;
 using LSTK.Frame.Entities;
 using LSTK.Frame.Frameworks.DataBase;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -74,8 +75,8 @@ namespace LSTK.Frame
         }
         private void OnInitialization()
         {
-            //DataBase dataBase = new DataBase();
-            IDataAccess dataAccess = new DataHandler();
+            DataBase dataBase = new DataBase();
+            IDataAccess dataAccess = new DataHandler(dataBase);
 
             //Schema build Use Case
             _buildSchemaRequestModel = new BuildSchemaRequestModel();
@@ -112,6 +113,7 @@ namespace LSTK.Frame
             IFrameReceiver frameReceiver = new FrameReceiver(frameReceiverResponse, dataAccess);
             FrameReceiverController frameReceiverController = new FrameReceiverController(frameReceiver, _frameReceiverRequestModel);
 
+            RestoreDataBase(dataAccess, dataModel.ElementAttributes, dataModel.ElementPrototypes);
             InvokeOnSendingRequest(true);
         }
         private void WPFOkApplyModifyGetOnOffCancel_ApplyClicked(object sender, EventArgs e)
@@ -193,7 +195,15 @@ namespace LSTK.Frame
         }
         private void InvokeOnSendingRequest(bool buildExistingSchema)
         {
-            if(buildExistingSchema)
+            if (string.IsNullOrEmpty(dataModel.ElementPrototypes))
+            {
+                _buildSchemaRequestModel.Bay = tb_Bay.Text;
+                _buildSchemaRequestModel.HeightRoofRidge = tb_Height_RoofRidge.Text;
+                _buildSchemaRequestModel.HeightRoofBottom = tb_Height_RoofBottom.Text;
+                _buildSchemaRequestModel.Panels = tb_Panels.Text;
+                _buildSchemaRequestModel.HeightColumns = tb_Height_Columns.Text;
+            }
+            else
             {
                 _buildSchemaRequestModel.Bay = dataModel.Bay;
                 _buildSchemaRequestModel.HeightRoofRidge = dataModel.HeightRoofRidge;
@@ -202,17 +212,31 @@ namespace LSTK.Frame
                 _buildSchemaRequestModel.HeightColumns = dataModel.HeightColumns;
                 _buildSchemaRequestModel.ExistedSchema = dataModel.ElementPrototypes;
             }
-            else
-            {
-                _buildSchemaRequestModel.Bay = tb_Bay.Text;
-                _buildSchemaRequestModel.HeightRoofRidge = tb_Height_RoofRidge.Text;
-                _buildSchemaRequestModel.HeightRoofBottom = tb_Height_RoofBottom.Text;
-                _buildSchemaRequestModel.Panels = tb_Panels.Text;
-                _buildSchemaRequestModel.HeightColumns = tb_Height_Columns.Text;
-            }
 
             _buildSchemaRequestModel.OnSendingRequest?.Invoke(this, new EventArgs());
         }
+        //private void InvokeOnSendingRequest(bool buildExistingSchema)
+        //{
+        //    if(buildExistingSchema)
+        //    {
+        //        _buildSchemaRequestModel.Bay = dataModel.Bay;
+        //        _buildSchemaRequestModel.HeightRoofRidge = dataModel.HeightRoofRidge;
+        //        _buildSchemaRequestModel.HeightRoofBottom = dataModel.HeightRoofBottom;
+        //        _buildSchemaRequestModel.Panels = dataModel.Panels;
+        //        _buildSchemaRequestModel.HeightColumns = dataModel.HeightColumns;
+        //        _buildSchemaRequestModel.ExistedSchema = dataModel.ElementPrototypes;
+        //    }
+        //    else
+        //    {
+        //        _buildSchemaRequestModel.Bay = tb_Bay.Text;
+        //        _buildSchemaRequestModel.HeightRoofRidge = tb_Height_RoofRidge.Text;
+        //        _buildSchemaRequestModel.HeightRoofBottom = tb_Height_RoofBottom.Text;
+        //        _buildSchemaRequestModel.Panels = tb_Panels.Text;
+        //        _buildSchemaRequestModel.HeightColumns = tb_Height_Columns.Text;
+        //    }
+
+        //    _buildSchemaRequestModel.OnSendingRequest?.Invoke(this, new EventArgs());
+        //}
         private void b_acceptAttribute_Click(object sender, RoutedEventArgs e)
         {
             _attributeSetRequestModel.ElementIds = _selectedElements;
@@ -267,7 +291,6 @@ namespace LSTK.Frame
                 g_schema.Children.Add(pgObject);
             }
             tb_ElementPrototypes.Text = dataModel.ElementPrototypes;
-            List<ElementData> el = DataBase.SchemaElements;
         }
         private void TryToBuildFrame(object sender, EventArgs e)
         {
@@ -366,6 +389,26 @@ namespace LSTK.Frame
             //    element.Item1.Y = Y2 - minY;
             //    element.Item2.Y = Y1 - minY;
             //}
+        }
+
+        private void RestoreDataBase(IDataAccess dataAccess, string attributesGroupString, string elementDatasString)
+        {
+            List<AttributeGroup> attributesGroup = new List<AttributeGroup>();
+            List<ElementData> elementDatas = new List<ElementData>();
+
+            if(!string.IsNullOrEmpty(attributesGroupString))
+            {
+                attributesGroup = JsonConvert.DeserializeObject<List<AttributeGroup>>(attributesGroupString);
+            }
+
+            if (attributesGroup!=null)
+            {
+                foreach(AttributeGroup attributeGroup in attributesGroup)
+                {
+                    dataAccess.RestoreAttributeGroup(attributeGroup);
+                }
+            }
+
         }
     }
 }

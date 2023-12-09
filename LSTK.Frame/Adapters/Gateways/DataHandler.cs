@@ -9,14 +9,30 @@ namespace LSTK.Frame.Adapters.Gateways
     public class DataHandler : IDataAccess
     {
         private int _currentAttributeId;
-
+        private readonly DataBase _dataBase;
+        public DataHandler(DataBase dataBase)
+        {
+                _dataBase = dataBase;
+        }
+        public bool RestoreAttributeGroup(AttributeGroup attributeGroup)
+        {
+            try
+            {
+                _currentAttributeId = attributeGroup.Id+1;
+                _dataBase.AttributeGroups.Add(attributeGroup);
+                return true;
+            }
+            catch (System.Exception)
+            {
+                return false;
+            }
+        }
         public bool AddAttributeGroup(AttributeGroup attributeGroup)
         {
             try
             {
-                attributeGroup.Id = DataBase.CurrentAttributeGroupId;
-                DataBase.CurrentAttributeGroupId++;
-                DataBase.AttributeGroups.Add(attributeGroup);              
+                attributeGroup.Id = _currentAttributeId;
+                _dataBase.AttributeGroups.Add(attributeGroup);              
                 _currentAttributeId++;
                 return true;
             }
@@ -30,9 +46,9 @@ namespace LSTK.Frame.Adapters.Gateways
         {
             try
             {             
-                elementData.Id = DataBase.CurrentElementDataId;
-                DataBase.CurrentElementDataId++;
-                DataBase.SchemaElements.Add(elementData);
+                elementData.Id = _dataBase.CurrentElementDataId;
+                _dataBase.CurrentElementDataId++;
+                _dataBase.SchemaElements.Add(elementData);
                 return true;
             }
             catch (System.Exception)
@@ -43,13 +59,13 @@ namespace LSTK.Frame.Adapters.Gateways
 
         public AttributeGroup GetAttributeGroup(int attributeGroupId)
         {
-            return DataBase.AttributeGroups.FirstOrDefault(x => x.Id.Equals(attributeGroupId));
+            return _dataBase.AttributeGroups.FirstOrDefault(x => x.Id.Equals(attributeGroupId));
         }
 
         public ElementData GetElementData(int elementDataId)
         {
             ElementData result = null;
-            ElementData foundElement = DataBase.SchemaElements.FirstOrDefault(x => x.Id.Equals(elementDataId));
+            ElementData foundElement = _dataBase.SchemaElements.FirstOrDefault(x => x.Id.Equals(elementDataId));
             if(foundElement != null)
             {
                 result = CloneElementData(foundElement);
@@ -59,12 +75,16 @@ namespace LSTK.Frame.Adapters.Gateways
 
         public List<ElementData> GetElementDatas()
         {
-            return DataBase.SchemaElements;
+            return _dataBase.SchemaElements;
+        }
+        public List<AttributeGroup> GetAttributeGroups()
+        {
+            return _dataBase.AttributeGroups;
         }
 
         public bool UpdateElementData(ElementData elementData)
         {
-            ElementData foundElement = DataBase.SchemaElements.FirstOrDefault(x => x.Id.Equals(elementData.Id));
+            ElementData foundElement = _dataBase.SchemaElements.FirstOrDefault(x => x.Id.Equals(elementData.Id));
             if(foundElement != null)
             {
                 foundElement.Id = elementData.Id;

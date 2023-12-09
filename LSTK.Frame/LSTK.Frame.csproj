@@ -52,27 +52,27 @@
     <Reference Include="System.Xml" />
     <Reference Include="Tekla.Structures, Version=2020.0.0.0, Culture=neutral, PublicKeyToken=2f04dbe497b71114, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\TeklaStructures\2020.0\nt\bin\plugins\Tekla.Structures.dll</HintPath>
+      <HintPath>C:\Program Files\Tekla Structures\2020.0\nt\bin\plugins\Tekla.Structures.dll</HintPath>
     </Reference>
     <Reference Include="Tekla.Structures.Catalogs, Version=2020.0.0.0, Culture=neutral, PublicKeyToken=2f04dbe497b71114, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\TeklaStructures\2020.0\nt\bin\plugins\Tekla.Structures.Catalogs.dll</HintPath>
+      <HintPath>C:\Program Files\Tekla Structures\2020.0\nt\bin\plugins\Tekla.Structures.Catalogs.dll</HintPath>
     </Reference>
     <Reference Include="Tekla.Structures.Datatype, Version=2020.0.0.0, Culture=neutral, PublicKeyToken=2f04dbe497b71114, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\TeklaStructures\2020.0\nt\bin\plugins\Tekla.Structures.Datatype.dll</HintPath>
+      <HintPath>C:\Program Files\Tekla Structures\2020.0\nt\bin\plugins\Tekla.Structures.Datatype.dll</HintPath>
     </Reference>
     <Reference Include="Tekla.Structures.Dialog, Version=2020.0.0.0, Culture=neutral, PublicKeyToken=2f04dbe497b71114, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\TeklaStructures\2020.0\nt\bin\dialogs\Tekla.Structures.Dialog.dll</HintPath>
+      <HintPath>C:\Program Files\Tekla Structures\2020.0\nt\bin\dialogs\Tekla.Structures.Dialog.dll</HintPath>
     </Reference>
     <Reference Include="Tekla.Structures.Model, Version=2020.0.0.0, Culture=neutral, PublicKeyToken=2f04dbe497b71114, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\TeklaStructures\2020.0\nt\bin\plugins\Tekla.Structures.Model.dll</HintPath>
+      <HintPath>C:\Program Files\Tekla Structures\2020.0\nt\bin\plugins\Tekla.Structures.Model.dll</HintPath>
     </Reference>
     <Reference Include="Tekla.Structures.Plugins, Version=2020.0.0.0, Culture=neutral, PublicKeyToken=2f04dbe497b71114, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\TeklaStructures\2020.0\nt\bin\plugins\Tekla.Structures.Plugins.dll</HintPath>
+      <HintPath>C:\Program Files\Tekla Structures\2020.0\nt\bin\plugins\Tekla.Structures.Plugins.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>
@@ -83,6 +83,7 @@
     <Compile Include="Adapters\Controllers\FrameBuildController.cs" />
     <Compile Include="Adapters\Controllers\FrameReceiverController.cs" />
     <Compile Include="Adapters\Controllers\Models\BuildSchemaRequestModel.cs" />
+    <Compile Include="Adapters\Controllers\Models\NewSessionBuildSchemaRequestModel.cs" />
     <Compile Include="Adapters\Controllers\Models\FrameReceiverRequestModel.cs" />
     <Compile Include="Adapters\Presenters\FrameReceiverPresenter.cs" />
     <Compile Include="BusinessRules\DataBoundaries\IAttributeGetResponse.cs" />
@@ -163,9 +164,9 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>set path=D:\Applications\MyApps\Tekla.LSTK\WPF\Tekla.LSTK.Plugin\LSTK.Frame\bin\Debug\LSTK.Frame.dll
+    <PostBuildEvent>set path=D:\Applications\Projects\TeklaFrame\LSTK.Frame\bin\Debug\LSTK.Frame.dll
 
-set destinPath=C:\TeklaStructures\2020.0\Environments\common\extensions\
+set destinPath=C:\ProgramData\Trimble\Tekla Structures\2020.0\Environments\common\extensions\
 
 copy/Y "%25path%25" "%25destinPath%25"</PostBuildEvent>
   </PropertyGroup>

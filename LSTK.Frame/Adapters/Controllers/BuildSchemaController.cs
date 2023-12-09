@@ -1,5 +1,7 @@
 ﻿using LSTK.Frame.Adapters.Controllers.Models;
 using LSTK.Frame.BusinessRules.DataBoundaries;
+using LSTK.Frame.Entities;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,14 +25,23 @@ namespace LSTK.Frame.Adapters.Controllers
  
         void BuildSchema(object sender, EventArgs e)
         {
-            if(IsValid())
+            if(string.IsNullOrEmpty(_buildSchemaRequestModel.ExistedSchema))
             {
-                GatherInput();
-                _schemaBuilder.BuildSchema(_schemaInputData);
+                if (IsValid())
+                {
+                    GatherInput();
+                    _schemaBuilder.BuildSchema(_schemaInputData);
+                }
+                else
+                {
+                    //TODO: show error in status bar
+                }
             }
             else
             {
-               //TODO: show error in status bar
+                List<ElementData> elementDatas = JsonConvert.DeserializeObject<List<ElementData>>(_buildSchemaRequestModel.ExistedSchema);
+
+                _schemaBuilder.RebuildSchema(elementDatas);
             }
         }
 

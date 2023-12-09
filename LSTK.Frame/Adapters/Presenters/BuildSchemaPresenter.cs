@@ -15,7 +15,7 @@ namespace LSTK.Frame.Adapters.Presenters
         {
             _mainWindowViewModel = mainWindowViewModel;
         }
-        public void TransferSchema(BuiltSchemaData builtSchemaData)
+        public void DrawSchema(BuiltSchemaData builtSchemaData)
         {
             _mainWindowViewModel.SchemaElements.Clear();
             _mainWindowViewModel.FrameWidthForSchema = builtSchemaData.CoordXmax;

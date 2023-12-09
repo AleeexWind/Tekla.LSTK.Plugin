@@ -37,6 +37,7 @@ namespace LSTK.Frame
         private string profileGap = string.Empty;
 
         private string elementPrototypes = string.Empty;
+        private string elementAttributes = string.Empty;
 
         public bool ToBeBuilt { get; set; }
 
@@ -189,6 +190,12 @@ namespace LSTK.Frame
         {
             get { return elementPrototypes; }
             set { elementPrototypes = value; OnPropertyChanged("ElementPrototypes"); }
+        }
+        [StructuresDialog("elementAttributes", typeof(TD.String))]
+        public string ElementAttributes
+        {
+            get { return elementAttributes; }
+            set { elementAttributes = value; OnPropertyChanged("ElementAttributes"); }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

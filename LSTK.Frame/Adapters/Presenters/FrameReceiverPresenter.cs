@@ -13,17 +13,25 @@ namespace LSTK.Frame.Adapters.Presenters
         {
             _mainWindowViewModel = mainWindowViewModel;
         }
-        public void ShowResult(List<ElementData> elementDatas)
+        public void ShowResult(List<ElementData> elementDatas, List<AttributeGroup> attributeGroups)
         {
             string prototypes = string.Empty;
+            string elementAttributes = string.Empty;
+
             _mainWindowViewModel.ToBeBuilt = false;
+
             if (elementDatas != null && elementDatas.Count > 0)
             {
                 _mainWindowViewModel.ToBeBuilt = true;
                 prototypes = JsonConvert.SerializeObject(elementDatas);
             }
+            if(attributeGroups != null && attributeGroups.Count > 0)
+            {
+                elementAttributes = JsonConvert.SerializeObject(attributeGroups);
+            }
 
             _mainWindowViewModel.ElementPrototypes = prototypes;
+            _mainWindowViewModel.ElementAttributes = elementAttributes;
             _mainWindowViewModel.OnBuildSchema?.Invoke(this, new EventArgs());
         }
     }
