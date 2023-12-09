@@ -11,12 +11,14 @@ namespace LSTK.Frame.Adapters.Gateways
         private readonly Model _model;
         private readonly TeklaPartAttributeSetter _teklaPartAttributeSetter;
         private readonly LocalPlaneManager _localPlaneManager;
+        private readonly bool _doubleProfile;
 
-        public TeklaAccess(Model model, LocalPlaneManager localPlaneManager, TeklaPartAttributeSetter teklaPartAttributeSetter)
+        public TeklaAccess(Model model, LocalPlaneManager localPlaneManager, TeklaPartAttributeSetter teklaPartAttributeSetter, bool doubleProfile)
         {
             _model = model;
             _localPlaneManager = localPlaneManager;
             _teklaPartAttributeSetter = teklaPartAttributeSetter;
+            _doubleProfile = doubleProfile;
         }
 
         public bool CommitChanges()
@@ -77,21 +79,37 @@ namespace LSTK.Frame.Adapters.Gateways
         private Position.RotationEnum SetRotationPosition(ElementData element)
         {
             Position.RotationEnum rotationEnum;
-            if (element.RotationPosition.Equals(Position.RotationEnum.BACK.ToString()))
+
+            if(_doubleProfile)
             {
-                rotationEnum = Position.RotationEnum.BACK;
-            }
-            else if (element.RotationPosition.Equals(Position.RotationEnum.BELOW.ToString()))
-            {
-                rotationEnum = Position.RotationEnum.BELOW;
-            }
-            else if (element.RotationPosition.Equals(Position.RotationEnum.FRONT.ToString()))
-            {
-                rotationEnum = Position.RotationEnum.FRONT;
+                if (element.IsMirrored)
+                {
+                    rotationEnum = Position.RotationEnum.FRONT;
+
+                }
+                else
+                {
+                    rotationEnum = Position.RotationEnum.BACK;
+                }
             }
             else
             {
-                rotationEnum = Position.RotationEnum.TOP;
+                if (element.RotationPosition.Equals(Position.RotationEnum.BACK.ToString()))
+                {
+                    rotationEnum = Position.RotationEnum.BACK;
+                }
+                else if (element.RotationPosition.Equals(Position.RotationEnum.BELOW.ToString()))
+                {
+                    rotationEnum = Position.RotationEnum.BELOW;
+                }
+                else if (element.RotationPosition.Equals(Position.RotationEnum.FRONT.ToString()))
+                {
+                    rotationEnum = Position.RotationEnum.FRONT;
+                }
+                else
+                {
+                    rotationEnum = Position.RotationEnum.TOP;
+                }
             }
 
             return rotationEnum;
@@ -117,17 +135,32 @@ namespace LSTK.Frame.Adapters.Gateways
         private Position.DepthEnum SetDepthPosition(ElementData element)
         {
             Position.DepthEnum depthEnum;
-            if (element.DepthPosition.Equals(Position.DepthEnum.BEHIND.ToString()))
+
+            if(_doubleProfile)
             {
-                depthEnum = Position.DepthEnum.BEHIND;
-            }
-            else if (element.DepthPosition.Equals(Position.DepthEnum.FRONT.ToString()))
-            {
-                depthEnum = Position.DepthEnum.FRONT;
+                if(element.IsMirrored)
+                {
+                    depthEnum = Position.DepthEnum.FRONT;
+                }
+                else
+                {
+                    depthEnum = Position.DepthEnum.BEHIND;
+                }
             }
             else
             {
-                depthEnum = Position.DepthEnum.MIDDLE;
+                if (element.DepthPosition.Equals(Position.DepthEnum.BEHIND.ToString()))
+                {
+                    depthEnum = Position.DepthEnum.BEHIND;
+                }
+                else if (element.DepthPosition.Equals(Position.DepthEnum.FRONT.ToString()))
+                {
+                    depthEnum = Position.DepthEnum.FRONT;
+                }
+                else
+                {
+                    depthEnum = Position.DepthEnum.MIDDLE;
+                }
             }
 
             return depthEnum;

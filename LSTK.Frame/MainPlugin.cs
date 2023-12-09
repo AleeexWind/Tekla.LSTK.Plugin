@@ -51,7 +51,7 @@ namespace LSTK.Frame
                 TeklaPartAttributeSetter teklaPartAttributeSetter = new TeklaPartAttributeSetter();
                 LocalPlaneManager localPlaneManager = new LocalPlaneManager(_model);
 
-                ITargetAppAccess targetAppAccess = new TeklaAccess(_model, localPlaneManager, teklaPartAttributeSetter);
+                ITargetAppAccess targetAppAccess = new TeklaAccess(_model, localPlaneManager, teklaPartAttributeSetter, true);
                 IFrameBuilder frameBuilder = new FrameBuilder2(targetAppAccess);
                 FrameBuildController frameBuildController = new FrameBuildController(frameBuilder);
                 frameBuildController.BuildFrame(_data);
@@ -247,5 +247,8 @@ namespace LSTK.Frame
         public string ColumnLineOption;
         [StructuresField("centerColumnLineOpt")]
         public string CentralColumnLineOption;
+        
+        [StructuresField("profileGap")]
+        public string ProfileGap;
     }
 }

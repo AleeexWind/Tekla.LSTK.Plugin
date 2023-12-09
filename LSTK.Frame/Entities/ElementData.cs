@@ -21,5 +21,7 @@ namespace LSTK.Frame.Entities
         public string DepthPosition { get; set; } = string.Empty;
 
         public int AttributeGroupId { get; set; }
+
+        public bool IsMirrored { get; set; }
     }
 }

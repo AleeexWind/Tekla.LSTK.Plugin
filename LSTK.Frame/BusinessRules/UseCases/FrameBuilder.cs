@@ -79,10 +79,24 @@ namespace LSTK.Frame.BusinessRules.UseCases
             res = _targetAppAccess.SetTemporaryLocalPlane(frameData.StartPoint, frameData.DirectionPoint);
             if (!res) return res;
 
-
+            List<ElementData> cl = new List<ElementData>();
             foreach (var elem in frameData.Elements)
             {
                 //SetAttributesTemp(elem);
+
+                ElementData ce = CloneElementData(elem);
+                cl.Add(ce);
+                elem.StartPoint.Z = - frameData.Gap/2;
+                elem.EndPoint.Z = - frameData.Gap / 2;
+
+                res = _targetAppAccess.CreatePart(elem);
+                if (!res) return res;
+            }
+            foreach (var elem in cl)
+            {
+                elem.StartPoint.Z = frameData.Gap / 2;
+                elem.EndPoint.Z = frameData.Gap / 2;
+
                 res = _targetAppAccess.CreatePart(elem);
                 if (!res) return res;
             }
@@ -95,25 +109,36 @@ namespace LSTK.Frame.BusinessRules.UseCases
 
             return res;
         }
-        private void SetAttributesTemp(ElementData elementData)
+        private void SetDoubleProfile(List<ElementData> Elements)
         {
-            AttributeGroup attributeGroup = new AttributeGroup()
+            foreach (var element in Elements)
             {
-                Id = 1,
-                PartName = "Temp",
-                Profile = "ПСУ300х100х20х2,0",
-                Material = "09Г2С",
-                Class = "8"
+                ElementData data = element as ElementData;
+
+            }
+        }
+        private ElementData CloneElementData(ElementData elementData)
+        {
+            ElementData clonedElementData = new ElementData
+            {
+                Id = elementData.Id,
+                ElementGroupType = elementData.ElementGroupType,
+                ElementSideType = elementData.ElementSideType,
+                StartPoint = elementData.StartPoint,
+                EndPoint = elementData.EndPoint,
+                Profile = elementData.Profile,
+                ProfileHeight = elementData.ProfileHeight,
+                PartName = elementData.PartName,
+                Material = elementData.Material,
+                Class = elementData.Class,
+                RotationPosition = elementData.RotationPosition,
+                PlanePosition = elementData.PlanePosition,
+                DepthPosition = elementData.DepthPosition,
+                AttributeGroupId = elementData.AttributeGroupId,
+                IsMirrored = true
             };
 
-            elementData.Id = attributeGroup.Id;
-            elementData.PartName = attributeGroup.PartName;
-            elementData.Profile = attributeGroup.Profile;
-            elementData.Material = attributeGroup.Material;
-            elementData.Class = attributeGroup.Class;
-            elementData.RotationPosition = attributeGroup.RotationPosition;
-            elementData.PlanePosition = attributeGroup.PlanePosition;
-            elementData.DepthPosition = attributeGroup.DepthPosition;
+            return clonedElementData;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using LSTK.Frame.BusinessRules.DataBoundaries;
+﻿using LSTK.Frame.Adapters.Controllers.Models;
+using LSTK.Frame.BusinessRules.DataBoundaries;
 using LSTK.Frame.BusinessRules.Models;
 using LSTK.Frame.Entities;
 using LSTK.Frame.Utils;
@@ -28,6 +29,7 @@ namespace LSTK.Frame.Adapters.Controllers
                 inputData.Elements = elementDatas;
                 inputData.StartPoint = TeklaPointConverter.ConvertPoint(pluginData.StartPoint);
                 inputData.DirectionPoint = TeklaPointConverter.ConvertPoint(pluginData.DirectionPoint);
+                inputData.Gap = double.Parse(pluginData.ProfileGap, System.Globalization.CultureInfo.InvariantCulture);
             }
             catch (System.Exception)
             {
