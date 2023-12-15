@@ -12,6 +12,7 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.SchemaCalculators
         private List<ElementData> _diagonalRodsElementsLeft;
         private List<ElementData> _leftTrussPosts;
         private ElementData _leftTopChord;
+        private ElementData _leftBottomChord;
         private readonly ElementGroupType _elementGroupType = ElementGroupType.DiagonalRod;
 
         public bool Calculate(List<ElementData> elementsDatas, InputData inputData)
@@ -31,9 +32,12 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.SchemaCalculators
             ElementData previousTrussPost = null;
             foreach (var trussPost in _leftTrussPosts)
             {
-                ElementData elementData = CreateElementData();
+                DiagonalRodElement elementData = CreateElementData();
                 Point startPoint = new Point();
                 Point endPoint = new Point();
+
+                Point startPointAlt = new Point();
+                Point endPointAlt = new Point();
 
                 if (previousTrussPost == null)
                 {
@@ -44,6 +48,14 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.SchemaCalculators
                     endPoint.X = trussPost.StartPoint.X;
                     endPoint.Y = trussPost.StartPoint.Y;
                     endPoint.Z = 0.0;
+
+                    startPointAlt.X = _leftBottomChord.StartPoint.X;
+                    startPointAlt.Y = _leftBottomChord.StartPoint.Y;
+                    startPointAlt.Z = 0.0;
+
+                    endPointAlt.X = trussPost.EndPoint.X;
+                    endPointAlt.Y = trussPost.EndPoint.Y;
+                    endPointAlt.Z = 0.0;
                 }
                 else
                 {
@@ -54,10 +66,21 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.SchemaCalculators
                     endPoint.X = trussPost.EndPoint.X;
                     endPoint.Y = trussPost.EndPoint.Y;
                     endPoint.Z = 0.0;
+
+                    startPointAlt.X = previousTrussPost.EndPoint.X;
+                    startPointAlt.Y = previousTrussPost.EndPoint.Y;
+                    startPointAlt.Z = 0.0;
+
+                    endPointAlt.X = trussPost.StartPoint.X;
+                    endPointAlt.Y = trussPost.StartPoint.Y;
+                    endPointAlt.Z = 0.0;
                 }
 
                 elementData.StartPoint = startPoint;
                 elementData.EndPoint = endPoint;
+
+                elementData.AlternativeStartPoint = startPointAlt;
+                elementData.AlternativeEndPoint = endPointAlt;
 
                 result.Add(elementData);
                 previousTrussPost = trussPost;
@@ -65,6 +88,10 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.SchemaCalculators
 
             Point startPointLast = new Point();
             Point endPointLast = new Point();
+
+            Point startPointAltLast = new Point();
+            Point endPointAltLast = new Point();
+
             startPointLast.X = previousTrussPost.StartPoint.X;
             startPointLast.Y = previousTrussPost.StartPoint.Y;
             startPointLast.Z = 0.0;
@@ -73,7 +100,15 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.SchemaCalculators
             endPointLast.Y = _leftTopChord.EndPoint.Y;
             endPointLast.Z = 0.0;
 
-            ElementData elementDataLast = CreateElementData();
+            startPointAltLast.X = previousTrussPost.EndPoint.X;
+            startPointAltLast.Y = previousTrussPost.EndPoint.Y;
+            startPointAltLast.Z = 0.0;
+
+            endPointAltLast.X = _leftBottomChord.EndPoint.X;
+            endPointAltLast.Y = _leftBottomChord.EndPoint.Y;
+            endPointAltLast.Z = 0.0;
+
+            DiagonalRodElement elementDataLast = CreateElementData();
             elementDataLast.StartPoint = startPointLast;
             elementDataLast.EndPoint = endPointLast;
 
@@ -85,14 +120,15 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.SchemaCalculators
         {
             _leftTrussPosts = elementsDatas.Where(x => x.ElementGroupType.Equals(ElementGroupType.TrussPost) && x.ElementSideType.Equals(ElementSideType.Left)).ToList();
             _leftTopChord = elementsDatas.FirstOrDefault(x => x.ElementGroupType.Equals(ElementGroupType.TopChord) && x.ElementSideType.Equals(ElementSideType.Left));
+            _leftBottomChord = elementsDatas.FirstOrDefault(x => x.ElementGroupType.Equals(ElementGroupType.BottomChord) && x.ElementSideType.Equals(ElementSideType.Left));
         }
         private void OrderElements()
         {
             _leftTrussPosts = _leftTrussPosts.OrderBy(x => x.StartPoint.X).ToList();
         }
-        private ElementData CreateElementData()
+        private DiagonalRodElement CreateElementData()
         {
-            return new ElementData()
+            return new DiagonalRodElement()
             {
                 ElementGroupType = _elementGroupType
             };
