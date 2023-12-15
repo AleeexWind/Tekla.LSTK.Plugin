@@ -44,15 +44,12 @@ namespace LSTK.Frame.BusinessRules.UseCases
                     Point sPoint = el.StartPoint;
                     Point ePoint = el.EndPoint;
 
-
                     DiagonalRodElement diagonalRodElement = el as DiagonalRodElement;
-                    el.StartPoint = diagonalRodElement.AlternativeStartPoint;
-                    el.EndPoint = diagonalRodElement.AlternativeEndPoint;
+                    diagonalRodElement.StartPoint = diagonalRodElement.AlternativeStartPoint;
+                    diagonalRodElement.EndPoint = diagonalRodElement.AlternativeEndPoint;
 
-                    diagonalRodElement.AlternativeStartPoint = el.StartPoint;
-                    diagonalRodElement.AlternativeEndPoint = el.EndPoint;
-
-
+                    diagonalRodElement.AlternativeStartPoint = sPoint;
+                    diagonalRodElement.AlternativeEndPoint = ePoint;
                 }
             }
 
