@@ -26,19 +26,26 @@ namespace LSTK.Frame.BusinessRules.UseCases
         }
         public void BuildSchema(SchemaInputData schemaInputData)
         {
-            if(!string.IsNullOrEmpty(schemaInputData.ExistedSchema))
+            _elementsDatas = new List<ElementData>();
+            foreach (IDataCalculator calc in _calculators)
             {
-                _elementsDatas = JsonConvert.DeserializeObject<List<ElementData>>(schemaInputData.ExistedSchema);
+                calc.Calculate(_elementsDatas, schemaInputData);
             }
-            else
-            {
-                _elementsDatas = new List<ElementData>();
-                foreach (IDataCalculator calc in _calculators)
-                {
-                    calc.Calculate(_elementsDatas, schemaInputData);
-                }
-                //SetIds(_elementsDatas);             
-            }
+
+            //TODO: temporary unavailable
+            //if (!string.IsNullOrEmpty(schemaInputData.ExistedSchema))
+            //{
+            //    _elementsDatas = JsonConvert.DeserializeObject<List<ElementData>>(schemaInputData.ExistedSchema);
+            //}
+            //else
+            //{
+            //    _elementsDatas = new List<ElementData>();
+            //    foreach (IDataCalculator calc in _calculators)
+            //    {
+            //        calc.Calculate(_elementsDatas, schemaInputData);
+            //    }
+            //    //SetIds(_elementsDatas);             
+            //}
 
             if (!AddElementsToDB(_elementsDatas))
             {

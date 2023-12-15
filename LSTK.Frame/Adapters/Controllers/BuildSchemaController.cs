@@ -25,24 +25,35 @@ namespace LSTK.Frame.Adapters.Controllers
  
         void BuildSchema(object sender, EventArgs e)
         {
-            if(string.IsNullOrEmpty(_buildSchemaRequestModel.ExistedSchema))
+            if (IsValid())
             {
-                if (IsValid())
-                {
-                    GatherInput();
-                    _schemaBuilder.BuildSchema(_schemaInputData);
-                }
-                else
-                {
-                    //TODO: show error in status bar
-                }
+                GatherInput();
+                _schemaBuilder.BuildSchema(_schemaInputData);
             }
             else
             {
-                List<ElementData> elementDatas = JsonConvert.DeserializeObject<List<ElementData>>(_buildSchemaRequestModel.ExistedSchema);
-
-                _schemaBuilder.RebuildSchema(elementDatas);
+                //TODO: show error in status bar
             }
+
+            //TODO: Temporary unavailable
+            //if (string.IsNullOrEmpty(_buildSchemaRequestModel.ExistedSchema))
+            //{
+            //    if (IsValid())
+            //    {
+            //        GatherInput();
+            //        _schemaBuilder.BuildSchema(_schemaInputData);
+            //    }
+            //    else
+            //    {
+            //        //TODO: show error in status bar
+            //    }
+            //}
+            //else
+            //{
+            //    List<ElementData> elementDatas = JsonConvert.DeserializeObject<List<ElementData>>(_buildSchemaRequestModel.ExistedSchema);
+
+            //    _schemaBuilder.RebuildSchema(elementDatas);
+            //}
         }
 
         private void GatherInput()

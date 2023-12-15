@@ -23,5 +23,12 @@ namespace LSTK.Frame.Entities
         public int AttributeGroupId { get; set; }
 
         public bool IsMirrored { get; set; }
+
+        public bool IsDeleted { get; set; }
+    }
+    public class DiagonalRodElement : ElementData
+    {
+        public Point AlternativeStartPoint { get; set; } = new Point();
+        public Point AlternativeEndPoint { get; set; } = new Point();
     }
 }

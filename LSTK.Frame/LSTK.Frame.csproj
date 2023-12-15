@@ -109,6 +109,7 @@
     <Compile Include="BusinessRules\Models\BuiltSchemaData.cs" />
     <Compile Include="BusinessRules\Models\FrameData.cs" />
     <Compile Include="BusinessRules\UseCases\Calculators\FrameCalculators\ColumnsDataCalculator.cs" />
+    <Compile Include="BusinessRules\UseCases\Calculators\SchemaCalculators\DiagonalRodsSchemaCalculator.cs" />
     <Compile Include="BusinessRules\UseCases\Calculators\SchemaCalculators\TrussPostsSchemaCalculator.cs" />
     <Compile Include="BusinessRules\UseCases\FrameReceiver.cs" />
     <Compile Include="Entities\AttributeGroup.cs" />

@@ -121,6 +121,7 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.SchemaCalculators
                     ElementData elementData = CreateElementData();
                     elementData.StartPoint = startPoint;
                     elementData.EndPoint = endPoint;
+                    elementData.ElementSideType = ElementSideType.Left;
 
                     result.Add(elementData);
                 }
@@ -156,6 +157,8 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.SchemaCalculators
                     ElementData elementData = CreateElementData();
                     elementData.StartPoint = startPoint;
                     elementData.EndPoint = endPoint;
+                    elementData.ElementSideType = ElementSideType.Right;
+
 
                     result.Add(elementData);
                 }
