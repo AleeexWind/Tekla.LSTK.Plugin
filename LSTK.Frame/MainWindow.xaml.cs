@@ -32,6 +32,7 @@ namespace LSTK.Frame
         private AttributeGetRequestModel _attributeGetRequestModel;
         private BuildSchemaRequestModel _buildSchemaRequestModel;
         private FrameReceiverRequestModel _frameReceiverRequestModel;
+        private RotateRequestModel _requestModel;
 
 
         private List<(int, Path)> _schemaElements = new List<(int, Path)>();
@@ -92,6 +93,11 @@ namespace LSTK.Frame
             ISchemaBuilder schemaBuilder = new SchemaCreateManager(dataAccess, calculators, buildSchemaResponse);
             BuildSchemaController buildSchemaController = new BuildSchemaController(schemaBuilder, _buildSchemaRequestModel);
 
+
+            //Elements rotation Use Case
+            _requestModel = new RotateRequestModel();
+            IRotateElements rotateElements = new ElementsRotator(dataAccess, schemaBuilder);
+            RotateElementsController rotateElementsController = new RotateElementsController(rotateElements, _requestModel);
 
             //Attribute set Use Case
             _attributeSetRequestModel = new AttributeSetRequestModel();
@@ -259,6 +265,23 @@ namespace LSTK.Frame
 
             _selectedElements.Clear();
         }
+        private void b_rotate_Click(object sender, RoutedEventArgs e)
+        {
+            _requestModel.ElementIds = _selectedElements;
+
+            _requestModel.OnSendingRequest?.Invoke(this, new EventArgs());
+
+            foreach (var elemId in _selectedElements)
+            {
+                var selPath = _schemaElements.FirstOrDefault(f => f.Item1.Equals(elemId));
+                if (selPath.Item2 != null)
+                {
+                    selPath.Item2.Stroke = new SolidColorBrush(Colors.Blue);
+                }
+            }
+
+            _selectedElements.Clear();
+        }
         private void b_getAttribute_Click(object sender, RoutedEventArgs e)
         {
             _attributeGetRequestModel.ElementIds = _selectedElements;
@@ -268,6 +291,7 @@ namespace LSTK.Frame
         private void DrawSchema(object sender, EventArgs e)
         {
             _schemaElements.Clear();
+            g_schema.Children.Clear();
             foreach (var element in dataModel.SchemaElements)
             {
                 string _brushColor = "Blue";

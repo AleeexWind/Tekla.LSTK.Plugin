@@ -1,6 +1,5 @@
 ﻿using LSTK.Frame.Adapters.Controllers.Models;
 using LSTK.Frame.BusinessRules.DataBoundaries;
-using LSTK.Frame.BusinessRules.Models;
 using LSTK.Frame.Entities;
 using System;
 

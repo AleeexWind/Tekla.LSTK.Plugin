@@ -92,7 +92,7 @@
                 </Grid>
                 <Grid Grid.Row="1">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="1.5*"/>
+                        <RowDefinition Height="3.5*"/>
                         <RowDefinition Height="0.5*"/>
                     </Grid.RowDefinitions>
                     <Grid x:Name="g_schema" Grid.Row="0" Width="660" Height="230" VerticalAlignment="Top">
@@ -120,6 +120,7 @@
                             Height="23"
                             Text="{Binding ElementAttributes, Mode=TwoWay}"/>
                     </StackPanel>
+                    <Button x:Name="b_rotate" Content="Rotate" Width="165" HorizontalAlignment="Left" Click="b_rotate_Click" Margin="495,280,0,0" Grid.RowSpan="2"/>
                 </Grid>
             </Grid>
             <Grid Grid.Column="1">

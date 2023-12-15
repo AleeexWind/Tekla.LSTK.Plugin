@@ -85,6 +85,8 @@
     <Compile Include="Adapters\Controllers\Models\BuildSchemaRequestModel.cs" />
     <Compile Include="Adapters\Controllers\Models\NewSessionBuildSchemaRequestModel.cs" />
     <Compile Include="Adapters\Controllers\Models\FrameReceiverRequestModel.cs" />
+    <Compile Include="Adapters\Controllers\Models\RotateRequestModel.cs" />
+    <Compile Include="Adapters\Controllers\RotateElementsController.cs" />
     <Compile Include="Adapters\Presenters\FrameReceiverPresenter.cs" />
     <Compile Include="BusinessRules\DataBoundaries\IAttributeGetResponse.cs" />
     <Compile Include="Adapters\Controllers\Models\AttributeGetRequestModel.cs" />
@@ -99,6 +101,7 @@
     <Compile Include="BusinessRules\DataBoundaries\IBuildSchemaResponse.cs" />
     <Compile Include="BusinessRules\DataBoundaries\IFrameReceiver.cs" />
     <Compile Include="BusinessRules\DataBoundaries\IFrameReceiverResponse.cs" />
+    <Compile Include="BusinessRules\DataBoundaries\IRotateElements.cs" />
     <Compile Include="BusinessRules\DataBoundaries\ISchemaBuilder.cs" />
     <Compile Include="BusinessRules\DataBoundaries\IFrameBuilder.cs" />
     <Compile Include="BusinessRules\DataBoundaries\IFrameDataInputBoundary.cs" />
@@ -111,6 +114,7 @@
     <Compile Include="BusinessRules\UseCases\Calculators\FrameCalculators\ColumnsDataCalculator.cs" />
     <Compile Include="BusinessRules\UseCases\Calculators\SchemaCalculators\DiagonalRodsSchemaCalculator.cs" />
     <Compile Include="BusinessRules\UseCases\Calculators\SchemaCalculators\TrussPostsSchemaCalculator.cs" />
+    <Compile Include="BusinessRules\UseCases\ElementsRotator.cs" />
     <Compile Include="BusinessRules\UseCases\FrameReceiver.cs" />
     <Compile Include="Entities\AttributeGroup.cs" />
     <Compile Include="BusinessRules\Models\ElementGroupType.cs" />

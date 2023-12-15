@@ -73,10 +73,12 @@ namespace LSTK.Frame.BusinessRules.UseCases
             double Ymax = GetMaxCoord(_elementsDatas, MaxYcoord);
             double Xmax = GetMaxCoord(_elementsDatas, MaxXcoord);
 
-            if (!AddElementsToDB(_elementsDatas))
-            {
-                //TODO: Logging
-            }
+            //Temporary commented
+
+            //if (!AddElementsToDB(_elementsDatas))
+            //{
+            //    //TODO: Logging
+            //}
             BuiltSchemaData builtSchemaData = new BuiltSchemaData()
             {
                 ElementDatas = _elementsDatas,
