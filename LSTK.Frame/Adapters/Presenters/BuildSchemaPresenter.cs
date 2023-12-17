@@ -34,7 +34,9 @@ namespace LSTK.Frame.Adapters.Presenters
                 {
                     StartPoint = new Point() { X = elemData.StartPoint.X, Y = elemData.StartPoint.Y, Z = elemData.StartPoint.Z },
                     EndPoint = new Point() { X = elemData.EndPoint.X, Y = elemData.EndPoint.Y, Z = elemData.EndPoint.Z },
-                    Id = elemData.Id
+                    Id = elemData.Id,
+                    ToBeDrawn = !elemData.IsDeleted
+                    
                 };
 
                 _mainWindowViewModel.SchemaElements.Add(schemaElement);

@@ -2,11 +2,8 @@
 using LSTK.Frame.BusinessRules.Gateways;
 using LSTK.Frame.BusinessRules.Models;
 using LSTK.Frame.Entities;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LSTK.Frame.BusinessRules.UseCases
 {
@@ -24,7 +21,6 @@ namespace LSTK.Frame.BusinessRules.UseCases
         public bool RotateElements(List<int> elementIds)
         {
             _elementsDatas = _dataAccess.GetElementDatas();
-            //List<ElementData> result = new List<ElementData>();
 
             List<ElementData> selectedElements = _elementsDatas.Where(x => elementIds.Contains(x.Id)).ToList();
 

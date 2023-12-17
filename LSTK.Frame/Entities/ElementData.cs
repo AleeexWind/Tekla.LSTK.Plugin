@@ -24,7 +24,7 @@ namespace LSTK.Frame.Entities
 
         public bool IsMirrored { get; set; }
 
-        public bool IsDeleted { get; set; }
+        public bool IsDeleted { get; set; } = false;
     }
     public class DiagonalRodElement : ElementData
     {

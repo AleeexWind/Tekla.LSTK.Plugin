@@ -32,7 +32,8 @@ namespace LSTK.Frame
         private AttributeGetRequestModel _attributeGetRequestModel;
         private BuildSchemaRequestModel _buildSchemaRequestModel;
         private FrameReceiverRequestModel _frameReceiverRequestModel;
-        private RotateRequestModel _requestModel;
+        private RotateRequestModel _rotateRequestModel;
+        private DeleteRequestModel _deleteRequestModel;
 
 
         private List<(int, Path)> _schemaElements = new List<(int, Path)>();
@@ -95,9 +96,14 @@ namespace LSTK.Frame
 
 
             //Elements rotation Use Case
-            _requestModel = new RotateRequestModel();
+            _rotateRequestModel = new RotateRequestModel();
             IRotateElements rotateElements = new ElementsRotator(dataAccess, schemaBuilder);
-            RotateElementsController rotateElementsController = new RotateElementsController(rotateElements, _requestModel);
+            RotateElementsController rotateElementsController = new RotateElementsController(rotateElements, _rotateRequestModel);
+
+            //Elements deletion Use Case
+            _deleteRequestModel = new DeleteRequestModel();
+            IDeleteElements deleteElements = new ElementsRemover(dataAccess, schemaBuilder);
+            DeleteElementsController deleteElementsController = new DeleteElementsController(deleteElements, _deleteRequestModel);
 
             //Attribute set Use Case
             _attributeSetRequestModel = new AttributeSetRequestModel();
@@ -267,9 +273,26 @@ namespace LSTK.Frame
         }
         private void b_rotate_Click(object sender, RoutedEventArgs e)
         {
-            _requestModel.ElementIds = _selectedElements;
+            _rotateRequestModel.ElementIds = _selectedElements;
 
-            _requestModel.OnSendingRequest?.Invoke(this, new EventArgs());
+            _rotateRequestModel.OnSendingRequest?.Invoke(this, new EventArgs());
+
+            foreach (var elemId in _selectedElements)
+            {
+                var selPath = _schemaElements.FirstOrDefault(f => f.Item1.Equals(elemId));
+                if (selPath.Item2 != null)
+                {
+                    selPath.Item2.Stroke = new SolidColorBrush(Colors.Blue);
+                }
+            }
+
+            _selectedElements.Clear();
+        }
+        private void b_remove_Click(object sender, RoutedEventArgs e)
+        {
+            _deleteRequestModel.ElementIds = _selectedElements;
+
+            _deleteRequestModel.OnSendingRequest?.Invoke(this, new EventArgs());
 
             foreach (var elemId in _selectedElements)
             {
@@ -294,6 +317,8 @@ namespace LSTK.Frame
             g_schema.Children.Clear();
             foreach (var element in dataModel.SchemaElements)
             {
+                if(element.ToBeDrawn == false)
+                    continue;
                 string _brushColor = "Blue";
                 SolidColorBrush brushColor = (SolidColorBrush)new BrushConverter().ConvertFromString(_brushColor);
 
@@ -315,7 +340,7 @@ namespace LSTK.Frame
                 pgObject.MouseDown += Path_MouseDown;
                 g_schema.Children.Add(pgObject);
             }
-            tb_ElementPrototypes.Text = dataModel.ElementPrototypes;
+            //tb_ElementPrototypes.Text = dataModel.ElementPrototypes;
         }
         private void TryToBuildFrame(object sender, EventArgs e)
         {

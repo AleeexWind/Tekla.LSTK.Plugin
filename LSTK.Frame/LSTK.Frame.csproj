@@ -80,9 +80,11 @@
     <Compile Include="Adapters\Controllers\AttributeGetController.cs" />
     <Compile Include="Adapters\Controllers\AttributeSetController.cs" />
     <Compile Include="Adapters\Controllers\BuildSchemaController.cs" />
+    <Compile Include="Adapters\Controllers\DeleteElementsController.cs" />
     <Compile Include="Adapters\Controllers\FrameBuildController.cs" />
     <Compile Include="Adapters\Controllers\FrameReceiverController.cs" />
     <Compile Include="Adapters\Controllers\Models\BuildSchemaRequestModel.cs" />
+    <Compile Include="Adapters\Controllers\Models\DeleteRequestModel.cs" />
     <Compile Include="Adapters\Controllers\Models\NewSessionBuildSchemaRequestModel.cs" />
     <Compile Include="Adapters\Controllers\Models\FrameReceiverRequestModel.cs" />
     <Compile Include="Adapters\Controllers\Models\RotateRequestModel.cs" />
@@ -99,6 +101,7 @@
     <Compile Include="BusinessRules\DataBoundaries\IAttributeGetter.cs" />
     <Compile Include="BusinessRules\DataBoundaries\IAttributeSetter.cs" />
     <Compile Include="BusinessRules\DataBoundaries\IBuildSchemaResponse.cs" />
+    <Compile Include="BusinessRules\DataBoundaries\IDeleteElements.cs" />
     <Compile Include="BusinessRules\DataBoundaries\IFrameReceiver.cs" />
     <Compile Include="BusinessRules\DataBoundaries\IFrameReceiverResponse.cs" />
     <Compile Include="BusinessRules\DataBoundaries\IRotateElements.cs" />
@@ -114,6 +117,7 @@
     <Compile Include="BusinessRules\UseCases\Calculators\FrameCalculators\ColumnsDataCalculator.cs" />
     <Compile Include="BusinessRules\UseCases\Calculators\SchemaCalculators\DiagonalRodsSchemaCalculator.cs" />
     <Compile Include="BusinessRules\UseCases\Calculators\SchemaCalculators\TrussPostsSchemaCalculator.cs" />
+    <Compile Include="BusinessRules\UseCases\ElementsRemover.cs" />
     <Compile Include="BusinessRules\UseCases\ElementsRotator.cs" />
     <Compile Include="BusinessRules\UseCases\FrameReceiver.cs" />
     <Compile Include="Entities\AttributeGroup.cs" />

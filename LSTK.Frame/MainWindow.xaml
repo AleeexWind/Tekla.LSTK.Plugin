@@ -121,6 +121,7 @@
                             Text="{Binding ElementAttributes, Mode=TwoWay}"/>
                     </StackPanel>
                     <Button x:Name="b_rotate" Content="Rotate" Width="165" HorizontalAlignment="Left" Click="b_rotate_Click" Margin="495,280,0,0" Grid.RowSpan="2"/>
+                    <Button x:Name="b_remove" Content="Remove" Width="165" HorizontalAlignment="Left" Click="b_remove_Click" Margin="320,280,0,0" Grid.RowSpan="2"/>
                 </Grid>
             </Grid>
             <Grid Grid.Column="1">

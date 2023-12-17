@@ -5,6 +5,7 @@ using LSTK.Frame.Entities;
 using LSTK.Frame.Utils;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace LSTK.Frame.Adapters.Controllers
 {
@@ -26,6 +27,7 @@ namespace LSTK.Frame.Adapters.Controllers
             try
             {
                 List<ElementData> elementDatas = JsonConvert.DeserializeObject<List<ElementData>>(pluginData.ElementPrototypes);
+                elementDatas = elementDatas.Where(x => !x.IsDeleted).ToList();
                 inputData.Elements = elementDatas;
                 inputData.StartPoint = TeklaPointConverter.ConvertPoint(pluginData.StartPoint);
                 inputData.DirectionPoint = TeklaPointConverter.ConvertPoint(pluginData.DirectionPoint);
