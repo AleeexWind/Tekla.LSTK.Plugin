@@ -3,6 +3,7 @@ using LSTK.Frame.Adapters.Gateways;
 using LSTK.Frame.BusinessRules.DataBoundaries;
 using LSTK.Frame.BusinessRules.Gateways;
 using LSTK.Frame.BusinessRules.UseCases;
+using LSTK.Frame.BusinessRules.UseCases.Calculators;
 using LSTK.Frame.Frameworks.TeklaAPI;
 using System;
 using System.Collections.Generic;
@@ -51,8 +52,13 @@ namespace LSTK.Frame
                 TeklaPartAttributeSetter teklaPartAttributeSetter = new TeklaPartAttributeSetter();
                 LocalPlaneManager localPlaneManager = new LocalPlaneManager(_model);
 
+                List<IDataCalculator> calculators = new List<IDataCalculator>()
+                {
+                    new ColumnsDataCalculator()
+                };
+
                 ITargetAppAccess targetAppAccess = new TeklaAccess(_model, localPlaneManager, teklaPartAttributeSetter, true);
-                IFrameBuilder frameBuilder = new FrameBuilder(targetAppAccess);
+                IFrameBuilder frameBuilder = new FrameBuilder(targetAppAccess, calculators);
                 FrameBuildController frameBuildController = new FrameBuildController(frameBuilder);
                 frameBuildController.BuildFrame(_data);
             }
@@ -100,6 +106,12 @@ namespace LSTK.Frame
 
         [StructuresField("elementPrototypes")]
         public string ElementPrototypes;
+
+        [StructuresField("bay")]
+        public string Bay;
+
+        [StructuresField("frameOption")]
+        public string FrameOption;
 
         [StructuresField("topChordLineOption")]
         public string TopChordLineOption;

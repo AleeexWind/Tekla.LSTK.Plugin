@@ -90,6 +90,7 @@
     <Compile Include="Adapters\Controllers\Models\RotateRequestModel.cs" />
     <Compile Include="Adapters\Controllers\RotateElementsController.cs" />
     <Compile Include="Adapters\Presenters\FrameReceiverPresenter.cs" />
+    <Compile Include="BusinessRules\DataBoundaries\FrameBuildInputData.cs" />
     <Compile Include="BusinessRules\DataBoundaries\IAttributeGetResponse.cs" />
     <Compile Include="Adapters\Controllers\Models\AttributeGetRequestModel.cs" />
     <Compile Include="Adapters\Controllers\Models\AttributeSetRequestModel.cs" />
@@ -120,6 +121,7 @@
     <Compile Include="BusinessRules\UseCases\ElementsRemover.cs" />
     <Compile Include="BusinessRules\UseCases\ElementsRotator.cs" />
     <Compile Include="BusinessRules\UseCases\FrameReceiver.cs" />
+    <Compile Include="BusinessRules\UseCases\Utils\ElementDataCloner.cs" />
     <Compile Include="Entities\AttributeGroup.cs" />
     <Compile Include="BusinessRules\Models\ElementGroupType.cs" />
     <Compile Include="BusinessRules\Models\ElementDataPrototype.cs" />

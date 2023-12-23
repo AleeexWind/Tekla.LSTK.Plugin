@@ -18,11 +18,12 @@ namespace LSTK.Frame.Adapters.Controllers
         }
         public void BuildFrame(PluginData pluginData)
         {
-            FrameData inputData = GatherInput(pluginData);
-            _frameBuilder.BuildFrame(inputData);
+            FrameBuildInputData frameBuildInputData = GatherInput(pluginData);
+            _frameBuilder.BuildFrame(frameBuildInputData);
         }
-        private FrameData GatherInput(PluginData pluginData)
+        private FrameBuildInputData GatherInput(PluginData pluginData)
         {
+            FrameBuildInputData frameBuildInputData = new FrameBuildInputData();
             FrameData inputData = new FrameData();
             try
             {
@@ -32,13 +33,41 @@ namespace LSTK.Frame.Adapters.Controllers
                 inputData.StartPoint = TeklaPointConverter.ConvertPoint(pluginData.StartPoint);
                 inputData.DirectionPoint = TeklaPointConverter.ConvertPoint(pluginData.DirectionPoint);
                 inputData.Gap = double.Parse(pluginData.ProfileGap, System.Globalization.CultureInfo.InvariantCulture);
+
+                frameBuildInputData.FrameData = inputData;
+                frameBuildInputData.IsHalfOption = false;
+                frameBuildInputData.Bay = double.Parse(pluginData.Bay, System.Globalization.CultureInfo.InvariantCulture);
+                frameBuildInputData.ColumnLineOption = pluginData.ColumnLineOption;
+                if (pluginData.FrameOption.Equals("Half"))
+                {
+                    frameBuildInputData.IsHalfOption = true;
+                }
             }
             catch (System.Exception)
             {
                 throw;
             }
 
-            return inputData;
+            return frameBuildInputData;
         }
+        //private FrameData GatherInput(PluginData pluginData)
+        //{
+        //    FrameData inputData = new FrameData();
+        //    try
+        //    {
+        //        List<ElementData> elementDatas = JsonConvert.DeserializeObject<List<ElementData>>(pluginData.ElementPrototypes);
+        //        elementDatas = elementDatas.Where(x => !x.IsDeleted).ToList();
+        //        inputData.Elements = elementDatas;
+        //        inputData.StartPoint = TeklaPointConverter.ConvertPoint(pluginData.StartPoint);
+        //        inputData.DirectionPoint = TeklaPointConverter.ConvertPoint(pluginData.DirectionPoint);
+        //        inputData.Gap = double.Parse(pluginData.ProfileGap, System.Globalization.CultureInfo.InvariantCulture);
+        //    }
+        //    catch (System.Exception)
+        //    {
+        //        throw;
+        //    }
+
+        //    return inputData;
+        //}
     }
 }

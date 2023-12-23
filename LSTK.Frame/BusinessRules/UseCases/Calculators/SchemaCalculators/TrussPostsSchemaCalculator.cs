@@ -25,13 +25,13 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.SchemaCalculators
             _previousCoord = 0;
             FilterElements(elementsDatas);
             _trussPostsElementsLeft = CalcLeftTrussPosts();
-            List<ElementData> trussPostsElementsRight = CalcRightThrussPosts();
+            //List<ElementData> trussPostsElementsRight = CalcRightThrussPosts();
 
 
-            if(_trussPostsElementsLeft != null && trussPostsElementsRight != null)
+            if(_trussPostsElementsLeft != null)
             {
                 elementsDatas.AddRange(_trussPostsElementsLeft);
-                elementsDatas.AddRange(trussPostsElementsRight);
+                //elementsDatas.AddRange(trussPostsElementsRight);
                 return true;
             }
             else

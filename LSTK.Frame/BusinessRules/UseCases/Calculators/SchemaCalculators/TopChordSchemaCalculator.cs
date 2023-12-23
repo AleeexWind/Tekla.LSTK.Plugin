@@ -13,12 +13,12 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.SchemaCalculators
         {
             _schemaInputData = inputData as SchemaInputData;
             ElementData leftTopChord = CalcLeftTopChord();
-            ElementData rightTopChord = CalcRightTopChord();
+            //ElementData rightTopChord = CalcRightTopChord();
 
-            if(leftTopChord != null && rightTopChord != null)
+            if(leftTopChord != null)
             {
                 elementsDatas.Add(leftTopChord);
-                elementsDatas.Add(rightTopChord);
+                //elementsDatas.Add(rightTopChord);
                 return true;
             }
             else

@@ -1,7 +1,6 @@
 ﻿using LSTK.Frame.BusinessRules.DataBoundaries;
 using LSTK.Frame.BusinessRules.Models;
 using LSTK.Frame.Entities;
-using LSTK.Frame.Frameworks.TeklaAPI;
 using System;
 using System.Collections.Generic;
 
@@ -17,12 +16,12 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators
             _schemaInputData = inputData as SchemaInputData;
 
             ElementData leftColumn = CalcLeftColumn();
-            ElementData rightColumn = CalcRightColumn();
+            //ElementData rightColumn = CalcRightColumn();
 
-            if (leftColumn != null && rightColumn != null)
+            if (leftColumn != null)
             {
                 elementsDatas.Add(leftColumn);
-                elementsDatas.Add(rightColumn);
+                //elementsDatas.Add(rightColumn);
                 return true;
             }
             else
