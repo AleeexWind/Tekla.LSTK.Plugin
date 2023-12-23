@@ -16,12 +16,10 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators
             _schemaInputData = inputData as SchemaInputData;
 
             ElementData leftColumn = CalcLeftColumn();
-            //ElementData rightColumn = CalcRightColumn();
 
             if (leftColumn != null)
             {
                 elementsDatas.Add(leftColumn);
-                //elementsDatas.Add(rightColumn);
                 return true;
             }
             else
@@ -54,37 +52,6 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators
                 elementData.EndPoint = endPoint;
             }
             catch (Exception ex)
-            {
-                //TODO: Logging
-                throw;
-            }
-
-            return elementData;
-        }
-        private ElementData CalcRightColumn()
-        {
-            ElementSideType elementSideType = ElementSideType.Left;
-            ElementData elementData;
-            try
-            {
-                Point startPoint = new Point()
-                {
-                    X = _schemaInputData.Bay,
-                    Y = 0.0,
-                    Z = 0.0
-                };
-                Point endPoint = new Point()
-                {
-                    X = _schemaInputData.Bay,
-                    Y = _schemaInputData.HeightColumns,
-                    Z = 0.0
-                };
-
-                elementData = CreateElementData(elementSideType);
-                elementData.StartPoint = startPoint;
-                elementData.EndPoint = endPoint;
-            }
-            catch (Exception)
             {
                 //TODO: Logging
                 throw;
