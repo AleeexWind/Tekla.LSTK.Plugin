@@ -12,7 +12,6 @@ using LSTK.Frame.Frameworks.DataBase;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media;
@@ -92,13 +91,13 @@ namespace LSTK.Frame
                     new DiagonalRodsSchemaCalculator()
                 };
             ISchemaBuilder schemaBuilder = new SchemaCreateManager(dataAccess, calculators, buildSchemaResponse);
-            BuildSchemaController buildSchemaController = new BuildSchemaController(schemaBuilder, _buildSchemaRequestModel);
+            _ = new BuildSchemaController(schemaBuilder, _buildSchemaRequestModel);
 
 
             //Elements rotation Use Case
             _rotateRequestModel = new RotateRequestModel();
             IRotateElements rotateElements = new ElementsRotator(dataAccess, schemaBuilder);
-            RotateElementsController rotateElementsController = new RotateElementsController(rotateElements, _rotateRequestModel);
+            _ = new RotateElementsController(rotateElements, _rotateRequestModel);
 
             //Elements deletion Use Case
             _deleteRequestModel = new DeleteRequestModel();
@@ -106,25 +105,21 @@ namespace LSTK.Frame
             DeleteElementsController deleteElementsController = new DeleteElementsController(deleteElements, _deleteRequestModel);
 
             //Attribute set Use Case
-            _attributeSetRequestModel = new AttributeSetRequestModel();
-           
+            _attributeSetRequestModel = new AttributeSetRequestModel();          
             IAttributeSetter attributeSetter = new AttributeSetManager(dataAccess);
-
-            AttributeSetController attributeSetController = new AttributeSetController(attributeSetter, _attributeSetRequestModel);
+            _ = new AttributeSetController(attributeSetter, _attributeSetRequestModel);
 
 
             //Attribute get Use Case
             _attributeGetRequestModel = new AttributeGetRequestModel();
-
             IAttributeGetter attributeGetter = new AttributeGetManager(dataAccess);
             IAttributeGetResponse attributeGetResponse = new AttributePresenter(dataModel);
-
-            AttributeGetController attributeGetController = new AttributeGetController(attributeGetter, attributeGetResponse, _attributeGetRequestModel);
+            _ = new AttributeGetController(attributeGetter, attributeGetResponse, _attributeGetRequestModel);
 
             _frameReceiverRequestModel = new FrameReceiverRequestModel();
             IFrameReceiverResponse frameReceiverResponse = new FrameReceiverPresenter(dataModel);
             IFrameReceiver frameReceiver = new FrameReceiver(frameReceiverResponse, dataAccess);
-            FrameReceiverController frameReceiverController = new FrameReceiverController(frameReceiver, _frameReceiverRequestModel);
+            _ = new FrameReceiverController(frameReceiver, _frameReceiverRequestModel);
 
             RestoreDataBase(dataAccess, dataModel.ElementAttributes, dataModel.ElementPrototypes);
             InvokeOnSendingRequest(true);

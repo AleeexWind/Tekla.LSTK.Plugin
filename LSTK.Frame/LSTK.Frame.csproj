@@ -173,9 +173,9 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>set path=D:\Applications\Projects\TeklaFrame\LSTK.Frame\bin\Debug\LSTK.Frame.dll
+    <PostBuildEvent>set path=D:\Applications\MyApps\Tekla.LSTK\WPF\Tekla.LSTK.Plugin\LSTK.Frame\bin\Debug\LSTK.Frame.dll
 
-set destinPath=C:\ProgramData\Trimble\Tekla Structures\2020.0\Environments\common\extensions\
+set destinPath=C:\TeklaStructures\2020.0\Environments\common\extensions\
 
 copy/Y "%25path%25" "%25destinPath%25"</PostBuildEvent>
   </PropertyGroup>
