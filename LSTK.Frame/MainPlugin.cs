@@ -4,6 +4,7 @@ using LSTK.Frame.BusinessRules.DataBoundaries;
 using LSTK.Frame.BusinessRules.Gateways;
 using LSTK.Frame.BusinessRules.UseCases;
 using LSTK.Frame.BusinessRules.UseCases.Calculators;
+using LSTK.Frame.BusinessRules.UseCases.Calculators.FrameCalculators;
 using LSTK.Frame.Frameworks.TeklaAPI;
 using System;
 using System.Collections.Generic;
@@ -54,7 +55,8 @@ namespace LSTK.Frame
 
                 List<IDataCalculator> calculators = new List<IDataCalculator>()
                 {
-                    new ColumnsDataCalculator()
+                    new ColumnsDataCalculator(),
+                    new TopChordTrussDataCalculator()
                 };
 
                 ITargetAppAccess targetAppAccess = new TeklaAccess(_model, localPlaneManager, teklaPartAttributeSetter, true);

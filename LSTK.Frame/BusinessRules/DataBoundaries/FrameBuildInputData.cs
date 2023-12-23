@@ -7,6 +7,7 @@ namespace LSTK.Frame.BusinessRules.DataBoundaries
         public bool IsHalfOption { get; set; }
         public double Bay { get; set; }
         public string ColumnLineOption { get; set; } = string.Empty;
+        public string TopChordLineOption { get; set; } = string.Empty;
         public FrameData FrameData { get; set; }
     }
 }

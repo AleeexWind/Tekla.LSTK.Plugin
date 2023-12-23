@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace LSTK.Frame.BusinessRules.UseCases.Calculators
+namespace LSTK.Frame.BusinessRules.UseCases.Calculators.FrameCalculators
 {
     public class ColumnsDataCalculator : IDataCalculator
     {

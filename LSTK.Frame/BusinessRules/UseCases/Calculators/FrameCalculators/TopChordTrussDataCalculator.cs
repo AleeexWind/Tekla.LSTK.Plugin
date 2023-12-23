@@ -1,5 +1,6 @@
 ﻿using LSTK.Frame.BusinessRules.DataBoundaries;
 using LSTK.Frame.BusinessRules.Models;
+using LSTK.Frame.BusinessRules.UseCases.Utils;
 using LSTK.Frame.Entities;
 using LSTK.Frame.Frameworks.TeklaAPI;
 using System;
@@ -10,7 +11,7 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.FrameCalculators
 {
     public class TopChordTrussDataCalculator : IDataCalculator
     {
-        private FrameInputData _frameInputData;
+        private FrameBuildInputData _frameBuildInputData;
         private readonly ElementGroupType _elementGroupType = ElementGroupType.TopChord;
 
         private ElementData _leftColumn;
@@ -19,16 +20,24 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.FrameCalculators
 
         public bool Calculate(List<ElementData> elementsDatas, InputData inputData)
         {
-            _frameInputData = inputData as FrameInputData;
+            bool result = false;
+            _frameBuildInputData = inputData as FrameBuildInputData;
             FilterElements(elementsDatas);
 
-            return CalcLeftTopChord() && CalcRightTopChord();
+            if(CalcLeftTopChord() && CalcRightTopChord())
+            {
+                elementsDatas.Add(_rightTopChord);
+                result = true;
+            }
+
+            return result;
         }
         private void FilterElements(List<ElementData> elementsDatas)
         {
             _leftColumn = elementsDatas.FirstOrDefault(x => x.ElementGroupType.Equals(ElementGroupType.Column) && x.ElementSideType.Equals(ElementSideType.Left));
             _leftTopChord = elementsDatas.FirstOrDefault(x => x.ElementGroupType.Equals(_elementGroupType) && x.ElementSideType.Equals(ElementSideType.Left));
-            _rightTopChord = elementsDatas.FirstOrDefault(x => x.ElementGroupType.Equals(_elementGroupType) && x.ElementSideType.Equals(ElementSideType.Right));
+            _rightTopChord = ElementDataCloner.CloneElementData(_leftTopChord);
+            _rightTopChord.ElementSideType = ElementSideType.Right;
         }
         private bool CalcLeftTopChord()
         {
@@ -37,18 +46,18 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.FrameCalculators
                 Point startPoint = _leftTopChord.StartPoint;
                 Point endPoint = _leftTopChord.EndPoint;
 
-                double profileHeight = TeklaPartAttributeGetter.GetProfileHeight(_frameInputData.ProfileTopChord);
+                double profileHeight = TeklaPartAttributeGetter.GetProfileHeight(_leftTopChord.Profile);
                 (Point, Point) newCoord = (startPoint, endPoint);
-                if (_frameInputData.TopChordLineOption.Equals("Below") && _frameInputData.ColumnLineOption.Equals("Inside"))
+                if (_frameBuildInputData.TopChordLineOption.Equals("Below") && _frameBuildInputData.ColumnLineOption.Equals("Inside"))
                 {
                     newCoord = GetParallelLineCoordinate(startPoint, endPoint, profileHeight/2);
                 }
-                else if (_frameInputData.TopChordLineOption.Equals("Below") && _frameInputData.ColumnLineOption.Equals("Center"))
+                else if (_frameBuildInputData.TopChordLineOption.Equals("Below") && _frameBuildInputData.ColumnLineOption.Equals("Center"))
                 {
-                    startPoint.X = -(_leftColumn.ProfileHeight)/2;
+                    startPoint.X = -_leftColumn.ProfileHeight/2;
                     newCoord = GetParallelLineCoordinate(startPoint, endPoint, profileHeight/2);
                 }
-                else if (_frameInputData.TopChordLineOption.Equals("Center") && _frameInputData.ColumnLineOption.Equals("Inside"))
+                else if (_frameBuildInputData.TopChordLineOption.Equals("Center") && _frameBuildInputData.ColumnLineOption.Equals("Inside"))
                 {
                     newCoord.Item1.X = _leftColumn.ProfileHeight/2;
                 }
@@ -67,28 +76,41 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.FrameCalculators
         {
             try
             {
-                Point startPoint = _rightTopChord.StartPoint;
-                Point endPoint = _rightTopChord.EndPoint;
-
-                double profileHeight = TeklaPartAttributeGetter.GetProfileHeight(_frameInputData.ProfileTopChord);
-
-                (Point, Point) newCoord = (startPoint, endPoint);
-
-                if (_frameInputData.TopChordLineOption.Equals("Below") && _frameInputData.ColumnLineOption.Equals("Inside"))
+                Point startPoint = new Point()
                 {
-                    newCoord = GetParallelLineCoordinate(startPoint, endPoint, profileHeight/2);
-                }
-                else if (_frameInputData.TopChordLineOption.Equals("Below") && _frameInputData.ColumnLineOption.Equals("Center"))
+                    X = _frameBuildInputData.Bay,
+                    Y = _leftTopChord.StartPoint.Y,
+                    Z = 0.0
+                };
+                Point endPoint = new Point()
                 {
-                    endPoint.X = endPoint.X + _leftColumn.ProfileHeight/2;
-                    newCoord = GetParallelLineCoordinate(startPoint, endPoint, profileHeight/2);
-                }
-                else if (_frameInputData.TopChordLineOption.Equals("Center") && _frameInputData.ColumnLineOption.Equals("Inside"))
-                {
-                    newCoord.Item2.X = endPoint.X - _leftColumn.ProfileHeight/2;
-                }
-                _rightTopChord.StartPoint = newCoord.Item1;
-                _rightTopChord.EndPoint = newCoord.Item2;
+                    X = _frameBuildInputData.Bay/2,
+                    Y = _leftTopChord.EndPoint.Y,
+                    Z = 0.0
+                };
+
+                //double profileHeight = TeklaPartAttributeGetter.GetProfileHeight(_rightTopChord.Profile);
+
+                //(Point, Point) newCoord = (startPoint, endPoint);
+
+                //if (_frameBuildInputData.TopChordLineOption.Equals("Below") && _frameBuildInputData.ColumnLineOption.Equals("Inside"))
+                //{
+                //    newCoord = GetParallelLineCoordinate(startPoint, endPoint, profileHeight/2);
+                //}
+                //else if (_frameBuildInputData.TopChordLineOption.Equals("Below") && _frameBuildInputData.ColumnLineOption.Equals("Center"))
+                //{
+                //    endPoint.X = endPoint.X + _leftColumn.ProfileHeight/2;
+                //    newCoord = GetParallelLineCoordinate(startPoint, endPoint, profileHeight/2);
+                //}
+                //else if (_frameBuildInputData.TopChordLineOption.Equals("Center") && _frameBuildInputData.ColumnLineOption.Equals("Inside"))
+                //{
+                //    newCoord.Item2.X = endPoint.X - _leftColumn.ProfileHeight/2;
+                //}
+                //_rightTopChord.StartPoint = newCoord.Item1;
+                //_rightTopChord.EndPoint = newCoord.Item2;
+
+                _rightTopChord.StartPoint = startPoint;
+                _rightTopChord.EndPoint = endPoint;
 
                 return true;
             }
