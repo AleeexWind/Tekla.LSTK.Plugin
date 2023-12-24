@@ -56,7 +56,8 @@ namespace LSTK.Frame
                 List<IDataCalculator> calculators = new List<IDataCalculator>()
                 {
                     new ColumnsDataCalculator(),
-                    new TopChordTrussDataCalculator()
+                    new TopChordTrussDataCalculator(),
+                    new BottomChordTrussDataCalculator()
                 };
 
                 ITargetAppAccess targetAppAccess = new TeklaAccess(_model, localPlaneManager, teklaPartAttributeSetter, true);

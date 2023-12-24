@@ -39,6 +39,7 @@ namespace LSTK.Frame.Adapters.Controllers
                 frameBuildInputData.Bay = double.Parse(pluginData.Bay, System.Globalization.CultureInfo.InvariantCulture);
                 frameBuildInputData.ColumnLineOption = pluginData.ColumnLineOption;
                 frameBuildInputData.TopChordLineOption = pluginData.TopChordLineOption;
+                frameBuildInputData.BottomChordLineOption = pluginData.BottomChordLineOption;
                 if (pluginData.FrameOption.Equals("Half"))
                 {
                     frameBuildInputData.IsHalfOption = true;

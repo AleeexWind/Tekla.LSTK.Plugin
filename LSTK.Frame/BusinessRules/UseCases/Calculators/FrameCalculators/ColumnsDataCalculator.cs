@@ -49,7 +49,7 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.FrameCalculators
 
                 if (_frameBuildInputData.ColumnLineOption.Equals("Inside"))
                 {
-                    newCoord = GetParallelLineCoordinate(startPoint, endPoint, profileHeight/2);
+                    newCoord = CoordinateUtils.GetParallelLineCoordinate(startPoint, endPoint, profileHeight/2);
                 }
 
                 _leftColumn.StartPoint = newCoord.Item1;
@@ -86,7 +86,7 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.FrameCalculators
 
                 if (_frameBuildInputData.ColumnLineOption.Equals("Inside"))
                 {
-                    newCoord = GetParallelLineCoordinate(startPoint, endPoint, -profileHeight/2);
+                    newCoord = CoordinateUtils.GetParallelLineCoordinate(startPoint, endPoint, -profileHeight/2);
                 }
                 _rightColumn.StartPoint = newCoord.Item1;
                 _rightColumn.EndPoint = newCoord.Item2;
@@ -98,24 +98,6 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.FrameCalculators
                 //TODO: Logging
                 return false;
             }
-        }
-        private (Point start, Point end) GetParallelLineCoordinate(Point start, Point end, double dist)
-        {
-            double xV = start.X - end.X;
-            double yV = start.Y - end.Y;
-
-            double len = Math.Sqrt(Math.Pow(end.X - start.X, 2) + Math.Pow(end.Y - start.Y, 2));
-
-            double udx = xV / len;
-            double udy = yV / len;
-
-            double fX = start.X - udy * dist;
-            double fY = start.Y + udx * dist;
-
-            double sX = fX - xV;
-            double sY = fY - yV;
-
-            return (new Point() { X = fX, Y = fY }, new Point() { X = sX, Y = sY });
         }
     }
 }

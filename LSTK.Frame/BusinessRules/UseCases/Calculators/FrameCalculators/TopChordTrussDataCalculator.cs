@@ -50,12 +50,12 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.FrameCalculators
                 (Point, Point) newCoord = (startPoint, endPoint);
                 if (_frameBuildInputData.TopChordLineOption.Equals("Below") && _frameBuildInputData.ColumnLineOption.Equals("Inside"))
                 {
-                    newCoord = GetParallelLineCoordinate(startPoint, endPoint, profileHeight/2);
+                    newCoord = CoordinateUtils.GetParallelLineCoordinate(startPoint, endPoint, profileHeight/2);
                 }
                 else if (_frameBuildInputData.TopChordLineOption.Equals("Below") && _frameBuildInputData.ColumnLineOption.Equals("Center"))
                 {
                     startPoint.X = -_leftColumn.ProfileHeight/2;
-                    newCoord = GetParallelLineCoordinate(startPoint, endPoint, profileHeight/2);
+                    newCoord = CoordinateUtils.GetParallelLineCoordinate(startPoint, endPoint, profileHeight/2);
                 }
                 else if (_frameBuildInputData.TopChordLineOption.Equals("Center") && _frameBuildInputData.ColumnLineOption.Equals("Inside"))
                 {
@@ -89,26 +89,6 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.FrameCalculators
                     Z = 0.0
                 };
 
-                //double profileHeight = TeklaPartAttributeGetter.GetProfileHeight(_rightTopChord.Profile);
-
-                //(Point, Point) newCoord = (startPoint, endPoint);
-
-                //if (_frameBuildInputData.TopChordLineOption.Equals("Below") && _frameBuildInputData.ColumnLineOption.Equals("Inside"))
-                //{
-                //    newCoord = GetParallelLineCoordinate(startPoint, endPoint, profileHeight/2);
-                //}
-                //else if (_frameBuildInputData.TopChordLineOption.Equals("Below") && _frameBuildInputData.ColumnLineOption.Equals("Center"))
-                //{
-                //    endPoint.X = endPoint.X + _leftColumn.ProfileHeight/2;
-                //    newCoord = GetParallelLineCoordinate(startPoint, endPoint, profileHeight/2);
-                //}
-                //else if (_frameBuildInputData.TopChordLineOption.Equals("Center") && _frameBuildInputData.ColumnLineOption.Equals("Inside"))
-                //{
-                //    newCoord.Item2.X = endPoint.X - _leftColumn.ProfileHeight/2;
-                //}
-                //_rightTopChord.StartPoint = newCoord.Item1;
-                //_rightTopChord.EndPoint = newCoord.Item2;
-
                 _rightTopChord.StartPoint = startPoint;
                 _rightTopChord.EndPoint = endPoint;
 
@@ -119,25 +99,6 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.FrameCalculators
                 //TODO: Logging
                 return false;
             }
-        }
-
-        private (Point start, Point end) GetParallelLineCoordinate(Point start, Point end, double dist)
-        {
-            double xV = start.X - end.X;
-            double yV = start.Y - end.Y;
-
-            double len = Math.Sqrt(Math.Pow(end.X - start.X, 2) + Math.Pow(end.Y - start.Y, 2));
-
-            double udx = xV / len;
-            double udy = yV / len;
-
-            double fX = start.X - udy * dist;
-            double fY = start.Y + udx * dist;
-
-            double sX = fX - xV;
-            double sY = fY - yV;
-
-            return (new Point() { X = fX, Y = fY }, new Point() { X = sX, Y = sY });
         }
     }
 }

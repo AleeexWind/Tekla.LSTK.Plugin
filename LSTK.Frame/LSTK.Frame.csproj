@@ -121,6 +121,7 @@
     <Compile Include="BusinessRules\UseCases\ElementsRemover.cs" />
     <Compile Include="BusinessRules\UseCases\ElementsRotator.cs" />
     <Compile Include="BusinessRules\UseCases\FrameReceiver.cs" />
+    <Compile Include="BusinessRules\UseCases\Utils\CoordinateUtils.cs" />
     <Compile Include="BusinessRules\UseCases\Utils\ElementDataCloner.cs" />
     <Compile Include="Entities\AttributeGroup.cs" />
     <Compile Include="BusinessRules\Models\ElementGroupType.cs" />

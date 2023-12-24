@@ -13,12 +13,10 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.SchemaCalculators
         {
             _schemaInputData = inputData as SchemaInputData;
             ElementData leftTopChord = CalcLeftTopChord();
-            //ElementData rightTopChord = CalcRightTopChord();
 
             if(leftTopChord != null)
             {
                 elementsDatas.Add(leftTopChord);
-                //elementsDatas.Add(rightTopChord);
                 return true;
             }
             else
@@ -43,37 +41,6 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.SchemaCalculators
                 {
                     X = _schemaInputData.Bay/2,
                     Y = _schemaInputData.HeightColumns + _schemaInputData.HeightRoofRidge,
-                    Z = 0.0
-                };
-
-                elementData = CreateElementData(elementSideType);
-                elementData.StartPoint = startPoint;
-                elementData.EndPoint = endPoint;
-            }
-            catch (System.Exception)
-            {
-                //TODO: Logging
-                throw;
-            }
-
-            return elementData;
-        }
-        private ElementData CalcRightTopChord()
-        {
-            ElementSideType elementSideType = ElementSideType.Right;
-            ElementData elementData;
-            try
-            {
-                Point startPoint = new Point()
-                {
-                    X = _schemaInputData.Bay/2,
-                    Y = _schemaInputData.HeightColumns + _schemaInputData.HeightRoofRidge,
-                    Z = 0.0
-                };
-                Point endPoint = new Point()
-                {
-                    X = _schemaInputData.Bay,
-                    Y = _schemaInputData.HeightColumns,
                     Z = 0.0
                 };
 
