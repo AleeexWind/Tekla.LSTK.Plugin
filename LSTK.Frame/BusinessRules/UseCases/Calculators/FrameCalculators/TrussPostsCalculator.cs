@@ -1,17 +1,16 @@
 ﻿using LSTK.Frame.BusinessRules.DataBoundaries;
+using LSTK.Frame.BusinessRules.Models;
+using LSTK.Frame.BusinessRules.UseCases.Utils;
 using LSTK.Frame.Entities;
-using LSTK.Frame.Frameworks.TeklaAPI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace LSTK.Frame.BusinessRules.UseCases.Calculators
+namespace LSTK.Frame.BusinessRules.UseCases.Calculators.FrameCalculators
 {
     public class TrussPostsCalculator : IDataCalculator
     {
-        private FrameInputData _frameInputData;
+        private FrameBuildInputData _frameBuildInputData;
 
         private ElementData _leftTopChord;
         private ElementData _leftBottomChord;
@@ -21,14 +20,33 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators
 
         public bool Calculate(List<ElementData> elementsDatas, InputData inputData)
         {
-            _frameInputData = inputData as FrameInputData;
+            bool result = false;
+            _frameBuildInputData = inputData as FrameBuildInputData;
+            FilterElements(elementsDatas);
 
-            return CalcLeftTrussPosts() && CalcRightTrussPosts();
+            if(CalcLeftTrussPosts() && CalcRightTrussPosts())
+            {
+                elementsDatas.AddRange(_rightTrussPosts);
+                result = true;
+            }
 
+            return result;
+        }
 
-            //_frameData = frameData;
-            //ParsePanelsString();
-            //_frameData.TrussData.TrussPosts = CalcTrussPosts();
+        private void FilterElements(List<ElementData> elementsDatas)
+        {
+            _leftTrussPosts = elementsDatas.Where(x => x.ElementGroupType.Equals(ElementGroupType.TrussPost) && x.ElementSideType.Equals(ElementSideType.Left)).ToList();
+            _leftTopChord = elementsDatas.FirstOrDefault(x => x.ElementGroupType.Equals(ElementGroupType.TopChord) && x.ElementSideType.Equals(ElementSideType.Left));
+            _leftBottomChord = elementsDatas.FirstOrDefault(x => x.ElementGroupType.Equals(ElementGroupType.BottomChord) && x.ElementSideType.Equals(ElementSideType.Left));
+
+            _rightTrussPosts = new List<ElementData>();
+
+            foreach (var item in _leftTrussPosts)
+            {
+                ElementData el = ElementDataCloner.CloneElementData(item);
+                el.ElementSideType = ElementSideType.Right;
+                _rightTrussPosts.Add(el);
+            }
         }
         private bool CalcLeftTrussPosts()
         {
@@ -44,8 +62,6 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators
                 //    double lengthFromZero = elem.EndPoint.X - _leftTopChord.StartPoint.X;
 
                 //    Point endPoint = GetTrussPostEndPointOnTheLine(lengthFromZero, allLength, allHeigtht, offsetY, _previousCoord);
-
-
                 //}
 
                 return true;
@@ -60,6 +76,24 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators
         {
             try
             {
+                foreach (var elem in _rightTrussPosts)
+                {
+                    Point startPoint = new Point()
+                    {
+                        X = _frameBuildInputData.Bay - elem.StartPoint.X,
+                        Y = elem.StartPoint.Y,
+                        Z = 0.0
+                    };
+                    Point endPoint = new Point()
+                    {
+                        X = _frameBuildInputData.Bay - elem.StartPoint.X,
+                        Y = elem.EndPoint.Y,
+                        Z = 0.0
+                    };
+
+                    elem.StartPoint = startPoint;
+                    elem.EndPoint = endPoint;
+                }
                 return true;
             }
             catch (Exception)
@@ -68,14 +102,9 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators
                 return false;
             }
         }
-        private Point GetTrussPostEndPointOnTheLine(double lengthFromZero, double allLength, double allHeight, double offsetY, double coordX)
+        private Point GetTrussPostEndPointOnTheLine(Point startPointLine, Point endPointLine, Point startPointOfTrussPost)
         {
             Point point = new Point();
-            double height = lengthFromZero * allHeight / allLength;
-
-            point.X = coordX;
-            point.Y = offsetY + height;
-            point.Z = 0.0;
 
             return point;
         }
