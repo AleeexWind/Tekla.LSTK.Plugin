@@ -51,13 +51,15 @@ namespace LSTK.Frame.BusinessRules.UseCases
             {
                 //TODO: Logging
             }
+            double Ymax = GetMaxCoord(_elementsDatas, MaxYcoord);
+            double Xmax = GetMaxCoord(_elementsDatas, MaxXcoord);
 
             BuiltSchemaData builtSchemaData = new BuiltSchemaData()
             {
                 ElementDatas = _elementsDatas,
-                CoordXmax = schemaInputData.Bay,
-                Yoffset = GetSchemaYoffset(schemaInputData),
-                CoordYmax = schemaInputData.HeightColumns + schemaInputData.HeightRoofRidge,
+                CoordXmax = Xmax,
+                Yoffset = 0,
+                CoordYmax = Ymax,
             };
 
             _schemaResponse.DrawSchema(builtSchemaData);
