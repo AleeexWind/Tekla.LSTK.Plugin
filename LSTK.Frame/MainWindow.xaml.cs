@@ -319,7 +319,7 @@ namespace LSTK.Frame
 
                 (LSTK.Frame.Entities.Point, LSTK.Frame.Entities.Point) points = (element.StartPoint, element.EndPoint);
 
-                TransformCoordinatesForGrid(points, g_schema.ActualHeight);
+                TransformCoordinatesForGrid(points, g_schema.ActualHeight, element.Id);
 
                 System.Windows.Point startPoint = new System.Windows.Point() { X = points.Item1.X, Y = points.Item1.Y };
                 System.Windows.Point endPoint = new System.Windows.Point() { X = points.Item2.X, Y = points.Item2.Y };
@@ -373,7 +373,7 @@ namespace LSTK.Frame
         {
             return dataModel.YoffsetSchema;
         }
-        private void TransformCoordinatesForGrid((Entities.Point, Entities.Point) element, double maxY)
+        private void TransformCoordinatesForGrid((Entities.Point, Entities.Point) element, double maxY, int id)
         {
             element.Item1.X = element.Item1.X * GetSchemaScaleX();
             element.Item1.Y = (element.Item1.Y - GetSchemaYoffset()) * GetSchemaScaleY();
@@ -381,59 +381,37 @@ namespace LSTK.Frame
             element.Item2.X = element.Item2.X * GetSchemaScaleX();
             element.Item2.Y = (element.Item2.Y - GetSchemaYoffset()) * GetSchemaScaleY();
 
-            //if (element.Item1.Y == element.Item2.Y)
-            //{
-            //    double Y = maxY * 0.98 - element.Item1.Y;
-            //    element.Item1.Y = Y;
-            //    element.Item2.Y = Y;
-            //}
-            //else if(element.Item1.X == element.Item2.X && element.Item1.Y == 0.0)
-            //{
-            //    double Ystart = maxY * 0.98;
-            //    double Yend;
-            //    if (element.Item1.Y > element.Item2.Y)
-            //    {
-            //        Yend = Ystart - element.Item1.Y - element.Item2.Y;
-            //    }
-            //    else
-            //    {
-            //        Yend = Ystart - element.Item2.Y - element.Item1.Y;
-            //    }
-            //    element.Item1.Y = Ystart;
-            //    element.Item2.Y = Yend;
-            //}
-            //else if (element.Item1.X == element.Item2.X)
-            //{
-            //    double Ystart = maxY * 0.98;
-            //    double Yend;
-            //    if (element.Item1.Y > element.Item2.Y)
-            //    {
-            //        Yend = Ystart - element.Item1.Y - element.Item2.Y;
-            //    }
-            //    else
-            //    {
-            //        Yend = Ystart - element.Item2.Y - element.Item1.Y;
-            //    }
-            //    element.Item1.Y = Ystart;
-            //    element.Item2.Y = Yend;
-            //}
-            //else
-            //{
-            //    double Y1 = element.Item1.Y;
-            //    double Y2 = element.Item2.Y;
+            //Horizontal
+            if (element.Item1.Y == element.Item2.Y)
+            {
+                double Y = maxY * 0.98 - element.Item1.Y;
+                element.Item1.Y = Y;
+                element.Item2.Y = Y;
+            }
+            //Column
+            else if (element.Item1.X == element.Item2.X && element.Item1.Y == 0.0)
+            {
+                double Ystart = maxY * 0.98;
+                double Yend;
+                if (element.Item1.Y > element.Item2.Y)
+                {
+                    Yend = Ystart - element.Item1.Y - element.Item2.Y;
+                }
+                else
+                {
+                    Yend = Ystart - element.Item2.Y - element.Item1.Y;
+                }
+                element.Item1.Y = Ystart;
+                element.Item2.Y = Yend;
+            }
+            else
+            {
+                double Ystart = maxY * 0.98 - element.Item1.Y;
+                double Yend = maxY * 0.98 - element.Item2.Y;
 
-            //    element.Item1.Y = Y2;
-            //    element.Item2.Y = Y1;
-
-            //    double minY = element.Item1.Y;
-            //    if(element.Item1.Y > element.Item2.Y)
-            //    {
-            //        minY = element.Item2.Y;
-            //    }
-
-            //    element.Item1.Y = Y2 - minY;
-            //    element.Item2.Y = Y1 - minY;
-            //}
+                element.Item1.Y = Ystart;
+                element.Item2.Y = Yend;
+            }
         }
 
         private void RestoreDataBase(IDataAccess dataAccess, string attributesGroupString, string elementDatasString)

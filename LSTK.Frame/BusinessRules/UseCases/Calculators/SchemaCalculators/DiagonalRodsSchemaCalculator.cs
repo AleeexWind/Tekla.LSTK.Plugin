@@ -118,6 +118,9 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.SchemaCalculators
             elementDataLast.StartPoint = startPointLast;
             elementDataLast.EndPoint = endPointLast;
 
+            elementDataLast.AlternativeStartPoint = startPointAltLast;
+            elementDataLast.AlternativeEndPoint = endPointAltLast;
+
             result.Add(elementDataLast);
 
             return result;
