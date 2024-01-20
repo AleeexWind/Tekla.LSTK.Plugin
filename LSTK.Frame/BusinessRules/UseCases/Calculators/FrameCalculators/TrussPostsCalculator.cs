@@ -12,9 +12,6 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.FrameCalculators
     {
         private FrameBuildInputData _frameBuildInputData;
 
-        private ElementData _leftTopChord;
-        private ElementData _leftBottomChord;
-
         private List<ElementData> _leftTrussPosts;
         private List<ElementData> _rightTrussPosts;
 
@@ -36,8 +33,6 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.FrameCalculators
         private void FilterElements(List<ElementData> elementsDatas)
         {
             _leftTrussPosts = elementsDatas.Where(x => x.ElementGroupType.Equals(ElementGroupType.TrussPost) && x.ElementSideType.Equals(ElementSideType.Left)).ToList();
-            _leftTopChord = elementsDatas.FirstOrDefault(x => x.ElementGroupType.Equals(ElementGroupType.TopChord) && x.ElementSideType.Equals(ElementSideType.Left));
-            _leftBottomChord = elementsDatas.FirstOrDefault(x => x.ElementGroupType.Equals(ElementGroupType.BottomChord) && x.ElementSideType.Equals(ElementSideType.Left));
 
             _rightTrussPosts = new List<ElementData>();
 
@@ -46,30 +41,6 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.FrameCalculators
                 ElementData el = ElementDataCloner.CloneElementData(item);
                 el.ElementSideType = ElementSideType.Right;
                 _rightTrussPosts.Add(el);
-            }
-        }
-        private bool CalcLeftTrussPosts()
-        {
-            try
-            {
-                //foreach (var elem in _leftTrussPosts)
-                //{
-                //    elem.StartPoint.Y = _leftBottomChord.StartPoint.Y;
-
-
-                //    double allLength = _leftTopChord.EndPoint.X - _leftTopChord.StartPoint.X;
-                //    double allHeigtht = _leftTopChord.EndPoint.Y - _leftTopChord.StartPoint.Y;
-                //    double lengthFromZero = elem.EndPoint.X - _leftTopChord.StartPoint.X;
-
-                //    Point endPoint = GetTrussPostEndPointOnTheLine(lengthFromZero, allLength, allHeigtht, offsetY, _previousCoord);
-                //}
-
-                return true;
-            }
-            catch (Exception)
-            {
-                //TODO: Logging
-                return false;
             }
         }
         private bool CalcRightTrussPosts()

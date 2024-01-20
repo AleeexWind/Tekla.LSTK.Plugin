@@ -3,7 +3,6 @@ using LSTK.Frame.BusinessRules.Models;
 using LSTK.Frame.Entities;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 
 namespace LSTK.Frame.BusinessRules.UseCases.Calculators.SchemaCalculators
 {
