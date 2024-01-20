@@ -24,7 +24,7 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.FrameCalculators
             _frameBuildInputData = inputData as FrameBuildInputData;
             FilterElements(elementsDatas);
 
-            if(CalcLeftTrussPosts() && CalcRightTrussPosts())
+            if(CalcRightTrussPosts())
             {
                 elementsDatas.AddRange(_rightTrussPosts);
                 result = true;

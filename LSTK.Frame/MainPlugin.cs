@@ -58,7 +58,8 @@ namespace LSTK.Frame
                     new ColumnsDataCalculator(),
                     new TopChordTrussDataCalculator(),
                     new BottomChordTrussDataCalculator(),
-                    new TrussPostsCalculator()
+                    new TrussPostsCalculator(),
+                    new DiagonalRodsDataCalculator()
                 };
 
                 ITargetAppAccess targetAppAccess = new TeklaAccess(_model, localPlaneManager, teklaPartAttributeSetter, true);
