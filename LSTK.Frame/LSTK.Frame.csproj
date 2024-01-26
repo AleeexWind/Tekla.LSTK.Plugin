@@ -140,6 +140,7 @@
     <Compile Include="BusinessRules\UseCases\FrameBuilder.cs" />
     <Compile Include="BusinessRules\UseCases\SchemaCreateManager.cs" />
     <Compile Include="Entities\ProfileGroup.cs" />
+    <Compile Include="Entities\State.cs" />
     <Compile Include="Frameworks\DataBase\DataBase.cs" />
     <Compile Include="Frameworks\TeklaAPI\LocalPlaneManager.cs" />
     <Compile Include="Frameworks\TeklaAPI\TeklaElementInsertHandler.cs" />

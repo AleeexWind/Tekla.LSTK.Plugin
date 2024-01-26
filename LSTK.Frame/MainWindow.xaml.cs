@@ -203,6 +203,7 @@ namespace LSTK.Frame
         }
         private void InvokeOnSendingRequest(bool buildExistingSchema)
         {
+            _buildSchemaRequestModel.FirstBuild = buildExistingSchema;
             if (string.IsNullOrEmpty(dataModel.ElementPrototypes))
             {
                 _buildSchemaRequestModel.Bay = tb_Bay.Text;
@@ -210,6 +211,7 @@ namespace LSTK.Frame
                 _buildSchemaRequestModel.HeightRoofBottom = tb_Height_RoofBottom.Text;
                 _buildSchemaRequestModel.Panels = tb_Panels.Text;
                 _buildSchemaRequestModel.HeightColumns = tb_Height_Columns.Text;
+
             }
             else
             {
@@ -319,7 +321,7 @@ namespace LSTK.Frame
 
                 (LSTK.Frame.Entities.Point, LSTK.Frame.Entities.Point) points = (element.StartPoint, element.EndPoint);
 
-                TransformCoordinatesForGrid(points, g_schema.ActualHeight, element.Id);
+                TransformCoordinatesForGrid(points, 230, element.Id);
 
                 System.Windows.Point startPoint = new System.Windows.Point() { X = points.Item1.X, Y = points.Item1.Y };
                 System.Windows.Point endPoint = new System.Windows.Point() { X = points.Item2.X, Y = points.Item2.Y };

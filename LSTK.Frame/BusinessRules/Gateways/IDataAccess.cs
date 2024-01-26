@@ -8,12 +8,14 @@ namespace LSTK.Frame.BusinessRules.Gateways
     {
         ElementData GetElementData(int elementDataId);
         AttributeGroup GetAttributeGroup(int attributeGroupId);
-        bool AddElementData(ElementData elementData);
+        //int AddElementData(ElementData elementData);
+        bool AddElementDataCollection(List<ElementData> elements);
         bool AddAttributeGroup(AttributeGroup attributeGroup);
         List<ElementData> GetElementDatas();
         List<AttributeGroup> GetAttributeGroups();
         bool UpdateElementData(ElementData elementData);
 
         bool RestoreAttributeGroup(AttributeGroup attributeGroup);
+
     }
 }

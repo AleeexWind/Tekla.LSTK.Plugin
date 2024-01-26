@@ -16,5 +16,9 @@ namespace LSTK.Frame.Frameworks.DataBase
         public int CurrentAttributeGroupId { get; set; }
         public List<ElementData> SchemaElements { get; set; } = new List<ElementData>();
         public List<AttributeGroup> AttributeGroups { get; set; } = new List<AttributeGroup>();
+
+
+        public int CurrentStateId { get; set; }
+        public List<State> States { get; set; } = new List<State>();
     }
 }

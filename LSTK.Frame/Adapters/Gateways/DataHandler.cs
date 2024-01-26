@@ -42,19 +42,21 @@ namespace LSTK.Frame.Adapters.Gateways
             }
         }
 
-        public bool AddElementData(ElementData elementData)
+        private int AddElementData(ElementData elementData)
         {
+            int addedItem = -1;
             try
             {             
                 elementData.Id = _dataBase.CurrentElementDataId;
                 _dataBase.CurrentElementDataId++;
                 _dataBase.SchemaElements.Add(elementData);
-                return true;
+                addedItem = elementData.Id;
             }
             catch (System.Exception)
             {
-                return false;
+                //TODO: Logging
             }
+            return addedItem;
         }
 
         public AttributeGroup GetAttributeGroup(int attributeGroupId)
@@ -75,7 +77,18 @@ namespace LSTK.Frame.Adapters.Gateways
 
         public List<ElementData> GetElementDatas()
         {
-            return _dataBase.SchemaElements;
+            List<ElementData> result = new List<ElementData>();
+            var maxStateId = _dataBase.States.Max(state => state.Id);
+            var currentElementIds = _dataBase.States.FirstOrDefault(state => state.Id == maxStateId)?.ElementIds;
+
+            if (currentElementIds != null && currentElementIds.Any())
+            {
+                result = _dataBase.SchemaElements
+                    .Where(el => currentElementIds.Contains(el.Id))
+                    .ToList();
+            }
+
+            return result;
         }
         public List<AttributeGroup> GetAttributeGroups()
         {
@@ -128,6 +141,41 @@ namespace LSTK.Frame.Adapters.Gateways
                 AttributeGroupId = elementData.AttributeGroupId
             };
             return clonedElement;
+        }
+
+        private int AddState(List<int> elementDataIds)
+        {
+            State state = new State
+            {
+                Id = _dataBase.CurrentStateId,
+                ElementIds = elementDataIds
+            };
+            _dataBase.CurrentStateId++;
+            _dataBase.States.Add(state);
+
+            return state.Id;
+        }
+
+        public bool AddElementDataCollection(List<ElementData> elements)
+        {
+            bool result = false;
+            List<int> addedItems = new List<int>();
+            foreach (ElementData elementData in elements)
+            {
+                int addedItem = AddElementData(elementData);
+                addedItems.Add(addedItem);
+            }
+
+            if(!addedItems.Contains(-1))
+            {
+                int addedState = AddState(addedItems);
+                if(addedState != -1)
+                {
+                    result = true;
+                }    
+            }
+
+            return result;
         }
     }
 }

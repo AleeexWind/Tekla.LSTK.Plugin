@@ -77,10 +77,10 @@ namespace LSTK.Frame.BusinessRules.UseCases
 
             //Temporary commented
 
-            //if (!AddElementsToDB(_elementsDatas))
-            //{
-            //    //TODO: Logging
-            //}
+            if (!AddElementsToDB(_elementsDatas))
+            {
+                //TODO: Logging
+            }
             BuiltSchemaData builtSchemaData = new BuiltSchemaData()
             {
                 ElementDatas = _elementsDatas,
@@ -118,14 +118,8 @@ namespace LSTK.Frame.BusinessRules.UseCases
         }
         private bool AddElementsToDB(List<ElementData> elements)
         {
-            foreach (var element in elements)
-            {
-                if(!_dataAccess.AddElementData(element))
-                {
-                    return false;
-                }
-            }
-            return true;
+            bool result = _dataAccess.AddElementDataCollection(elements);
+            return result;
         }
         private double GetMaxCoord(List<ElementData> collection, Func<List<Point>,double> func)
         {
