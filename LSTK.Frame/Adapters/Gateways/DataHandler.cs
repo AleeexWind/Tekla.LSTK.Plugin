@@ -83,9 +83,11 @@ namespace LSTK.Frame.Adapters.Gateways
 
             if (currentElementIds != null && currentElementIds.Any())
             {
-                result = _dataBase.SchemaElements
-                    .Where(el => currentElementIds.Contains(el.Id))
-                    .ToList();
+                //result = _dataBase.SchemaElements
+                //    .Where(el => currentElementIds.Contains(el.Id))
+                //    .ToList();
+                currentElementIds
+                    .ForEach(elId => result.Add(GetElementData(elId)));
             }
 
             return result;
@@ -121,27 +123,7 @@ namespace LSTK.Frame.Adapters.Gateways
                 return false;
             }
         }
-        private ElementData CloneElementData(ElementData elementData)
-        {
-            ElementData clonedElement = new ElementData()
-            {
-                Id = elementData.Id,
-                ElementGroupType = elementData.ElementGroupType,
-                ElementSideType = elementData.ElementSideType,
-                StartPoint = elementData.StartPoint,
-                EndPoint = elementData.EndPoint,
-                Profile = elementData.Profile,
-                ProfileHeight = elementData.ProfileHeight,
-                PartName = elementData.PartName,
-                Material = elementData.Material,
-                Class = elementData.Class,
-                RotationPosition = elementData.RotationPosition,
-                PlanePosition = elementData.PlanePosition,
-                DepthPosition = elementData.DepthPosition,
-                AttributeGroupId = elementData.AttributeGroupId
-            };
-            return clonedElement;
-        }
+
 
         private int AddState(List<int> elementDataIds)
         {
@@ -176,6 +158,30 @@ namespace LSTK.Frame.Adapters.Gateways
             }
 
             return result;
+        }
+        private ElementData CloneElementData(ElementData elementData)
+        {
+            return new ElementData
+            {
+                Id = elementData.Id,
+                ElementGroupType = elementData.ElementGroupType,
+                ElementSideType = elementData.ElementSideType,
+                StartPoint = elementData.StartPoint,
+                EndPoint = elementData.EndPoint,
+                Profile = elementData.Profile,
+                ProfileHeight = elementData.ProfileHeight,
+                PartName = elementData.PartName,
+                Material = elementData.Material,
+                Class = elementData.Class,
+                RotationPosition = elementData.RotationPosition,
+                PlanePosition = elementData.PlanePosition,
+                DepthPosition = elementData.DepthPosition,
+                AttributeGroupId = elementData.AttributeGroupId,
+                IsMirrored = elementData.IsMirrored,
+                IsDeleted = elementData.IsDeleted,
+                AlternativeStartPoint = elementData.AlternativeStartPoint,
+                AlternativeEndPoint = elementData.AlternativeEndPoint
+            };
         }
     }
 }

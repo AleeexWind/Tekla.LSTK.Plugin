@@ -4,9 +4,6 @@ using LSTK.Frame.Entities;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LSTK.Frame.Adapters.Controllers
 {
@@ -25,17 +22,7 @@ namespace LSTK.Frame.Adapters.Controllers
  
         void BuildSchema(object sender, EventArgs e)
         {
-            //if (IsValid())
-            //{
-            //    GatherInput();
-            //    _schemaBuilder.BuildSchema(_schemaInputData);
-            //}
-            //else
-            //{
-            //    //TODO: show error in status bar
-            //}
-
-            if(_buildSchemaRequestModel.FirstBuild)
+            if(_buildSchemaRequestModel.FirstBuild && string.IsNullOrEmpty(_buildSchemaRequestModel.ExistedSchema))
             {
                 if (IsValid())
                 {
@@ -48,32 +35,9 @@ namespace LSTK.Frame.Adapters.Controllers
                     //TODO: show error in status bar
                 }
             }
-
-
-
-            //TODO: Temporary unavailable
-            if (string.IsNullOrEmpty(_buildSchemaRequestModel.ExistedSchema))
-            {
-                if (IsValid())
-                {
-                    GatherInput();
-                    _schemaBuilder.BuildSchema(_schemaInputData);
-                }
-                else
-                {
-                    //TODO: show error in status bar
-                }
-            }
             else
             {
-                List<ElementData> elementDatas = null;
-                if (true)
-                {
-                    elementDatas = JsonConvert.DeserializeObject<List<ElementData>>(_buildSchemaRequestModel.ExistedSchema);
-                }
-
-
-
+                List<ElementData> elementDatas = JsonConvert.DeserializeObject<List<ElementData>>(_buildSchemaRequestModel.ExistedSchema);
                 _schemaBuilder.RebuildSchema(elementDatas);
             }
         }

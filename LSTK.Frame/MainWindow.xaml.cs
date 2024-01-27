@@ -201,9 +201,21 @@ namespace LSTK.Frame
 
             InvokeOnSendingRequest(false);
         }
-        private void InvokeOnSendingRequest(bool buildExistingSchema)
+        private void b_schema_as_new_Click(object sender, RoutedEventArgs e)
         {
-            _buildSchemaRequestModel.FirstBuild = buildExistingSchema;
+            foreach (var item in g_schema.Children)
+            {
+                Path pgObject = item as Path;
+                pgObject.MouseDown -= Path_MouseDown;
+
+            }
+            g_schema.Children.Clear();
+            dataModel.ElementPrototypes = string.Empty;
+            InvokeOnSendingRequest(true);
+        }
+        private void InvokeOnSendingRequest(bool isFirstBuild)
+        {
+            _buildSchemaRequestModel.FirstBuild = isFirstBuild;
             if (string.IsNullOrEmpty(dataModel.ElementPrototypes))
             {
                 _buildSchemaRequestModel.Bay = tb_Bay.Text;
@@ -211,7 +223,7 @@ namespace LSTK.Frame
                 _buildSchemaRequestModel.HeightRoofBottom = tb_Height_RoofBottom.Text;
                 _buildSchemaRequestModel.Panels = tb_Panels.Text;
                 _buildSchemaRequestModel.HeightColumns = tb_Height_Columns.Text;
-
+                _buildSchemaRequestModel.ExistedSchema = string.Empty;
             }
             else
             {

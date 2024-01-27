@@ -25,10 +25,14 @@ namespace LSTK.Frame.Entities
         public bool IsMirrored { get; set; }
 
         public bool IsDeleted { get; set; } = false;
-    }
-    public class DiagonalRodElement : ElementData
-    {
+
         public Point AlternativeStartPoint { get; set; } = new Point();
         public Point AlternativeEndPoint { get; set; } = new Point();
+
     }
+    //public class DiagonalRodElement : ElementData
+    //{
+    //    public Point AlternativeStartPoint { get; set; } = new Point();
+    //    public Point AlternativeEndPoint { get; set; } = new Point();
+    //}
 }

@@ -205,7 +205,8 @@
                 </StackPanel>
                 <Button Grid.Column="2" Grid.Row="10" x:Name="b_acceptAttribute" Content="Accept attributes" Width="165" HorizontalAlignment="Left" Click="b_acceptAttribute_Click"/>
                 <Button Grid.Column="2" Grid.Row="10" x:Name="b_getAttribute" Content="Get attributes" Width="165" HorizontalAlignment="Right" Click="b_getAttribute_Click"/>
-                <Button Grid.Column="2" Grid.Row="11" x:Name="b_schema" Content="Build Schema" Click="b_schema_Click"/>
+                <Button Grid.Column="2" Grid.Row="11" x:Name="b_schema" Content="Build Schema" Width="165" HorizontalAlignment="Left" Click="b_schema_Click"/>
+                <Button Grid.Column="2" Grid.Row="11" x:Name="b_schemaAsNew" Content="Build Schema as new" Width="165" HorizontalAlignment="Right" Click="b_schema_as_new_Click"/>
             </Grid>
         </Grid>
         <UIControls:WpfOkApplyModifyGetOnOffCancel

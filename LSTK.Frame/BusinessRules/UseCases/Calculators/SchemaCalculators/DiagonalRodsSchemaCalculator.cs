@@ -22,11 +22,11 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.SchemaCalculators
 
             elementsDatas.AddRange(_diagonalRodsElementsLeft);
 
-            List<ElementData> diaRods = _diagonalRodsElementsLeft.Where(x => x.ElementGroupType.Equals(ElementGroupType.DiagonalRod)).ToList();
-            foreach (var dr in diaRods)
-            {
-                DiagonalRodElement diagonalRodElement = dr as DiagonalRodElement;
-            }
+            //List<ElementData> diaRods = _diagonalRodsElementsLeft.Where(x => x.ElementGroupType.Equals(ElementGroupType.DiagonalRod)).ToList();
+            //foreach (var dr in diaRods)
+            //{
+            //    DiagonalRodElement diagonalRodElement = dr as DiagonalRodElement;
+            //}
 
             return true;
         }
@@ -37,7 +37,7 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.SchemaCalculators
             ElementData previousTrussPost = null;
             foreach (var trussPost in _leftTrussPosts)
             {
-                DiagonalRodElement elementData = CreateElementData();
+                ElementData elementData = CreateElementData();
                 Point startPoint = new Point();
                 Point endPoint = new Point();
 
@@ -113,7 +113,7 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.SchemaCalculators
             endPointAltLast.Y = _leftBottomChord.EndPoint.Y;
             endPointAltLast.Z = 0.0;
 
-            DiagonalRodElement elementDataLast = CreateElementData();
+            ElementData elementDataLast = CreateElementData();
             elementDataLast.StartPoint = startPointLast;
             elementDataLast.EndPoint = endPointLast;
 
@@ -134,9 +134,9 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.SchemaCalculators
         {
             _leftTrussPosts = _leftTrussPosts.OrderBy(x => x.StartPoint.X).ToList();
         }
-        private DiagonalRodElement CreateElementData()
+        private ElementData CreateElementData()
         {
-            return new DiagonalRodElement()
+            return new ElementData()
             {
                 ElementGroupType = _elementGroupType
             };
