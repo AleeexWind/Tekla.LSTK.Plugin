@@ -2,15 +2,18 @@
 using LSTK.Frame.BusinessRules.Gateways;
 using LSTK.Frame.Entities;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace LSTK.Frame.BusinessRules.UseCases
 {
     public class AttributeSetManager : IAttributeSetter
     {
         private readonly IDataAccess _dataAccess;
-        public AttributeSetManager(IDataAccess dataAccess)
+        private readonly ISchemaBuilder _schemaBuilder;
+        public AttributeSetManager(IDataAccess dataAccess, ISchemaBuilder schemaBuilder)
         {
             _dataAccess = dataAccess;
+            _schemaBuilder = schemaBuilder;
         }
         public bool SetAttributesToElements(List<int> elementIds, AttributeGroup attributeGroup)
         {
@@ -22,17 +25,18 @@ namespace LSTK.Frame.BusinessRules.UseCases
                 {
                     return false;
                 }
+                List<ElementData> currentElementDatas = _dataAccess.GetElementDatas();
 
-                foreach (int id in elementIds)
+                List<ElementData> selectedElemDatas = currentElementDatas.Where(x => elementIds.Contains(x.Id)).ToList();
+
+                foreach (var el in selectedElemDatas)
                 {
-                    ElementData elementData = _dataAccess.GetElementData(id);
-
-                    if(elementData == null || !SetAttributes(elementData, attributeGroup) || 
-                        !_dataAccess.UpdateElementData(elementData))
-                    {
-                        return false;
-                    }
+                    SetAttributes(el, attributeGroup);
                 }
+                _dataAccess.AddElementDataCollection(currentElementDatas);
+                elementDatas = _dataAccess.GetElementDatas();
+
+                _schemaBuilder.RebuildSchema(elementDatas);
                 return true;
             }
             catch

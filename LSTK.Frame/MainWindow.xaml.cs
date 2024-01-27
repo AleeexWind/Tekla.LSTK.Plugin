@@ -30,7 +30,7 @@ namespace LSTK.Frame
         private AttributeSetRequestModel _attributeSetRequestModel;
         private AttributeGetRequestModel _attributeGetRequestModel;
         private BuildSchemaRequestModel _buildSchemaRequestModel;
-        private FrameReceiverRequestModel _frameReceiverRequestModel;
+        //private FrameReceiverRequestModel _frameReceiverRequestModel;
         private RotateRequestModel _rotateRequestModel;
         private DeleteRequestModel _deleteRequestModel;
 
@@ -106,7 +106,7 @@ namespace LSTK.Frame
 
             //Attribute set Use Case
             _attributeSetRequestModel = new AttributeSetRequestModel();          
-            IAttributeSetter attributeSetter = new AttributeSetManager(dataAccess);
+            IAttributeSetter attributeSetter = new AttributeSetManager(dataAccess, schemaBuilder);
             _ = new AttributeSetController(attributeSetter, _attributeSetRequestModel);
 
 
@@ -116,10 +116,10 @@ namespace LSTK.Frame
             IAttributeGetResponse attributeGetResponse = new AttributePresenter(dataModel);
             _ = new AttributeGetController(attributeGetter, attributeGetResponse, _attributeGetRequestModel);
 
-            _frameReceiverRequestModel = new FrameReceiverRequestModel();
-            IFrameReceiverResponse frameReceiverResponse = new FrameReceiverPresenter(dataModel);
-            IFrameReceiver frameReceiver = new FrameReceiver(frameReceiverResponse, dataAccess);
-            _ = new FrameReceiverController(frameReceiver, _frameReceiverRequestModel);
+            //_frameReceiverRequestModel = new FrameReceiverRequestModel();
+            //IFrameReceiverResponse frameReceiverResponse = new FrameReceiverPresenter(dataModel);
+            //IFrameReceiver frameReceiver = new FrameReceiver(frameReceiverResponse, dataAccess);
+            //_ = new FrameReceiverController(frameReceiver, _frameReceiverRequestModel);
 
             RestoreDataBase(dataAccess, dataModel.ElementAttributes, dataModel.ElementPrototypes);
             //InvokeOnSendingRequest(true);
@@ -144,7 +144,8 @@ namespace LSTK.Frame
         }
         private void WPFOkApplyModifyGetOnOffCancel_OkClicked(object sender, EventArgs e)
         {
-            _frameReceiverRequestModel.OnSendingRequest?.Invoke(this, new EventArgs());
+            //_frameReceiverRequestModel.OnSendingRequest?.Invoke(this, new EventArgs());
+            TryToBuildFrame(this, new EventArgs());
             this.Close();
         }
 
@@ -353,15 +354,17 @@ namespace LSTK.Frame
         }
         private void TryToBuildFrame(object sender, EventArgs e)
         {
-            if (dataModel.ToBeBuilt)
-            {
-                this.Apply();
-                this.Close();
-            }
-            else
-            {
-                // To display the message about not valid schema or attributes
-            }
+            this.Apply();
+            this.Close();
+            //if (dataModel.ToBeBuilt)
+            //{
+            //    this.Apply();
+            //    this.Close();
+            //}
+            //else
+            //{
+            //    // To display the message about not valid schema or attributes
+            //}
         }
         private void ShowAttributes(object sender, EventArgs e)
         {

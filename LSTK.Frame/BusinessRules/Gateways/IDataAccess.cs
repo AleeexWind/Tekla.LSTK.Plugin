@@ -13,7 +13,7 @@ namespace LSTK.Frame.BusinessRules.Gateways
         bool AddAttributeGroup(AttributeGroup attributeGroup);
         List<ElementData> GetElementDatas();
         List<AttributeGroup> GetAttributeGroups();
-        bool UpdateElementData(ElementData elementData);
+        //bool UpdateElementData(ElementData elementData);
 
         bool RestoreAttributeGroup(AttributeGroup attributeGroup);
 

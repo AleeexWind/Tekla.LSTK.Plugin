@@ -97,32 +97,32 @@ namespace LSTK.Frame.Adapters.Gateways
             return _dataBase.AttributeGroups;
         }
 
-        public bool UpdateElementData(ElementData elementData)
-        {
-            ElementData foundElement = _dataBase.SchemaElements.FirstOrDefault(x => x.Id.Equals(elementData.Id));
-            if(foundElement != null)
-            {
-                foundElement.Id = elementData.Id;
-                foundElement.ElementGroupType = elementData.ElementGroupType;
-                foundElement.ElementSideType = elementData.ElementSideType;
-                foundElement.StartPoint = elementData.StartPoint;
-                foundElement.EndPoint = elementData.EndPoint;
-                foundElement.Profile = elementData.Profile;
-                foundElement.ProfileHeight = elementData.ProfileHeight;
-                foundElement.PartName = elementData.PartName;
-                foundElement.Material = elementData.Material;
-                foundElement.Class = elementData.Class;
-                foundElement.RotationPosition = elementData.RotationPosition;
-                foundElement.PlanePosition = elementData.PlanePosition;
-                foundElement.DepthPosition = elementData.DepthPosition;
-                foundElement.AttributeGroupId = elementData.AttributeGroupId;
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
+        //public bool UpdateElementData(ElementData elementData)
+        //{
+        //    ElementData foundElement = _dataBase.SchemaElements.FirstOrDefault(x => x.Id.Equals(elementData.Id));
+        //    if(foundElement != null)
+        //    {
+        //        foundElement.Id = elementData.Id;
+        //        foundElement.ElementGroupType = elementData.ElementGroupType;
+        //        foundElement.ElementSideType = elementData.ElementSideType;
+        //        foundElement.StartPoint = elementData.StartPoint;
+        //        foundElement.EndPoint = elementData.EndPoint;
+        //        foundElement.Profile = elementData.Profile;
+        //        foundElement.ProfileHeight = elementData.ProfileHeight;
+        //        foundElement.PartName = elementData.PartName;
+        //        foundElement.Material = elementData.Material;
+        //        foundElement.Class = elementData.Class;
+        //        foundElement.RotationPosition = elementData.RotationPosition;
+        //        foundElement.PlanePosition = elementData.PlanePosition;
+        //        foundElement.DepthPosition = elementData.DepthPosition;
+        //        foundElement.AttributeGroupId = elementData.AttributeGroupId;
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //    }
+        //}
 
 
         private int AddState(List<int> elementDataIds)
