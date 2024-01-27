@@ -122,7 +122,7 @@ namespace LSTK.Frame
             _ = new FrameReceiverController(frameReceiver, _frameReceiverRequestModel);
 
             RestoreDataBase(dataAccess, dataModel.ElementAttributes, dataModel.ElementPrototypes);
-            InvokeOnSendingRequest(true);
+            //InvokeOnSendingRequest(true);
         }
         private void WPFOkApplyModifyGetOnOffCancel_ApplyClicked(object sender, EventArgs e)
         {
