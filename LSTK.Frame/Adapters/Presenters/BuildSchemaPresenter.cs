@@ -44,7 +44,8 @@ namespace LSTK.Frame.Adapters.Presenters
 
             string prototypes = JsonConvert.SerializeObject(builtSchemaData.ElementDatas);
 
-            _mainWindowViewModel.ElementPrototypes = prototypes;
+            //_mainWindowViewModel.ElementPrototypes = prototypes;
+            _mainWindowViewModel.TempElementPrototypes = prototypes;
             _mainWindowViewModel.OnDrawSchema?.Invoke(this, new EventArgs());
         }
         //public void TransferSchema(List<ElementData> elementDatas, double coordXmax, double coordYmax, double yOffset)

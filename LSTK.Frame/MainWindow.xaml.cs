@@ -12,6 +12,7 @@ using LSTK.Frame.Frameworks.DataBase;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media;
@@ -37,7 +38,7 @@ namespace LSTK.Frame
 
         private List<(int, Path)> _schemaElements = new List<(int, Path)>();
         private List<int> _selectedElements = new List<int>();
-
+        private int _i = 1;
 
         public MainWindow(MainWindowViewModel DataModel)
         {
@@ -121,8 +122,18 @@ namespace LSTK.Frame
             //IFrameReceiver frameReceiver = new FrameReceiver(frameReceiverResponse, dataAccess);
             //_ = new FrameReceiverController(frameReceiver, _frameReceiverRequestModel);
 
-            RestoreDataBase(dataAccess, dataModel.ElementAttributes, dataModel.ElementPrototypes);
+            RestoreDataBase(dataAccess, dataModel.ElementAttributes);
+
+            dataModel.PropertyChanged += HandlePropertyChanged;
             //InvokeOnSendingRequest(true);
+        }
+        private void HandlePropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if(e.PropertyName.Equals("ElementPrototypes") && _i !=0)
+            {
+                _i--;
+                InvokeOnSendingRequest(true);
+            }
         }
         private void WPFOkApplyModifyGetOnOffCancel_ApplyClicked(object sender, EventArgs e)
         {
@@ -145,6 +156,8 @@ namespace LSTK.Frame
         private void WPFOkApplyModifyGetOnOffCancel_OkClicked(object sender, EventArgs e)
         {
             //_frameReceiverRequestModel.OnSendingRequest?.Invoke(this, new EventArgs());
+            dataModel.PropertyChanged -= HandlePropertyChanged;
+            dataModel.ElementPrototypes = dataModel.TempElementPrototypes;
             TryToBuildFrame(this, new EventArgs());
             this.Close();
         }
@@ -431,7 +444,7 @@ namespace LSTK.Frame
             }
         }
 
-        private void RestoreDataBase(IDataAccess dataAccess, string attributesGroupString, string elementDatasString)
+        private void RestoreDataBase(IDataAccess dataAccess, string attributesGroupString)
         {
             List<AttributeGroup> attributesGroup = new List<AttributeGroup>();
             List<ElementData> elementDatas = new List<ElementData>();

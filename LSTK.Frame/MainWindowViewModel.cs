@@ -44,7 +44,7 @@ namespace LSTK.Frame
         public List<int> SelectedElements { get; set; } = new List<int>();
 
         public List<SchemaElement> SchemaElements { get; set; } = new List<SchemaElement>();
-
+        public string TempElementPrototypes { get; set; }
         public double FrameWidthForSchema { get; set; }
         public double FrameHeightForSchema { get; set; }
         public double YoffsetSchema { get; set; }
