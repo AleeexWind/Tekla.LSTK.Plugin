@@ -151,6 +151,7 @@ namespace LSTK.Frame
 
         private void WPFOkApplyModifyGetOnOffCancel_ModifyClicked(object sender, EventArgs e)
         {
+            dataModel.ElementPrototypes = dataModel.TempElementPrototypes;
             this.Modify();
         }
         private void WPFOkApplyModifyGetOnOffCancel_OkClicked(object sender, EventArgs e)
