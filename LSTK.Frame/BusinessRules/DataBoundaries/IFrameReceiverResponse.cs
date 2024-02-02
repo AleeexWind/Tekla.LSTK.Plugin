@@ -5,6 +5,6 @@ namespace LSTK.Frame.BusinessRules.DataBoundaries
 {
     public interface IFrameReceiverResponse
     {
-        void ShowResult(List<ElementData> elementDatas, List<AttributeGroup> attributeGroups);
+        void ShowResult(List<ElementData> elementDatas);
     }
 }

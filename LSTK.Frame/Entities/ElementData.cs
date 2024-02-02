@@ -20,7 +20,7 @@ namespace LSTK.Frame.Entities
         public string PlanePosition { get; set; } = string.Empty;
         public string DepthPosition { get; set; } = string.Empty;
 
-        public int AttributeGroupId { get; set; }
+        //public int AttributeGroupId { get; set; }
 
         public bool IsMirrored { get; set; }
 

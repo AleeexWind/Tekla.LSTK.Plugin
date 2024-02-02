@@ -21,10 +21,6 @@ namespace LSTK.Frame.BusinessRules.UseCases
             {
                 List<ElementData> elementDatas = new List<ElementData>();
 
-                if(!_dataAccess.AddAttributeGroup(attributeGroup))
-                {
-                    return false;
-                }
                 List<ElementData> currentElementDatas = _dataAccess.GetElementDatas();
 
                 List<ElementData> selectedElemDatas = currentElementDatas.Where(x => elementIds.Contains(x.Id)).ToList();
@@ -49,7 +45,6 @@ namespace LSTK.Frame.BusinessRules.UseCases
         {
             try
             {
-                elementData.AttributeGroupId = attributeGroup.Id;
                 elementData.PartName = attributeGroup.PartName;
                 elementData.Profile = attributeGroup.Profile;
                 elementData.Material = attributeGroup.Material;

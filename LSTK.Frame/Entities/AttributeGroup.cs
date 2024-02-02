@@ -2,7 +2,6 @@
 {
     public class AttributeGroup
     {
-        public int Id { get; set; }
         public string PartName { get; set; } = string.Empty;
         public string Profile { get; set; } = string.Empty;
         public string Material { get; set; } = string.Empty;

@@ -11,7 +11,6 @@ namespace LSTK.Frame.BusinessRules.UseCases
         private readonly IDataAccess _dataAccess;
         private bool _isValid;
         private List<ElementData> _elementDatas;
-        private List<AttributeGroup> _attributeGroups;
 
         public FrameReceiver(IFrameReceiverResponse frameReceiverResponse, IDataAccess dataAccess)
         {
@@ -21,7 +20,6 @@ namespace LSTK.Frame.BusinessRules.UseCases
         public void ValidateData()
         {
             GetElementDatas();
-            GetAttributes();
 
             //TODO: implement validation
             _isValid = true;
@@ -29,22 +27,20 @@ namespace LSTK.Frame.BusinessRules.UseCases
         public void ProvideData()
         {
             List<ElementData> resultElementDatas = new List<ElementData>();
-            List<AttributeGroup> resultAttributeGroups = new List<AttributeGroup>();
 
             if (_isValid)
             {
                 resultElementDatas = _elementDatas;
-                resultAttributeGroups = _attributeGroups;
             }
-            _frameReceiverResponse.ShowResult(resultElementDatas, resultAttributeGroups);
+            _frameReceiverResponse.ShowResult(resultElementDatas);
         }
         private void GetElementDatas()
         {
             _elementDatas = _dataAccess.GetElementDatas();
         }
-        private void GetAttributes()
-        {
-            _attributeGroups = _dataAccess.GetAttributeGroups();
-        }
+        //private void GetAttributes()
+        //{
+        //    _attributeGroups = _dataAccess.GetAttributeGroups();
+        //}
     }
 }

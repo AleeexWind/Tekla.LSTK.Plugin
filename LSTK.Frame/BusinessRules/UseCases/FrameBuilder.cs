@@ -102,7 +102,7 @@ namespace LSTK.Frame.BusinessRules.UseCases
                 RotationPosition = elementData.RotationPosition,
                 PlanePosition = elementData.PlanePosition,
                 DepthPosition = elementData.DepthPosition,
-                AttributeGroupId = elementData.AttributeGroupId,
+                //AttributeGroupId = elementData.AttributeGroupId,
                 IsMirrored = true
             };
 

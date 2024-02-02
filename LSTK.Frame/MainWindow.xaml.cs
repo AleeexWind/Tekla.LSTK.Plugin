@@ -51,23 +51,6 @@ namespace LSTK.Frame
             //DisplayPreviousValues();
             OnInitialization();
         }
-        private void DisplayPreviousValues()
-        {
-            cmb_FrameOption.SelectedItem = dataModel.FrameOption;
-            tb_Bay.Text = dataModel.Bay;
-            tb_Height_Columns.Text = dataModel.HeightColumns;
-
-            tb_Height_RoofRidge.Text = dataModel.HeightRoofRidge;
-            tb_Height_RoofBottom.Text = dataModel.HeightRoofBottom;
-            tb_Panels.Text = dataModel.Panels;
-
-            cmb_TopChordLineOption.SelectedItem = dataModel.TopChordLineOption;
-            cmb_BottomChordLineOption.SelectedItem = dataModel.BottomChordLineOption;
-            cmb_ColumnLineOption.SelectedItem = dataModel.ColumnLineOption;
-            cmb_CentralColumnLineOption.SelectedItem = dataModel.CentralColumnLineOption;
-            cmb_DoubleProfileOption.SelectedItem = dataModel.DoubleProfileOption;
-            tb_ProfileGap.Text = dataModel.ProfileGap;
-        }
         private void WindowClosing(object sender, EventArgs e)
         {
             dataModel.OnDrawSchema -= DrawSchema;
@@ -117,15 +100,7 @@ namespace LSTK.Frame
             IAttributeGetResponse attributeGetResponse = new AttributePresenter(dataModel);
             _ = new AttributeGetController(attributeGetter, attributeGetResponse, _attributeGetRequestModel);
 
-            //_frameReceiverRequestModel = new FrameReceiverRequestModel();
-            //IFrameReceiverResponse frameReceiverResponse = new FrameReceiverPresenter(dataModel);
-            //IFrameReceiver frameReceiver = new FrameReceiver(frameReceiverResponse, dataAccess);
-            //_ = new FrameReceiverController(frameReceiver, _frameReceiverRequestModel);
-
-            RestoreDataBase(dataAccess, dataModel.ElementAttributes);
-
             dataModel.PropertyChanged += HandlePropertyChanged;
-            //InvokeOnSendingRequest(true);
         }
         private void HandlePropertyChanged(object sender, PropertyChangedEventArgs e)
         {
@@ -156,7 +131,6 @@ namespace LSTK.Frame
         }
         private void WPFOkApplyModifyGetOnOffCancel_OkClicked(object sender, EventArgs e)
         {
-            //_frameReceiverRequestModel.OnSendingRequest?.Invoke(this, new EventArgs());
             dataModel.PropertyChanged -= HandlePropertyChanged;
             dataModel.ElementPrototypes = dataModel.TempElementPrototypes;
             TryToBuildFrame(this, new EventArgs());
@@ -252,28 +226,6 @@ namespace LSTK.Frame
 
             _buildSchemaRequestModel.OnSendingRequest?.Invoke(this, new EventArgs());
         }
-        //private void InvokeOnSendingRequest(bool buildExistingSchema)
-        //{
-        //    if(buildExistingSchema)
-        //    {
-        //        _buildSchemaRequestModel.Bay = dataModel.Bay;
-        //        _buildSchemaRequestModel.HeightRoofRidge = dataModel.HeightRoofRidge;
-        //        _buildSchemaRequestModel.HeightRoofBottom = dataModel.HeightRoofBottom;
-        //        _buildSchemaRequestModel.Panels = dataModel.Panels;
-        //        _buildSchemaRequestModel.HeightColumns = dataModel.HeightColumns;
-        //        _buildSchemaRequestModel.ExistedSchema = dataModel.ElementPrototypes;
-        //    }
-        //    else
-        //    {
-        //        _buildSchemaRequestModel.Bay = tb_Bay.Text;
-        //        _buildSchemaRequestModel.HeightRoofRidge = tb_Height_RoofRidge.Text;
-        //        _buildSchemaRequestModel.HeightRoofBottom = tb_Height_RoofBottom.Text;
-        //        _buildSchemaRequestModel.Panels = tb_Panels.Text;
-        //        _buildSchemaRequestModel.HeightColumns = tb_Height_Columns.Text;
-        //    }
-
-        //    _buildSchemaRequestModel.OnSendingRequest?.Invoke(this, new EventArgs());
-        //}
         private void b_acceptAttribute_Click(object sender, RoutedEventArgs e)
         {
             _attributeSetRequestModel.ElementIds = _selectedElements;
@@ -370,15 +322,6 @@ namespace LSTK.Frame
         {
             this.Apply();
             this.Close();
-            //if (dataModel.ToBeBuilt)
-            //{
-            //    this.Apply();
-            //    this.Close();
-            //}
-            //else
-            //{
-            //    // To display the message about not valid schema or attributes
-            //}
         }
         private void ShowAttributes(object sender, EventArgs e)
         {
@@ -443,26 +386,6 @@ namespace LSTK.Frame
                 element.Item1.Y = Ystart;
                 element.Item2.Y = Yend;
             }
-        }
-
-        private void RestoreDataBase(IDataAccess dataAccess, string attributesGroupString)
-        {
-            List<AttributeGroup> attributesGroup = new List<AttributeGroup>();
-            List<ElementData> elementDatas = new List<ElementData>();
-
-            if(!string.IsNullOrEmpty(attributesGroupString))
-            {
-                attributesGroup = JsonConvert.DeserializeObject<List<AttributeGroup>>(attributesGroupString);
-            }
-
-            if (attributesGroup!=null)
-            {
-                foreach(AttributeGroup attributeGroup in attributesGroup)
-                {
-                    dataAccess.RestoreAttributeGroup(attributeGroup);
-                }
-            }
-
         }
     }
 }

@@ -13,7 +13,7 @@ namespace LSTK.Frame.Adapters.Presenters
         {
             _mainWindowViewModel = mainWindowViewModel;
         }
-        public void ShowResult(List<ElementData> elementDatas, List<AttributeGroup> attributeGroups)
+        public void ShowResult(List<ElementData> elementDatas)
         {
             _mainWindowViewModel.ToBeBuilt = false;
 

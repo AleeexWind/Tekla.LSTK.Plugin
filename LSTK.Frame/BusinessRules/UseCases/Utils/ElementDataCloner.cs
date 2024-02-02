@@ -21,7 +21,7 @@ namespace LSTK.Frame.BusinessRules.UseCases.Utils
                 RotationPosition = elementData.RotationPosition,
                 PlanePosition = elementData.PlanePosition,
                 DepthPosition = elementData.DepthPosition,
-                AttributeGroupId = elementData.AttributeGroupId,
+                //AttributeGroupId = elementData.AttributeGroupId,
                 IsMirrored = elementData.IsMirrored,
                 IsDeleted = elementData.IsDeleted
             };
