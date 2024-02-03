@@ -59,6 +59,10 @@ namespace LSTK.Frame
         }
         private void OnInitialization()
         {
+            Tekla.Structures.ModelInternal.Operation.dotStartAction("dotdiaLoadDialogs", "");
+            Tekla.Structures.ModelInternal.Operation.dotStartAction("dotdiaReloadDialogs", "");
+            Tekla.Structures.Model.Operations.Operation.DisplayPrompt("Dialogs reloaded..");
+
             DataBase dataBase = new DataBase();
             IDataAccess dataAccess = new DataHandler(dataBase);
 
