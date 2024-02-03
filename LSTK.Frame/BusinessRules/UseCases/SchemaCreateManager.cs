@@ -3,7 +3,6 @@ using LSTK.Frame.BusinessRules.Gateways;
 using LSTK.Frame.BusinessRules.Models;
 using LSTK.Frame.BusinessRules.UseCases.Calculators;
 using LSTK.Frame.Entities;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,21 +31,6 @@ namespace LSTK.Frame.BusinessRules.UseCases
                 calc.Calculate(_elementsDatas, schemaInputData);
             }
 
-            //TODO: temporary unavailable
-            //if (!string.IsNullOrEmpty(schemaInputData.ExistedSchema))
-            //{
-            //    _elementsDatas = JsonConvert.DeserializeObject<List<ElementData>>(schemaInputData.ExistedSchema);
-            //}
-            //else
-            //{
-            //    _elementsDatas = new List<ElementData>();
-            //    foreach (IDataCalculator calc in _calculators)
-            //    {
-            //        calc.Calculate(_elementsDatas, schemaInputData);
-            //    }
-            //    //SetIds(_elementsDatas);             
-            //}
-
             if (!AddElementsToDB(_elementsDatas))
             {
                 //TODO: Logging
@@ -64,8 +48,6 @@ namespace LSTK.Frame.BusinessRules.UseCases
 
             _schemaResponse.DrawSchema(builtSchemaData);
         }
-
-
 
         public void RebuildSchema(List<ElementData> elementsDatas)
         {
@@ -75,8 +57,6 @@ namespace LSTK.Frame.BusinessRules.UseCases
             double Ymax = GetMaxCoord(_elementsDatas, MaxYcoord);
             double Xmax = GetMaxCoord(_elementsDatas, MaxXcoord);
 
-            //Temporary commented
-
             if (!AddElementsToDB(_elementsDatas))
             {
                 //TODO: Logging
@@ -91,24 +71,6 @@ namespace LSTK.Frame.BusinessRules.UseCases
             _schemaResponse.DrawSchema(builtSchemaData);
         }
 
-        //private List<ElementData> GetAllElementsOfTruss()
-        //{
-        //    List<ElementData> result = new List<ElementData>
-        //    {
-        //        _frameData.TrussData.LeftTopChord,
-        //        _frameData.TrussData.RightTopChord,
-        //        _frameData.TrussData.LeftBottomChord,
-        //        _frameData.TrussData.RightBottomChord
-        //    };
-        //    result.AddRange(_frameData.TrussData.TrussPosts);
-
-        //    if(!AddElementsToDB(result))
-        //    {
-        //        //TODO: Logging
-        //    }
-
-        //    return result;
-        //}
         private double GetSchemaYoffset(SchemaInputData schemaInputData)
         {
             double columnHeight = schemaInputData.HeightColumns;

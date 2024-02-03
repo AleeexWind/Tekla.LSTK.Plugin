@@ -20,8 +20,6 @@ namespace LSTK.Frame.Entities
         public string PlanePosition { get; set; } = string.Empty;
         public string DepthPosition { get; set; } = string.Empty;
 
-        //public int AttributeGroupId { get; set; }
-
         public bool IsMirrored { get; set; }
 
         public bool IsDeleted { get; set; } = false;
@@ -30,9 +28,4 @@ namespace LSTK.Frame.Entities
         public Point AlternativeEndPoint { get; set; } = new Point();
 
     }
-    //public class DiagonalRodElement : ElementData
-    //{
-    //    public Point AlternativeStartPoint { get; set; } = new Point();
-    //    public Point AlternativeEndPoint { get; set; } = new Point();
-    //}
 }

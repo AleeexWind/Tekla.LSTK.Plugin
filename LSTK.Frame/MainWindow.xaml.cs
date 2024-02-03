@@ -31,14 +31,13 @@ namespace LSTK.Frame
         private AttributeSetRequestModel _attributeSetRequestModel;
         private AttributeGetRequestModel _attributeGetRequestModel;
         private BuildSchemaRequestModel _buildSchemaRequestModel;
-        //private FrameReceiverRequestModel _frameReceiverRequestModel;
         private RotateRequestModel _rotateRequestModel;
         private DeleteRequestModel _deleteRequestModel;
 
 
         private List<(int, Path)> _schemaElements = new List<(int, Path)>();
         private List<int> _selectedElements = new List<int>();
-        private int _i = 1;
+        private int _i = 2;
 
         public MainWindow(MainWindowViewModel DataModel)
         {
@@ -316,7 +315,6 @@ namespace LSTK.Frame
                 pgObject.MouseDown += Path_MouseDown;
                 g_schema.Children.Add(pgObject);
             }
-            //tb_ElementPrototypes.Text = dataModel.ElementPrototypes;
         }
         private void TryToBuildFrame(object sender, EventArgs e)
         {

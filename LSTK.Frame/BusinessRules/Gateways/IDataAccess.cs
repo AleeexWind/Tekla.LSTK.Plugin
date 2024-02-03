@@ -9,6 +9,5 @@ namespace LSTK.Frame.BusinessRules.Gateways
         ElementData GetElementData(int elementDataId);
         bool AddElementDataCollection(List<ElementData> elements);
         List<ElementData> GetElementDatas();
-
     }
 }

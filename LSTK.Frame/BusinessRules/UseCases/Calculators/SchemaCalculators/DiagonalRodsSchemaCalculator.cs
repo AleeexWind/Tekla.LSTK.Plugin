@@ -22,12 +22,6 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.SchemaCalculators
 
             elementsDatas.AddRange(_diagonalRodsElementsLeft);
 
-            //List<ElementData> diaRods = _diagonalRodsElementsLeft.Where(x => x.ElementGroupType.Equals(ElementGroupType.DiagonalRod)).ToList();
-            //foreach (var dr in diaRods)
-            //{
-            //    DiagonalRodElement diagonalRodElement = dr as DiagonalRodElement;
-            //}
-
             return true;
         }
         private List<ElementData> CalcLeftDiagonalRods()

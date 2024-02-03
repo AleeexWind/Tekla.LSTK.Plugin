@@ -26,28 +26,6 @@ namespace LSTK.Frame.BusinessRules.UseCases
 
             List<ElementData> diaRods = selectedElements.Where(x => x.ElementGroupType.Equals(ElementGroupType.DiagonalRod)).ToList();
 
-            //foreach (ElementData diaRod in diaRods)
-            //{
-            //    DiagonalRodElement diagonalRodElement = diaRod as DiagonalRodElement;
-
-            //    diaRod.StartPoint = diagonalRodElement.StartPoint;
-            //    diaRod.EndPoint = diagonalRodElement.EndPoint;
-            //}
-            //foreach (var el in _elementsDatas)
-            //{
-            //    if(elementIds.Contains(el.Id) && el.ElementGroupType.Equals(ElementGroupType.DiagonalRod))
-            //    {
-            //        Point sPoint = el.StartPoint;
-            //        Point ePoint = el.EndPoint;
-
-            //        DiagonalRodElement diagonalRodElement = el as DiagonalRodElement;
-            //        diagonalRodElement.StartPoint = diagonalRodElement.AlternativeStartPoint;
-            //        diagonalRodElement.EndPoint = diagonalRodElement.AlternativeEndPoint;
-
-            //        diagonalRodElement.AlternativeStartPoint = sPoint;
-            //        diagonalRodElement.AlternativeEndPoint = ePoint;
-            //    }
-            //}
             foreach (var el in _elementsDatas)
             {
                 if (elementIds.Contains(el.Id) && el.ElementGroupType.Equals(ElementGroupType.DiagonalRod))

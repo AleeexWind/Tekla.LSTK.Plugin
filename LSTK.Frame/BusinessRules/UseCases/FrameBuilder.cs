@@ -1,6 +1,7 @@
 ﻿using LSTK.Frame.BusinessRules.DataBoundaries;
 using LSTK.Frame.BusinessRules.Gateways;
 using LSTK.Frame.BusinessRules.UseCases.Calculators;
+using LSTK.Frame.BusinessRules.UseCases.Utils;
 using LSTK.Frame.Entities;
 using System.Collections.Generic;
 
@@ -39,9 +40,7 @@ namespace LSTK.Frame.BusinessRules.UseCases
             List<ElementData> cl = new List<ElementData>();
             foreach (var elem in frameBuildInputData.FrameData.Elements)
             {
-                //SetAttributesTemp(elem);
-
-                ElementData ce = CloneElementData(elem);
+                ElementData ce = ElementDataCloner.CloneElementData(elem);
                 cl.Add(ce);
                 elem.StartPoint.Z = -frameBuildInputData.FrameData.Gap/2;
                 elem.EndPoint.Z = -frameBuildInputData.FrameData.Gap / 2;
@@ -73,40 +72,6 @@ namespace LSTK.Frame.BusinessRules.UseCases
             {
                 calc.Calculate(_elementsDatas, _frameBuildInputData);
             }
-        }
-
-        private void SetDoubleProfile(List<ElementData> Elements)
-        {
-            foreach (var element in Elements)
-            {
-                ElementData data = element as ElementData;
-
-            }
-        }
-
-        //TODO: Replace this method by ElementDataCloner
-        private ElementData CloneElementData(ElementData elementData)
-        {
-            ElementData clonedElementData = new ElementData
-            {
-                Id = elementData.Id,
-                ElementGroupType = elementData.ElementGroupType,
-                ElementSideType = elementData.ElementSideType,
-                StartPoint = elementData.StartPoint,
-                EndPoint = elementData.EndPoint,
-                Profile = elementData.Profile,
-                ProfileHeight = elementData.ProfileHeight,
-                PartName = elementData.PartName,
-                Material = elementData.Material,
-                Class = elementData.Class,
-                RotationPosition = elementData.RotationPosition,
-                PlanePosition = elementData.PlanePosition,
-                DepthPosition = elementData.DepthPosition,
-                //AttributeGroupId = elementData.AttributeGroupId,
-                IsMirrored = true
-            };
-
-            return clonedElementData;
         }
     }
 }
