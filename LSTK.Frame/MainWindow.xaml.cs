@@ -177,18 +177,6 @@ namespace LSTK.Frame
             }
         }
 
-        private void b_schema_Click(object sender, RoutedEventArgs e)
-        {
-            foreach (var item in g_schema.Children)
-            {
-                Path pgObject = item as Path;
-                pgObject.MouseDown -= Path_MouseDown;
-
-            }
-            g_schema.Children.Clear();
-
-            InvokeOnSendingRequest(false);
-        }
         private void b_schema_as_new_Click(object sender, RoutedEventArgs e)
         {
             foreach (var item in g_schema.Children)

@@ -25,7 +25,8 @@
             </Grid.ColumnDefinitions>
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="0.34*"/>
+                    <RowDefinition Height="0.25*"/>
+                    <RowDefinition Height="0.09*"/>
                     <RowDefinition Height="0.66*"/>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
@@ -34,7 +35,6 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition/>
                         <RowDefinition/>
                         <RowDefinition/>
                         <RowDefinition/>
@@ -90,7 +90,8 @@
                             Text="{Binding Panels, Mode=TwoWay}"/>
                     </StackPanel>
                 </Grid>
-                <Grid Grid.Row="1">
+                <Button Grid.Row="1" x:Name="b_schemaAsNew" Content="Build Schema as new" Click="b_schema_as_new_Click"/>
+                <Grid Grid.Row="2">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="3.5*"/>
                         <RowDefinition Height="0.5*"/>
@@ -123,6 +124,7 @@
                     <Button x:Name="b_rotate" Content="Rotate" Width="165" HorizontalAlignment="Left" Click="b_rotate_Click" Margin="495,280,0,0" Grid.RowSpan="2"/>
                     <Button x:Name="b_remove" Content="Remove" Width="165" HorizontalAlignment="Left" Click="b_remove_Click" Margin="320,280,0,0" Grid.RowSpan="2"/>
                 </Grid>
+                
             </Grid>
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
@@ -169,12 +171,12 @@
                     <UIControls:WpfFilterCheckBox VerticalAlignment="Center" AttributeName="profileGap"/>
                     <TextBox x:Name="tb_ProfileGap" Width="120" Height="23" VerticalAlignment="Center" Text="{Binding ProfileGap, Mode=TwoWay}" TextWrapping="Wrap"  />
                 </StackPanel>
-                <StackPanel Grid.Column="2" Grid.Row="6" Orientation="Horizontal">
+                <StackPanel Grid.Column="2" Grid.Row="7" Orientation="Horizontal">
                     <Label x:Name="label_PartName_Group" Content="{tsd:Loc albl_PartName_Group}" Height="30" Width="150"/>
                     <UIControls:WpfFilterCheckBox VerticalAlignment="Center" AttributeName="partNameGroup"/>
                     <TextBox x:Name="tb_PartName_Group" Width="120" Height="23" VerticalAlignment="Center" Text="{Binding PartNameGroup, Mode=TwoWay}" TextWrapping="Wrap"  />
                 </StackPanel>
-                <StackPanel Grid.Column="2" Grid.Row="7" Orientation="Horizontal">
+                <StackPanel Grid.Column="2" Grid.Row="8" Orientation="Horizontal">
                     <Label x:Name="label_Profile_Group" Content="{tsd:Loc albl_Profile_Group}" Height="30" Width="150"/>
                     <UIControls:WpfFilterCheckBox VerticalAlignment="Center" AttributeName="profileGroup" />
                     <TextBox
@@ -184,7 +186,7 @@
                     Text="{Binding ProfileGroup, Mode=TwoWay}"/>
                     <UIControls:WpfProfileCatalog x:Name="profileCatalogGroup" HorizontalAlignment="Left" VerticalAlignment="Center" SelectClicked="profileCatalogGroup_SelectClicked" SelectionDone="profileCatalogGroup_SelectionDone"/>
                 </StackPanel>
-                <StackPanel Grid.Column="2" Grid.Row="8" Orientation="Horizontal">
+                <StackPanel Grid.Column="2" Grid.Row="9" Orientation="Horizontal">
                     <Label x:Name="label_Material_Group" Content="{tsd:Loc albl_Material_Group}" Height="30" Width="150"/>
                     <UIControls:WpfFilterCheckBox VerticalAlignment="Center" AttributeName="materialGroup" />
                     <TextBox
@@ -194,7 +196,7 @@
                     Text="{Binding MaterialGroup, Mode=TwoWay}"/>
                     <UIControls:WpfMaterialCatalog x:Name="materialCatalogGroup" HorizontalAlignment="Left" VerticalAlignment="Center" SelectClicked="WpfMaterialCatalogGroup_SelectClicked" SelectionDone="WpfMaterialCatalogGroup_SelectionDone"/>
                 </StackPanel>
-                <StackPanel Grid.Column="2" Grid.Row="9" Orientation="Horizontal">
+                <StackPanel Grid.Column="2" Grid.Row="10" Orientation="Horizontal">
                     <Label x:Name="label_Class_Group" Content="{tsd:Loc albl_Class_Group}" Height="30" Width="150"/>
                     <UIControls:WpfFilterCheckBox VerticalAlignment="Center" AttributeName="classGroup" />
                     <TextBox
@@ -203,10 +205,8 @@
                     Height="23"
                     Text="{Binding ClassGroup, Mode=TwoWay}" Margin="0,4,0,0" VerticalAlignment="Top"/>
                 </StackPanel>
-                <Button Grid.Column="2" Grid.Row="10" x:Name="b_acceptAttribute" Content="Accept attributes" Width="165" HorizontalAlignment="Left" Click="b_acceptAttribute_Click"/>
-                <Button Grid.Column="2" Grid.Row="10" x:Name="b_getAttribute" Content="Get attributes" Width="165" HorizontalAlignment="Right" Click="b_getAttribute_Click"/>
-                <Button Grid.Column="2" Grid.Row="11" x:Name="b_schema" Content="Build Schema" Width="165" HorizontalAlignment="Left" Click="b_schema_Click"/>
-                <Button Grid.Column="2" Grid.Row="11" x:Name="b_schemaAsNew" Content="Build Schema as new" Width="165" HorizontalAlignment="Right" Click="b_schema_as_new_Click"/>
+                <Button Grid.Column="2" Grid.Row="11" x:Name="b_acceptAttribute" Content="Accept attributes" Width="165" HorizontalAlignment="Left" Click="b_acceptAttribute_Click"/>
+                <Button Grid.Column="2" Grid.Row="11" x:Name="b_getAttribute" Content="Get attributes" Width="165" HorizontalAlignment="Right" Click="b_getAttribute_Click"/>
             </Grid>
         </Grid>
         <UIControls:WpfOkApplyModifyGetOnOffCancel
