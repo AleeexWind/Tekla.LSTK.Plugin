@@ -50,6 +50,15 @@ namespace LSTK.Frame
                 _data.StartPoint = Point1;
                 _data.DirectionPoint = Point2;
 
+                bool doubleProfileOption = false;
+                if(_data.DoubleProfileOption.Equals("Yes"))
+                {
+                    doubleProfileOption = true;
+                }
+
+
+
+
                 TeklaPartAttributeSetter teklaPartAttributeSetter = new TeklaPartAttributeSetter();
                 LocalPlaneManager localPlaneManager = new LocalPlaneManager(_model);
 
@@ -62,7 +71,7 @@ namespace LSTK.Frame
                     new DiagonalRodsDataCalculator()
                 };
 
-                ITargetAppAccess targetAppAccess = new TeklaAccess(_model, localPlaneManager, teklaPartAttributeSetter, true);
+                ITargetAppAccess targetAppAccess = new TeklaAccess(_model, localPlaneManager, teklaPartAttributeSetter, doubleProfileOption);
                 IFrameBuilder frameBuilder = new FrameBuilder(targetAppAccess, calculators);
                 FrameBuildController frameBuildController = new FrameBuildController(frameBuilder);
                 frameBuildController.BuildFrame(_data);
@@ -129,5 +138,8 @@ namespace LSTK.Frame
         
         [StructuresField("profileGap")]
         public string ProfileGap;
+
+        [StructuresField("doubleProfileOption")]
+        public string DoubleProfileOption;
     }
 }

@@ -40,8 +40,13 @@ namespace LSTK.Frame.BusinessRules.UseCases
             List<ElementData> cl = new List<ElementData>();
             foreach (var elem in frameBuildInputData.FrameData.Elements)
             {
-                ElementData ce = ElementDataCloner.CloneElementData(elem);
-                cl.Add(ce);
+                if(_frameBuildInputData.DoubleProfileOption)
+                {
+                    ElementData ce = ElementDataCloner.CloneElementData(elem);
+                    ce.IsMirrored = true;
+                    cl.Add(ce);
+                }
+
                 elem.StartPoint.Z = -frameBuildInputData.FrameData.Gap/2;
                 elem.EndPoint.Z = -frameBuildInputData.FrameData.Gap / 2;
 
