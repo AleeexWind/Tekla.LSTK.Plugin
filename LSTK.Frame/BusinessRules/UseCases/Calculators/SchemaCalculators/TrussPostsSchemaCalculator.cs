@@ -83,7 +83,7 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.SchemaCalculators
 
         private List<double> GetRightDistances(List<double> leftDistances)
         {
-            double startOffsetX = (_schemaInputData.Bay/2 - _previousCoord) * 2;
+            double startOffsetX = (_schemaInputData.Bay - _previousCoord) * 2;
             List<double> distances = leftDistances;
             distances.Add(startOffsetX);
             distances = distances.Reverse<double>().ToList();

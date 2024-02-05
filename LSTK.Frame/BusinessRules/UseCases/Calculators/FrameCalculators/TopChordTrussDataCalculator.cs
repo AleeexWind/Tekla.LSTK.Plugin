@@ -76,17 +76,17 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.FrameCalculators
         {
             try
             {
-                double offset = _leftTopChord.EndPoint.X - _frameBuildInputData.Bay/2;
+                double offset = _leftTopChord.EndPoint.X - _frameBuildInputData.Bay;
 
                 Point startPoint = new Point()
                 {
-                    X = _frameBuildInputData.Bay - offset,
+                    X = _frameBuildInputData.Bay*2 - offset,
                     Y = _leftTopChord.StartPoint.Y,
                     Z = 0.0
                 };
                 Point endPoint = new Point()
                 {
-                    X = _frameBuildInputData.Bay/2 - offset,
+                    X = _frameBuildInputData.Bay - offset,
                     Y = _leftTopChord.EndPoint.Y,
                     Z = 0.0
                 };

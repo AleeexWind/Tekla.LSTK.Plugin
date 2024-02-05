@@ -68,13 +68,13 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.FrameCalculators
             {
                 Point startPoint = new Point()
                 {
-                    X = _frameBuildInputData.Bay,
+                    X = _frameBuildInputData.Bay*2,
                     Y = _leftBottomChord.StartPoint.Y,
                     Z = 0.0
                 };
                 Point endPoint = new Point()
                 {
-                    X = _frameBuildInputData.Bay/2,
+                    X = _frameBuildInputData.Bay,
                     Y = _leftBottomChord.EndPoint.Y,
                     Z = 0.0
                 };

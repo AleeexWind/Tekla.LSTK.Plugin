@@ -41,7 +41,7 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.SchemaCalculators
                 };
                 Point endPoint = new Point()
                 {
-                    X = _schemaInputData.Bay/2,
+                    X = _schemaInputData.Bay,
                     Y = _schemaInputData.HeightColumns - _schemaInputData.HeightRoofBottom,
                     Z = 0.0
                 };
