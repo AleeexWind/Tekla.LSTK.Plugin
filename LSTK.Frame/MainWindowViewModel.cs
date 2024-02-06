@@ -12,8 +12,6 @@ namespace LSTK.Frame
         public EventHandler OnBuildSchema { get; set; }
         public EventHandler OnDrawSchema { get; set; }
         public EventHandler OnAttributeGet { get; set; }
-
-        public EventHandler<List<int>> OnSchemaAttributeSet { get; set; }
         public EventHandler OnViewUpdate { get; set; }
 
         private string frameOption;
@@ -39,8 +37,6 @@ namespace LSTK.Frame
         private string elementPrototypes = string.Empty;
 
         public bool ToBeBuilt { get; set; }
-
-        public List<int> SelectedElements { get; set; } = new List<int>();
 
         public List<SchemaElement> SchemaElements { get; set; } = new List<SchemaElement>();
         public string TempElementPrototypes { get; set; }

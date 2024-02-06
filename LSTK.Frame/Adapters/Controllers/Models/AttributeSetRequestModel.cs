@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LSTK.Frame.Adapters.Controllers.Models
 {
@@ -14,5 +11,5 @@ namespace LSTK.Frame.Adapters.Controllers.Models
         public string Material { get; set; } = string.Empty;
         public string Class { get; set; } = string.Empty;
         public EventHandler OnSendingRequest { get; set; }
-}
+    }
 }

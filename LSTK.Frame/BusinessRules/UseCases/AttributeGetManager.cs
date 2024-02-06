@@ -14,7 +14,7 @@ namespace LSTK.Frame.BusinessRules.UseCases
         {
             _dataAccess = dataAccess;
         }
-  
+
         public AttributeGroup GetAttributes(List<int> elementIds)
         {
             AttributeGroup result = GenerateSpecificAttributeGroup("error");
@@ -57,11 +57,11 @@ namespace LSTK.Frame.BusinessRules.UseCases
 
         private string ApplyResultProperty(bool isEqual, bool isValid, string basicValue)
         {
-            if(!isValid)
+            if (!isValid)
             {
                 return "error";
             }
-            else if(isEqual)
+            else if (isEqual)
             {
                 return basicValue;
             }

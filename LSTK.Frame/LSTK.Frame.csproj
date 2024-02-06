@@ -96,8 +96,6 @@
     <Compile Include="Adapters\Controllers\FrameBuildController.cs" />
     <Compile Include="Adapters\Controllers\Models\BuildSchemaRequestModel.cs" />
     <Compile Include="Adapters\Controllers\Models\DeleteRequestModel.cs" />
-    <Compile Include="Adapters\Controllers\Models\NewSessionBuildSchemaRequestModel.cs" />
-    <Compile Include="Adapters\Controllers\Models\FrameReceiverRequestModel.cs" />
     <Compile Include="Adapters\Controllers\Models\RotateRequestModel.cs" />
     <Compile Include="Adapters\Controllers\RotateElementsController.cs" />
     <Compile Include="BusinessRules\DataBoundaries\FrameBuildInputData.cs" />
@@ -116,7 +114,6 @@
     <Compile Include="BusinessRules\DataBoundaries\IRotateElements.cs" />
     <Compile Include="BusinessRules\DataBoundaries\ISchemaBuilder.cs" />
     <Compile Include="BusinessRules\DataBoundaries\IFrameBuilder.cs" />
-    <Compile Include="BusinessRules\DataBoundaries\IFrameDataInputBoundary.cs" />
     <Compile Include="BusinessRules\DataBoundaries\InputData.cs" />
     <Compile Include="BusinessRules\DataBoundaries\SchemaInputData.cs" />
     <Compile Include="BusinessRules\Gateways\IDataAccess.cs" />
@@ -133,7 +130,6 @@
     <Compile Include="BusinessRules\UseCases\Utils\ElementDataCloner.cs" />
     <Compile Include="Entities\AttributeGroup.cs" />
     <Compile Include="BusinessRules\Models\ElementGroupType.cs" />
-    <Compile Include="BusinessRules\Models\ElementDataPrototype.cs" />
     <Compile Include="BusinessRules\Models\ElementSideType.cs" />
     <Compile Include="BusinessRules\Models\SchemaElement.cs" />
     <Compile Include="BusinessRules\UseCases\AttributeGetManager.cs" />
@@ -146,7 +142,6 @@
     <Compile Include="BusinessRules\UseCases\Calculators\FrameCalculators\TrussPostsCalculator.cs" />
     <Compile Include="BusinessRules\UseCases\FrameBuilder.cs" />
     <Compile Include="BusinessRules\UseCases\SchemaCreateManager.cs" />
-    <Compile Include="Entities\ProfileGroup.cs" />
     <Compile Include="Entities\State.cs" />
     <Compile Include="Frameworks\DataBase\DataBase.cs" />
     <Compile Include="Frameworks\TeklaAPI\LocalPlaneManager.cs" />
@@ -154,10 +149,7 @@
     <Compile Include="Frameworks\TeklaAPI\TeklaPartAttributeGetter.cs" />
     <Compile Include="Frameworks\TeklaAPI\TeklaPartAttributeSetter.cs" />
     <Compile Include="BusinessRules\UseCases\Calculators\SchemaCalculators\ColumnsScemaCalculator.cs" />
-    <Compile Include="BusinessRules\DataBoundaries\FrameInputData.cs" />
-    <Compile Include="Entities\ColumnsData.cs" />
     <Compile Include="Entities\Point.cs" />
-    <Compile Include="Entities\TrussData.cs" />
     <Compile Include="Entities\ElementData.cs" />
     <Compile Include="Frameworks\TeklaAPI\TeklaPointSelector.cs" />
     <Compile Include="MainPlugin.cs" />
@@ -166,7 +158,6 @@
     </Compile>
     <Compile Include="MainWindowViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utils\ServiceProvider.cs" />
     <Compile Include="Utils\TeklaPointConverter.cs" />
   </ItemGroup>
   <ItemGroup>

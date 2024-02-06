@@ -7,9 +7,7 @@ using LSTK.Frame.BusinessRules.Gateways;
 using LSTK.Frame.BusinessRules.UseCases;
 using LSTK.Frame.BusinessRules.UseCases.Calculators;
 using LSTK.Frame.BusinessRules.UseCases.Calculators.SchemaCalculators;
-using LSTK.Frame.Entities;
 using LSTK.Frame.Frameworks.DataBase;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -92,7 +90,7 @@ namespace LSTK.Frame
             DeleteElementsController deleteElementsController = new DeleteElementsController(deleteElements, _deleteRequestModel);
 
             //Attribute set Use Case
-            _attributeSetRequestModel = new AttributeSetRequestModel();          
+            _attributeSetRequestModel = new AttributeSetRequestModel();
             IAttributeSetter attributeSetter = new AttributeSetManager(dataAccess, schemaBuilder);
             _ = new AttributeSetController(attributeSetter, _attributeSetRequestModel);
 
@@ -107,7 +105,7 @@ namespace LSTK.Frame
         }
         private void HandlePropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if(e.PropertyName.Equals("ElementPrototypes") && _i !=0)
+            if (e.PropertyName.Equals("ElementPrototypes") && _i != 0)
             {
                 _i--;
                 InvokeOnSendingRequest(true);
@@ -170,7 +168,7 @@ namespace LSTK.Frame
 
             int selElemId = _schemaElements.FirstOrDefault(x => x.Item2.Equals(pgObject)).Item1;
 
-            if(_selectedElements.Contains(selElemId))
+            if (_selectedElements.Contains(selElemId))
             {
                 _selectedElements.Remove(selElemId);
                 pgObject.Stroke = new SolidColorBrush(Colors.Blue);
@@ -230,7 +228,7 @@ namespace LSTK.Frame
             foreach (var elemId in _selectedElements)
             {
                 var selPath = _schemaElements.FirstOrDefault(f => f.Item1.Equals(elemId));
-                if(selPath.Item2 != null)
+                if (selPath.Item2 != null)
                 {
                     selPath.Item2.Stroke = new SolidColorBrush(Colors.Blue);
                 }
@@ -284,7 +282,7 @@ namespace LSTK.Frame
             g_schema.Children.Clear();
             foreach (var element in dataModel.SchemaElements)
             {
-                if(element.ToBeDrawn == false)
+                if (element.ToBeDrawn == false)
                     continue;
                 string _brushColor = "Blue";
                 SolidColorBrush brushColor = (SolidColorBrush)new BrushConverter().ConvertFromString(_brushColor);
@@ -327,7 +325,7 @@ namespace LSTK.Frame
         }
         private double GetSchemaScaleX()
         {
-            return g_schema.Width  * 0.98 / dataModel.FrameWidthForSchema;
+            return g_schema.Width * 0.98 / dataModel.FrameWidthForSchema;
         }
         private double GetSchemaScaleY()
         {
