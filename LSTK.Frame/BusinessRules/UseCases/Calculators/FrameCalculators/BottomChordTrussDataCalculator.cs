@@ -19,7 +19,7 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.FrameCalculators
             bool result = false;
             _frameBuildInputData = inputData as FrameBuildInputData;
             FilterElements(elementsDatas);
-            if(CalcLeftBottomChord() && CalcRightBottomChord())
+            if (CalcLeftBottomChord() && CalcRightBottomChord())
             {
                 elementsDatas.Add(_rightBottomChord);
                 result = true;
@@ -45,11 +45,11 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.FrameCalculators
                 (Point, Point) newCoord = (startPoint, endPoint);
                 if (_frameBuildInputData.BottomChordLineOption.Equals("Below"))
                 {
-                    newCoord = CoordinateUtils.GetParallelLineCoordinate(startPoint, endPoint, profileHeight/2);
+                    newCoord = CoordinateUtils.GetParallelLineCoordinate(startPoint, endPoint, profileHeight / 2);
                 }
                 else if (_frameBuildInputData.BottomChordLineOption.Equals("Above"))
                 {
-                    newCoord = CoordinateUtils.GetParallelLineCoordinate(startPoint, endPoint, -profileHeight/2);
+                    newCoord = CoordinateUtils.GetParallelLineCoordinate(startPoint, endPoint, -profileHeight / 2);
                 }
                 _leftBottomChord.StartPoint = newCoord.Item1;
                 _leftBottomChord.EndPoint = newCoord.Item2;
@@ -59,7 +59,6 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.FrameCalculators
             {
                 //TODO: Logging
                 return false;
-                throw;
             }
         }
         private bool CalcRightBottomChord()
@@ -68,7 +67,7 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.FrameCalculators
             {
                 Point startPoint = new Point()
                 {
-                    X = _frameBuildInputData.Bay*2,
+                    X = _frameBuildInputData.Bay * 2,
                     Y = _leftBottomChord.StartPoint.Y,
                     Z = 0.0
                 };
@@ -87,7 +86,6 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.FrameCalculators
             {
                 //TODO: Logging
                 return false;
-                throw;
             }
         }
     }

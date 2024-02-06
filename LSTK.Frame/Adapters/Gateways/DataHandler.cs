@@ -11,14 +11,14 @@ namespace LSTK.Frame.Adapters.Gateways
         private readonly DataBase _dataBase;
         public DataHandler(DataBase dataBase)
         {
-                _dataBase = dataBase;
+            _dataBase = dataBase;
         }
 
         private int AddElementData(ElementData elementData)
         {
             int addedItem = -1;
             try
-            {             
+            {
                 elementData.Id = _dataBase.CurrentElementDataId;
                 _dataBase.CurrentElementDataId++;
                 _dataBase.SchemaElements.Add(elementData);
@@ -35,7 +35,7 @@ namespace LSTK.Frame.Adapters.Gateways
         {
             ElementData result = null;
             ElementData foundElement = _dataBase.SchemaElements.FirstOrDefault(x => x.Id.Equals(elementDataId));
-            if(foundElement != null)
+            if (foundElement != null)
             {
                 result = CloneElementData(foundElement);
             }
@@ -80,13 +80,13 @@ namespace LSTK.Frame.Adapters.Gateways
                 addedItems.Add(addedItem);
             }
 
-            if(!addedItems.Contains(-1))
+            if (!addedItems.Contains(-1))
             {
                 int addedState = AddState(addedItems);
-                if(addedState != -1)
+                if (addedState != -1)
                 {
                     result = true;
-                }    
+                }
             }
 
             return result;
@@ -108,7 +108,6 @@ namespace LSTK.Frame.Adapters.Gateways
                 RotationPosition = elementData.RotationPosition,
                 PlanePosition = elementData.PlanePosition,
                 DepthPosition = elementData.DepthPosition,
-                //AttributeGroupId = elementData.AttributeGroupId,
                 IsMirrored = elementData.IsMirrored,
                 IsDeleted = elementData.IsDeleted,
                 AlternativeStartPoint = elementData.AlternativeStartPoint,

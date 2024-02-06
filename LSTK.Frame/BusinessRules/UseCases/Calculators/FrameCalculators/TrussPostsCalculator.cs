@@ -14,6 +14,8 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.FrameCalculators
 
         private List<ElementData> _leftTrussPosts;
         private List<ElementData> _rightTrussPosts;
+        private ElementData _leftTopChord;
+        private ElementData _leftBottomChord;
 
         public bool Calculate(List<ElementData> elementsDatas, InputData inputData)
         {
@@ -21,7 +23,18 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.FrameCalculators
             _frameBuildInputData = inputData as FrameBuildInputData;
             FilterElements(elementsDatas);
 
-            if(CalcRightTrussPosts())
+            if (!CalcLeftTrussPosts())
+            {
+                result = false;
+            }
+            foreach (var item in _leftTrussPosts)
+            {
+                ElementData el = ElementDataCloner.CloneElementData(item);
+                el.ElementSideType = ElementSideType.Right;
+                _rightTrussPosts.Add(el);
+            }
+
+            if (CalcRightTrussPosts())
             {
                 elementsDatas.AddRange(_rightTrussPosts);
                 result = true;
@@ -33,15 +46,42 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.FrameCalculators
         private void FilterElements(List<ElementData> elementsDatas)
         {
             _leftTrussPosts = elementsDatas.Where(x => x.ElementGroupType.Equals(ElementGroupType.TrussPost) && x.ElementSideType.Equals(ElementSideType.Left)).ToList();
+            _leftTopChord = elementsDatas.FirstOrDefault(x => x.ElementGroupType.Equals(ElementGroupType.TopChord) && x.ElementSideType.Equals(ElementSideType.Left));
+            _leftBottomChord = elementsDatas.FirstOrDefault(x => x.ElementGroupType.Equals(ElementGroupType.BottomChord) && x.ElementSideType.Equals(ElementSideType.Left));
 
             _rightTrussPosts = new List<ElementData>();
-
-            foreach (var item in _leftTrussPosts)
+        }
+        private bool CalcLeftTrussPosts()
+        {
+            try
             {
-                ElementData el = ElementDataCloner.CloneElementData(item);
-                el.ElementSideType = ElementSideType.Right;
-                _rightTrussPosts.Add(el);
+                foreach (var elem in _leftTrussPosts)
+                {
+                    elem.StartPoint.Y = _leftBottomChord.StartPoint.Y;
+                    elem.EndPoint = GetEndPointOnTheLineFromLeft(_leftTopChord.StartPoint, _leftTopChord.EndPoint, elem.StartPoint.X);
+                }
+                return true;
             }
+            catch (Exception)
+            {
+                //TODO: Logging
+                return false;
+            }
+        }
+        public static Point GetEndPointOnTheLineFromLeft(Point leftTopChordStartPoint, Point leftTopChordEndPoint, double XcoordOfTargetPoint)
+        {
+            double allLength = leftTopChordEndPoint.X - leftTopChordStartPoint.X;
+            double allHeight = leftTopChordEndPoint.Y - leftTopChordStartPoint.Y;
+            double lengthFromZero = XcoordOfTargetPoint - leftTopChordStartPoint.X;
+
+            Point point = new Point();
+            double height = lengthFromZero * allHeight / allLength;
+
+            point.X = XcoordOfTargetPoint;
+            point.Y = leftTopChordStartPoint.Y + height;
+            point.Z = 0.0;
+
+            return point;
         }
         private bool CalcRightTrussPosts()
         {
@@ -51,13 +91,13 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.FrameCalculators
                 {
                     Point startPoint = new Point()
                     {
-                        X = _frameBuildInputData.Bay*2 - elem.StartPoint.X,
+                        X = _frameBuildInputData.Bay * 2 - elem.StartPoint.X,
                         Y = elem.StartPoint.Y,
                         Z = 0.0
                     };
                     Point endPoint = new Point()
                     {
-                        X = _frameBuildInputData.Bay*2 - elem.StartPoint.X,
+                        X = _frameBuildInputData.Bay * 2 - elem.StartPoint.X,
                         Y = elem.EndPoint.Y,
                         Z = 0.0
                     };
@@ -72,12 +112,6 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.FrameCalculators
                 //TODO: Logging
                 return false;
             }
-        }
-        private Point GetTrussPostEndPointOnTheLine(Point startPointLine, Point endPointLine, Point startPointOfTrussPost)
-        {
-            Point point = new Point();
-
-            return point;
         }
     }
 }

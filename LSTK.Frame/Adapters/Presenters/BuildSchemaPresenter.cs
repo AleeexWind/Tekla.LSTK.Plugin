@@ -28,7 +28,7 @@ namespace LSTK.Frame.Adapters.Presenters
                     EndPoint = new Point() { X = elemData.EndPoint.X, Y = elemData.EndPoint.Y, Z = elemData.EndPoint.Z },
                     Id = elemData.Id,
                     ToBeDrawn = !elemData.IsDeleted
-                    
+
                 };
 
                 _mainWindowViewModel.SchemaElements.Add(schemaElement);
@@ -36,7 +36,6 @@ namespace LSTK.Frame.Adapters.Presenters
 
             string prototypes = JsonConvert.SerializeObject(builtSchemaData.ElementDatas);
 
-            //_mainWindowViewModel.ElementPrototypes = prototypes;
             _mainWindowViewModel.TempElementPrototypes = prototypes;
             _mainWindowViewModel.OnDrawSchema?.Invoke(this, new EventArgs());
         }

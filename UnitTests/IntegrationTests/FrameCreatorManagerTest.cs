@@ -1,10 +1,4 @@
-﻿using Xunit;
-using System;
-using LSTK.Frame;
-using Tekla.Structures.Geometry3d;
-using Tekla.Structures.Model;
-
-namespace UnitTests.IntegrationTests
+﻿namespace UnitTests.IntegrationTests
 {
     public class FrameCreatorManagerTest
     {

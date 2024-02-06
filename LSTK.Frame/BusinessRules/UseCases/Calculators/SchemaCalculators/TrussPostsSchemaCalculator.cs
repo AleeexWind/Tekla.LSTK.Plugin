@@ -25,13 +25,11 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.SchemaCalculators
             _previousCoord = 0;
             FilterElements(elementsDatas);
             _trussPostsElementsLeft = CalcLeftTrussPosts();
-            //List<ElementData> trussPostsElementsRight = CalcRightThrussPosts();
 
 
-            if(_trussPostsElementsLeft != null)
+            if (_trussPostsElementsLeft != null)
             {
                 elementsDatas.AddRange(_trussPostsElementsLeft);
-                //elementsDatas.AddRange(trussPostsElementsRight);
                 return true;
             }
             else
@@ -81,22 +79,13 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.SchemaCalculators
             return distances;
         }
 
-        private List<double> GetRightDistances(List<double> leftDistances)
-        {
-            double startOffsetX = (_schemaInputData.Bay - _previousCoord) * 2;
-            List<double> distances = leftDistances;
-            distances.Add(startOffsetX);
-            distances = distances.Reverse<double>().ToList();
-            return distances;
-        }
-
         private List<ElementData> CalcLeftTrussPosts()
         {
             List<ElementData> result = new List<ElementData>();
             _trussPostDistancesLeft = GetLeftDistances(_distances);
             if (_trussPostDistancesLeft.Any())
             {
-                _trussPostDistancesLeft.RemoveAt(_trussPostDistancesLeft.Count -1);
+                _trussPostDistancesLeft.RemoveAt(_trussPostDistancesLeft.Count - 1);
                 foreach (var dist in _trussPostDistancesLeft)
                 {
                     _previousCoord += dist;
@@ -124,53 +113,6 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.SchemaCalculators
                     elementData.ElementSideType = ElementSideType.Left;
 
                     result.Add(elementData);
-                }
-            }
-
-            return result;
-        }
-
-        private List<ElementData> CalcRightThrussPosts()
-        {
-            List<ElementData> result = new List<ElementData>();
-            List<double> trussPostDistancesRight = GetRightDistances(_trussPostDistancesLeft);
-            if (trussPostDistancesRight.Any())
-            {
-                trussPostDistancesRight.RemoveAt(trussPostDistancesRight.Count -1);
-                foreach (var dist in trussPostDistancesRight)
-                {
-                    _previousCoord += dist;
-                    Point startPoint = new Point()
-                    {
-                        X = _previousCoord,
-                        Y = _leftBottomChord.StartPoint.Y,
-                        Z = 0.0
-                    };
-
-                    Point endPoint = new Point()
-                    {
-                        X = startPoint.X,
-                        Y = 0,
-                        Z = 0
-                    };
-
-                    ElementData elementData = CreateElementData();
-                    elementData.StartPoint = startPoint;
-                    elementData.EndPoint = endPoint;
-                    elementData.ElementSideType = ElementSideType.Right;
-
-
-                    result.Add(elementData);
-                }
-                List<double> leftPostsYcoord = new List<double>();
-                foreach (var leftTrussPost in _trussPostsElementsLeft)
-                {
-                    leftPostsYcoord.Add(leftTrussPost.EndPoint.Y);
-                }
-                leftPostsYcoord.Reverse();
-                for (int i = 0; i < result.Count; i++)
-                {
-                    result[i].EndPoint.Y = leftPostsYcoord[i];
                 }
             }
 

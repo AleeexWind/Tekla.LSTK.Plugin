@@ -13,11 +13,26 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.FrameCalculators
         private FrameBuildInputData _frameBuildInputData;
         private List<ElementData> _leftDiagonalRods;
         private List<ElementData> _rightDiagonalRods;
+        private ElementData _leftTopChord;
+        private ElementData _leftBottomChord;
+        private ElementData _leftColumn;
         public bool Calculate(List<ElementData> elementsDatas, InputData inputData)
         {
             bool result = false;
             _frameBuildInputData = inputData as FrameBuildInputData;
             FilterElements(elementsDatas);
+
+            if (!CalcLeftDiagonalRods())
+            {
+                result = false;
+            }
+
+            foreach (var item in _leftDiagonalRods)
+            {
+                ElementData el = ElementDataCloner.CloneElementData(item);
+                el.ElementSideType = ElementSideType.Right;
+                _rightDiagonalRods.Add(el);
+            }
 
             if (CalcRightDiagonalRods())
             {
@@ -30,16 +45,62 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.FrameCalculators
         private void FilterElements(List<ElementData> elementsDatas)
         {
             _leftDiagonalRods = elementsDatas.Where(x => x.ElementGroupType.Equals(ElementGroupType.DiagonalRod) && x.ElementSideType.Equals(ElementSideType.Left)).ToList();
+            _leftTopChord = elementsDatas.FirstOrDefault(x => x.ElementGroupType.Equals(ElementGroupType.TopChord) && x.ElementSideType.Equals(ElementSideType.Left));
+            _leftBottomChord = elementsDatas.FirstOrDefault(x => x.ElementGroupType.Equals(ElementGroupType.BottomChord) && x.ElementSideType.Equals(ElementSideType.Left));
+            _leftColumn = elementsDatas.FirstOrDefault(x => x.ElementGroupType.Equals(ElementGroupType.Column) && x.ElementSideType.Equals(ElementSideType.Left));
             _rightDiagonalRods = new List<ElementData>();
-
-            foreach (var item in _leftDiagonalRods)
+        }
+        private bool CalcLeftDiagonalRods()
+        {
+            try
             {
-                ElementData el = ElementDataCloner.CloneElementData(item);
-                el.ElementSideType = ElementSideType.Right;
-                _rightDiagonalRods.Add(el);
+                foreach (var elem in _leftDiagonalRods)
+                {
+                    Point higherPoint = elem.EndPoint;
+                    Point lowerPoint = elem.StartPoint;
+                    if(elem.StartPoint.Y > elem.EndPoint.Y)
+                    {
+                        higherPoint = elem.StartPoint;
+                        lowerPoint = elem.EndPoint;
+                    }
+
+                    if (elem.StartPoint.X == 0)
+                    {
+                        if(higherPoint.Y == elem.StartPoint.Y)
+                        {
+                            Point newStartPoint = TrussPostsCalculator.GetEndPointOnTheLineFromLeft(_leftTopChord.StartPoint, _leftTopChord.EndPoint, _leftColumn.StartPoint.X);
+                            elem.StartPoint.X = newStartPoint.X;
+                            elem.StartPoint.Y = newStartPoint.Y;
+
+                            elem.EndPoint.Y = _leftBottomChord.StartPoint.Y;
+                        }
+                        else
+                        {
+                            Point newEndPoint = TrussPostsCalculator.GetEndPointOnTheLineFromLeft(_leftTopChord.StartPoint, _leftTopChord.EndPoint, higherPoint.X);
+
+                            elem.StartPoint.X = _leftColumn.StartPoint.X;
+                            elem.StartPoint.Y = _leftBottomChord.StartPoint.Y;
+
+                            elem.EndPoint.Y = newEndPoint.Y;
+                        }
+                    }
+                    else
+                    {
+                        lowerPoint.Y = _leftBottomChord.StartPoint.Y;
+
+                        Point newHigherPoint = TrussPostsCalculator.GetEndPointOnTheLineFromLeft(_leftTopChord.StartPoint, _leftTopChord.EndPoint, higherPoint.X);
+                        higherPoint.Y = newHigherPoint.Y;
+                    }
+                }
+
+                return true;
+            }
+            catch (Exception)
+            {
+                //TODO: Logging
+                return false;
             }
         }
-
         private bool CalcRightDiagonalRods()
         {
             try

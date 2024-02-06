@@ -1,5 +1,4 @@
-﻿using LSTK.Frame.Adapters.Controllers.Models;
-using LSTK.Frame.BusinessRules.DataBoundaries;
+﻿using LSTK.Frame.BusinessRules.DataBoundaries;
 using LSTK.Frame.BusinessRules.Models;
 using LSTK.Frame.Entities;
 using LSTK.Frame.Utils;
@@ -57,24 +56,5 @@ namespace LSTK.Frame.Adapters.Controllers
 
             return frameBuildInputData;
         }
-        //private FrameData GatherInput(PluginData pluginData)
-        //{
-        //    FrameData inputData = new FrameData();
-        //    try
-        //    {
-        //        List<ElementData> elementDatas = JsonConvert.DeserializeObject<List<ElementData>>(pluginData.ElementPrototypes);
-        //        elementDatas = elementDatas.Where(x => !x.IsDeleted).ToList();
-        //        inputData.Elements = elementDatas;
-        //        inputData.StartPoint = TeklaPointConverter.ConvertPoint(pluginData.StartPoint);
-        //        inputData.DirectionPoint = TeklaPointConverter.ConvertPoint(pluginData.DirectionPoint);
-        //        inputData.Gap = double.Parse(pluginData.ProfileGap, System.Globalization.CultureInfo.InvariantCulture);
-        //    }
-        //    catch (System.Exception)
-        //    {
-        //        throw;
-        //    }
-
-        //    return inputData;
-        //}
     }
 }

@@ -1,5 +1,4 @@
-﻿using LSTK.Frame.BusinessRules.Models;
-using LSTK.Frame.Entities;
+﻿using LSTK.Frame.Entities;
 using System.Collections.Generic;
 
 namespace LSTK.Frame.BusinessRules.Gateways
