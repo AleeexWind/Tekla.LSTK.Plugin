@@ -83,38 +83,9 @@ namespace LSTK.Frame
             }
             return true;
         }
-
-        private void GetValuesFromDialog()
-        {
-            //_partNameColumns = Data.PartNameColumns;
-            //_profileColumns = Data.ProfileColumns;
-            //_heightColumns = Data.HeightColumns;
-            //_profileTopChord = Data.ProfileTopChord;
-            //_bay = Data.Bay;
-            //_roofRidgeHeight = Data.HeightRoofRidge;
-            //_roofBottomHeight = Data.HeightRoofBottom;
-            //_frameOption = Data.FrameOption;
-
-            //if (IsDefaultValue(_partNameColumns))
-            //    _partNameColumns = "TEST";
-            //if (IsDefaultValue(_profileColumns))
-            //    _profileColumns = "ПСУ400х100х20х3,0";
-            //if (IsDefaultValue(_heightColumns))
-            //    _heightColumns = "5000";
-            //if (IsDefaultValue(_profileTopChord))
-            //    _profileTopChord = "ПСУ300х100х20х2,0";
-            //if (IsDefaultValue(_bay))
-            //    _bay = "20000";
-        }
     }
     public class PluginData
     {
-        #region Fields
-        //
-        // Define the fields specified on the Form.
-        //
-        #endregion
-
         public Point StartPoint { get; set; }
         public Point DirectionPoint { get; set; }
 
