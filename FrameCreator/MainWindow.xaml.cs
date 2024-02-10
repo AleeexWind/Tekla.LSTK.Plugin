@@ -47,7 +47,7 @@ namespace FrameCreator
         {
             InitializeComponent();
 
-            string resourceName = "FrameCreator.FrameCreator.ail";
+            string resourceName = "FrameCreator.Resources.FrameCreator.ail";
 
             Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName);
             if (stream == null)
