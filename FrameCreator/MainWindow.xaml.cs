@@ -13,6 +13,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -44,12 +46,26 @@ namespace FrameCreator
         public MainWindow(MainWindowViewModel DataModel)
         {
             InitializeComponent();
-            string assemblyPath = @"C:\ProgramData\Trimble\Tekla Structures\2020.0\Environments\common\extensions";
-            string ailFilePath = Path.Combine(assemblyPath, "FrameCreator.ail");
+
+            string resourceName = "FrameCreator.FrameCreator.ail";
+
+            Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName);
+            if (stream == null)
+            {
+                throw new FileNotFoundException($"Could not find embedded resource '{resourceName}'.");
+            }
+
+            // Read the .ail file from the resource stream
+            byte[] ailData = new BinaryReader(stream).ReadBytes((int)stream.Length);
+
+            // Convert the bytes to a string
+            string ailString = Encoding.UTF8.GetString(ailData);
+            string tempFilePath = Path.Combine(Path.GetTempPath(), "tempFrameCreator.ail");
+            File.WriteAllText(tempFilePath, ailString);
 
             Dialogs.SetSettings(string.Empty);
             Localization.Language = (string)Tekla.Structures.Datatype.Settings.GetValue("language");
-            Localization.LoadAilFile(ailFilePath);
+            Localization.LoadAilFile(tempFilePath);
 
             dataModel = DataModel;
             this.Closed += WindowClosing;

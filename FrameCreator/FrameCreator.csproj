@@ -158,6 +158,11 @@
     </Compile>
     <Compile Include="MainWindowViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Utils\TeklaPointConverter.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -168,24 +173,26 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="FrameCreator.ail">
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrameCreator.ail">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </EmbeddedResource>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>set path=D:\Applications\Projects\TeklaFrame\FrameCreator\bin\Debug\FrameCreator.dll
-set path2=D:\Applications\Projects\TeklaFrame\FrameCreator\bin\Debug\FrameCreator.ail
 
 set destinPath=C:\ProgramData\Trimble\Tekla Structures\2020.0\Environments\common\extensions\
 
 
-
-
-copy/Y "%25path%25" "%25destinPath%25"
-copy/Y "%25path2%25" "%25destinPath%25"</PostBuildEvent>
+copy/Y "%25path%25" "%25destinPath%25"</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\Fody.6.5.5\build\Fody.targets" Condition="Exists('..\packages\Fody.6.5.5\build\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
