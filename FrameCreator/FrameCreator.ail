@@ -74,5 +74,399 @@ string_utf8 albl_FrameOption
     entry = ("plk", "FrameOption");
     entry = ("ptb", "FrameOption");
     entry = ("ptg", "FrameOption");
-    entry = ("rus", "Вариант построения");
+    entry = ("rus", "Вариант рамы");
+};
+string_utf8 albl_Bay
+{
+    entry = ("enu", "HalfBay");
+    entry = ("chs", "HalfBay");
+    entry = ("cht", "HalfBay");
+    entry = ("csy", "HalfBay");
+    entry = ("deu", "HalfBay");
+    entry = ("esp", "HalfBay");
+    entry = ("fra", "HalfBay");
+    entry = ("hun", "HalfBay");
+    entry = ("ita", "HalfBay");
+    entry = ("jpn", "HalfBay");
+    entry = ("kor", "HalfBay");
+    entry = ("nld", "HalfBay");
+    entry = ("plk", "HalfBay");
+    entry = ("ptb", "HalfBay");
+    entry = ("ptg", "HalfBay");
+    entry = ("rus", "Полупролет");
+};
+
+
+string_utf8 albl_Height_Columns
+{
+    entry = ("enu", "ColumnsHeight");
+    entry = ("chs", "ColumnsHeight");
+    entry = ("cht", "ColumnsHeight");
+    entry = ("csy", "ColumnsHeight");
+    entry = ("deu", "ColumnsHeight");
+    entry = ("esp", "ColumnsHeight");
+    entry = ("fra", "ColumnsHeight");
+    entry = ("hun", "ColumnsHeight");
+    entry = ("ita", "ColumnsHeight");
+    entry = ("jpn", "ColumnsHeight");
+    entry = ("kor", "ColumnsHeight");
+    entry = ("nld", "ColumnsHeight");
+    entry = ("plk", "ColumnsHeight");
+    entry = ("ptb", "ColumnsHeight");
+    entry = ("ptg", "ColumnsHeight");
+    entry = ("rus", "Высота колонн");
+};
+
+string_utf8 albl_Height_RoofRidge
+{
+    entry = ("enu", "RoofRidgeHeight");
+    entry = ("chs", "RoofRidgeHeight");
+    entry = ("cht", "RoofRidgeHeight");
+    entry = ("csy", "RoofRidgeHeight");
+    entry = ("deu", "RoofRidgeHeight");
+    entry = ("esp", "RoofRidgeHeight");
+    entry = ("fra", "RoofRidgeHeight");
+    entry = ("hun", "RoofRidgeHeight");
+    entry = ("ita", "RoofRidgeHeight");
+    entry = ("jpn", "RoofRidgeHeight");
+    entry = ("kor", "RoofRidgeHeight");
+    entry = ("nld", "RoofRidgeHeight");
+    entry = ("plk", "RoofRidgeHeight");
+    entry = ("ptb", "RoofRidgeHeight");
+    entry = ("ptg", "RoofRidgeHeight");
+    entry = ("rus", "Высота до конька");
+};
+
+string_utf8 albl_Height_RoofBottom
+{
+    entry = ("enu", "RoofBottomHeight");
+    entry = ("chs", "RoofBottomHeight");
+    entry = ("cht", "RoofBottomHeight");
+    entry = ("csy", "RoofBottomHeight");
+    entry = ("deu", "RoofBottomHeight");
+    entry = ("esp", "RoofBottomHeight");
+    entry = ("fra", "RoofBottomHeight");
+    entry = ("hun", "RoofBottomHeight");
+    entry = ("ita", "RoofBottomHeight");
+    entry = ("jpn", "RoofBottomHeight");
+    entry = ("kor", "RoofBottomHeight");
+    entry = ("nld", "RoofBottomHeight");
+    entry = ("plk", "RoofBottomHeight");
+    entry = ("ptb", "RoofBottomHeight");
+    entry = ("ptg", "RoofBottomHeight");
+    entry = ("rus", "Высота до низа");
+};
+
+string_utf8 albl_Panels
+{
+    entry = ("enu", "Panels");
+    entry = ("chs", "Panels");
+    entry = ("cht", "Panels");
+    entry = ("csy", "Panels");
+    entry = ("deu", "Panels");
+    entry = ("esp", "Panels");
+    entry = ("fra", "Panels");
+    entry = ("hun", "Panels");
+    entry = ("ita", "Panels");
+    entry = ("jpn", "Panels");
+    entry = ("kor", "Panels");
+    entry = ("nld", "Panels");
+    entry = ("plk", "Panels");
+    entry = ("ptb", "Panels");
+    entry = ("ptg", "Panels");
+    entry = ("rus", "Панели");
+};
+
+string_utf8 albl_TopChordLineOption
+{
+    entry = ("enu", "TopChordLineOption");
+    entry = ("chs", "TopChordLineOption");
+    entry = ("cht", "TopChordLineOption");
+    entry = ("csy", "TopChordLineOption");
+    entry = ("deu", "TopChordLineOption");
+    entry = ("esp", "TopChordLineOption");
+    entry = ("fra", "TopChordLineOption");
+    entry = ("hun", "TopChordLineOption");
+    entry = ("ita", "TopChordLineOption");
+    entry = ("jpn", "TopChordLineOption");
+    entry = ("kor", "TopChordLineOption");
+    entry = ("nld", "TopChordLineOption");
+    entry = ("plk", "TopChordLineOption");
+    entry = ("ptb", "TopChordLineOption");
+    entry = ("ptg", "TopChordLineOption");
+    entry = ("rus", "Опция верхн.пояса");
+};
+
+string_utf8 albl_BottomChordLineOption
+{
+    entry = ("enu", "BottomChordLineOption");
+    entry = ("chs", "BottomChordLineOption");
+    entry = ("cht", "BottomChordLineOption");
+    entry = ("csy", "BottomChordLineOption");
+    entry = ("deu", "BottomChordLineOption");
+    entry = ("esp", "BottomChordLineOption");
+    entry = ("fra", "BottomChordLineOption");
+    entry = ("hun", "BottomChordLineOption");
+    entry = ("ita", "BottomChordLineOption");
+    entry = ("jpn", "BottomChordLineOption");
+    entry = ("kor", "BottomChordLineOption");
+    entry = ("nld", "BottomChordLineOption");
+    entry = ("plk", "BottomChordLineOption");
+    entry = ("ptb", "BottomChordLineOption");
+    entry = ("ptg", "BottomChordLineOption");
+    entry = ("rus", "Опция ниж.пояса");
+};
+
+string_utf8 albl_ColumnLineOption
+{
+    entry = ("enu", "ColumnLineOption");
+    entry = ("chs", "ColumnLineOption");
+    entry = ("cht", "ColumnLineOption");
+    entry = ("csy", "ColumnLineOption");
+    entry = ("deu", "ColumnLineOption");
+    entry = ("esp", "ColumnLineOption");
+    entry = ("fra", "ColumnLineOption");
+    entry = ("hun", "ColumnLineOption");
+    entry = ("ita", "ColumnLineOption");
+    entry = ("jpn", "ColumnLineOption");
+    entry = ("kor", "ColumnLineOption");
+    entry = ("nld", "ColumnLineOption");
+    entry = ("plk", "ColumnLineOption");
+    entry = ("ptb", "ColumnLineOption");
+    entry = ("ptg", "ColumnLineOption");
+    entry = ("rus", "Опция колонны");
+};
+
+string_utf8 albl_CentralColumnLineOption
+{
+    entry = ("enu", "CentralColumnLineOption");
+    entry = ("chs", "CentralColumnLineOption");
+    entry = ("cht", "CentralColumnLineOption");
+    entry = ("csy", "CentralColumnLineOption");
+    entry = ("deu", "CentralColumnLineOption");
+    entry = ("esp", "CentralColumnLineOption");
+    entry = ("fra", "CentralColumnLineOption");
+    entry = ("hun", "CentralColumnLineOption");
+    entry = ("ita", "CentralColumnLineOption");
+    entry = ("jpn", "CentralColumnLineOption");
+    entry = ("kor", "CentralColumnLineOption");
+    entry = ("nld", "CentralColumnLineOption");
+    entry = ("plk", "CentralColumnLineOption");
+    entry = ("ptb", "CentralColumnLineOption");
+    entry = ("ptg", "CentralColumnLineOption");
+    entry = ("rus", "Опция центр.колонны");
+};
+
+string_utf8 albl_DoubleProfileOption
+{
+    entry = ("enu", "DoubleProfileOption");
+    entry = ("chs", "DoubleProfileOption");
+    entry = ("cht", "DoubleProfileOption");
+    entry = ("csy", "DoubleProfileOption");
+    entry = ("deu", "DoubleProfileOption");
+    entry = ("esp", "DoubleProfileOption");
+    entry = ("fra", "DoubleProfileOption");
+    entry = ("hun", "DoubleProfileOption");
+    entry = ("ita", "DoubleProfileOption");
+    entry = ("jpn", "DoubleProfileOption");
+    entry = ("kor", "DoubleProfileOption");
+    entry = ("nld", "DoubleProfileOption");
+    entry = ("plk", "DoubleProfileOption");
+    entry = ("ptb", "DoubleProfileOption");
+    entry = ("ptg", "DoubleProfileOption");
+    entry = ("rus", "Сдвоенный профиль");
+};
+
+string_utf8 albl_ProfileGap
+{
+    entry = ("enu", "ProfileGap");
+    entry = ("chs", "ProfileGap");
+    entry = ("cht", "ProfileGap");
+    entry = ("csy", "ProfileGap");
+    entry = ("deu", "ProfileGap");
+    entry = ("esp", "ProfileGap");
+    entry = ("fra", "ProfileGap");
+    entry = ("hun", "ProfileGap");
+    entry = ("ita", "ProfileGap");
+    entry = ("jpn", "ProfileGap");
+    entry = ("kor", "ProfileGap");
+    entry = ("nld", "ProfileGap");
+    entry = ("plk", "ProfileGap");
+    entry = ("ptb", "ProfileGap");
+    entry = ("ptg", "ProfileGap");
+    entry = ("rus", "Зазор между профилями");
+};
+
+string_utf8 albl_PartName_Group
+{
+    entry = ("enu", "PartName");
+    entry = ("chs", "PartName");
+    entry = ("cht", "PartName");
+    entry = ("csy", "PartName");
+    entry = ("deu", "PartName");
+    entry = ("esp", "PartName");
+    entry = ("fra", "PartName");
+    entry = ("hun", "PartName");
+    entry = ("ita", "PartName");
+    entry = ("jpn", "PartName");
+    entry = ("kor", "PartName");
+    entry = ("nld", "PartName");
+    entry = ("plk", "PartName");
+    entry = ("ptb", "PartName");
+    entry = ("ptg", "PartName");
+    entry = ("rus", "Имя детали");
+};
+
+string_utf8 albl_Profile_Group
+{
+    entry = ("enu", "Profile");
+    entry = ("chs", "Profile");
+    entry = ("cht", "Profile");
+    entry = ("csy", "Profile");
+    entry = ("deu", "Profile");
+    entry = ("esp", "Profile");
+    entry = ("fra", "Profile");
+    entry = ("hun", "Profile");
+    entry = ("ita", "Profile");
+    entry = ("jpn", "Profile");
+    entry = ("kor", "Profile");
+    entry = ("nld", "Profile");
+    entry = ("plk", "Profile");
+    entry = ("ptb", "Profile");
+    entry = ("ptg", "Profile");
+    entry = ("rus", "Профиль");
+};
+
+string_utf8 albl_Material_Group
+{
+    entry = ("enu", "Material");
+    entry = ("chs", "Material");
+    entry = ("cht", "Material");
+    entry = ("csy", "Material");
+    entry = ("deu", "Material");
+    entry = ("esp", "Material");
+    entry = ("fra", "Material");
+    entry = ("hun", "Material");
+    entry = ("ita", "Material");
+    entry = ("jpn", "Material");
+    entry = ("kor", "Material");
+    entry = ("nld", "Material");
+    entry = ("plk", "Material");
+    entry = ("ptb", "Material");
+    entry = ("ptg", "Material");
+    entry = ("rus", "Материал");
+};
+string_utf8 albl_Class_Group
+{
+    entry = ("enu", "Class");
+    entry = ("chs", "Class");
+    entry = ("cht", "Class");
+    entry = ("csy", "Class");
+    entry = ("deu", "Class");
+    entry = ("esp", "Class");
+    entry = ("fra", "Class");
+    entry = ("hun", "Class");
+    entry = ("ita", "Class");
+    entry = ("jpn", "Class");
+    entry = ("kor", "Class");
+    entry = ("nld", "Class");
+    entry = ("plk", "Class");
+    entry = ("ptb", "Class");
+    entry = ("ptg", "Class");
+    entry = ("rus", "Класс");
+};
+string_utf8 albl_AcceptAttributes
+{
+    entry = ("enu", "Accept attributes");
+    entry = ("chs", "Accept attributes");
+    entry = ("cht", "Accept attributes");
+    entry = ("csy", "Accept attributes");
+    entry = ("deu", "Accept attributes");
+    entry = ("esp", "Accept attributes");
+    entry = ("fra", "Accept attributes");
+    entry = ("hun", "Accept attributes");
+    entry = ("ita", "Accept attributes");
+    entry = ("jpn", "Accept attributes");
+    entry = ("kor", "Accept attributes");
+    entry = ("nld", "Accept attributes");
+    entry = ("plk", "Accept attributes");
+    entry = ("ptb", "Accept attributes");
+    entry = ("ptg", "Accept attributes");
+    entry = ("rus", "Применить атрибуты");
+};
+string_utf8 albl_GetAttributes
+{
+    entry = ("enu", "Get attributes");
+    entry = ("chs", "Get attributes");
+    entry = ("cht", "Get attributes");
+    entry = ("csy", "Get attributes");
+    entry = ("deu", "Get attributes");
+    entry = ("esp", "Get attributes");
+    entry = ("fra", "Get attributes");
+    entry = ("hun", "Get attributes");
+    entry = ("ita", "Get attributes");
+    entry = ("jpn", "Get attributes");
+    entry = ("kor", "Get attributes");
+    entry = ("nld", "Get attributes");
+    entry = ("plk", "Get attributes");
+    entry = ("ptb", "Get attributes");
+    entry = ("ptg", "Get attributes");
+    entry = ("rus", "Получить атрибуты");
+};
+string_utf8 albl_RotateElement
+{
+    entry = ("enu", "Rotate element");
+    entry = ("chs", "Rotate element");
+    entry = ("cht", "Rotate element");
+    entry = ("csy", "Rotate element");
+    entry = ("deu", "Rotate element");
+    entry = ("esp", "Rotate element");
+    entry = ("fra", "Rotate element");
+    entry = ("hun", "Rotate element");
+    entry = ("ita", "Rotate element");
+    entry = ("jpn", "Rotate element");
+    entry = ("kor", "Rotate element");
+    entry = ("nld", "Rotate element");
+    entry = ("plk", "Rotate element");
+    entry = ("ptb", "Rotate element");
+    entry = ("ptg", "Rotate element");
+    entry = ("rus", "Повернуть элемент");
+};
+string_utf8 albl_RemoveElement
+{
+    entry = ("enu", "Remove element");
+    entry = ("chs", "Remove element");
+    entry = ("cht", "Remove element");
+    entry = ("csy", "Remove element");
+    entry = ("deu", "Remove element");
+    entry = ("esp", "Remove element");
+    entry = ("fra", "Remove element");
+    entry = ("hun", "Remove element");
+    entry = ("ita", "Remove element");
+    entry = ("jpn", "Remove element");
+    entry = ("kor", "Remove element");
+    entry = ("nld", "Remove element");
+    entry = ("plk", "Remove element");
+    entry = ("ptb", "Remove element");
+    entry = ("ptg", "Remove element");
+    entry = ("rus", "Удалить элемент");
+};
+string_utf8 albl_BuildSchemaasNew
+{
+    entry = ("enu", "Build schema as new");
+    entry = ("chs", "Build schema as new");
+    entry = ("cht", "Build schema as new");
+    entry = ("csy", "Build schema as new");
+    entry = ("deu", "Build schema as new");
+    entry = ("esp", "Build schema as new");
+    entry = ("fra", "Build schema as new");
+    entry = ("hun", "Build schema as new");
+    entry = ("ita", "Build schema as new");
+    entry = ("jpn", "Build schema as new");
+    entry = ("kor", "Build schema as new");
+    entry = ("nld", "Build schema as new");
+    entry = ("plk", "Build schema as new");
+    entry = ("ptb", "Build schema as new");
+    entry = ("ptg", "Build schema as new");
+    entry = ("rus", "Построить новую схему");
 };

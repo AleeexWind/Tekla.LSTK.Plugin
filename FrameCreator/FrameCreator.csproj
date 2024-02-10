@@ -176,8 +176,16 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>set path=D:\Applications\Projects\TeklaFrame\FrameCreator\bin\Debug\FrameCreator.dll
+set path2=D:\Applications\Projects\TeklaFrame\FrameCreator\bin\Debug\FrameCreator.ail
+
+set destinPath=C:\ProgramData\Trimble\Tekla Structures\2020.0\Environments\common\extensions\
+
+
+
+
+copy/Y "%25path%25" "%25destinPath%25"
+copy/Y "%25path2%25" "%25destinPath%25"</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\Fody.6.5.5\build\Fody.targets" Condition="Exists('..\packages\Fody.6.5.5\build\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

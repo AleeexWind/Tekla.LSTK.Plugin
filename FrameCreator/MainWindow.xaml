@@ -90,7 +90,7 @@
                             Text="{Binding Panels, Mode=TwoWay}"/>
                     </StackPanel>
                 </Grid>
-                <Button Grid.Row="1" x:Name="b_schemaAsNew" Content="Build Schema as new" Click="b_schema_as_new_Click"/>
+                <Button Grid.Row="1" x:Name="b_schemaAsNew" Content="{tsd:Loc albl_BuildSchemaasNew}" Click="b_schema_as_new_Click"/>
                 <Grid Grid.Row="2">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="3.5*"/>
@@ -121,10 +121,10 @@
                             Height="23"
                             Text="{Binding ElementAttributes, Mode=TwoWay}"/>
                     </StackPanel>
-                    <Button x:Name="b_rotate" Content="Rotate" Width="165" HorizontalAlignment="Left" Click="b_rotate_Click" Margin="495,280,0,0" Grid.RowSpan="2"/>
-                    <Button x:Name="b_remove" Content="Remove" Width="165" HorizontalAlignment="Left" Click="b_remove_Click" Margin="320,280,0,0" Grid.RowSpan="2"/>
+                    <Button x:Name="b_rotate" Content="{tsd:Loc albl_RotateElement}" Width="165" HorizontalAlignment="Left" Click="b_rotate_Click" Margin="495,280,0,0" Grid.RowSpan="2"/>
+                    <Button x:Name="b_remove" Content="{tsd:Loc albl_RemoveElement}" Width="165" HorizontalAlignment="Left" Click="b_remove_Click" Margin="320,280,0,0" Grid.RowSpan="2"/>
                 </Grid>
-                
+
             </Grid>
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
@@ -157,9 +157,9 @@
                     <ComboBox x:Name="cmb_ColumnLineOption" Height="25" Width="120" ItemsSource="{Binding ColumnLineOptionList}" SelectedItem ="{Binding ColumnLineOption, Mode=TwoWay}"/>
                 </StackPanel>
                 <StackPanel Grid.Column="2" Grid.Row="3" Orientation="Horizontal">
-                    <Label x:Name="label_CentralColumnLineOption" Content="{tsd:Loc albl_CentralColumnLineOption}" Height="30" Width="150"/>
-                    <UIControls:WpfFilterCheckBox VerticalAlignment="Center" AttributeName="centralColumnLineOption"/>
-                    <ComboBox x:Name="cmb_CentralColumnLineOption" Height="25" Width="120" ItemsSource="{Binding CentralColumnLineOptionList}" SelectedItem ="{Binding CentralColumnLineOption, Mode=TwoWay}"/>
+                    <Label x:Name="label_CentralColumnLineOption" Content="{tsd:Loc albl_CentralColumnLineOption}" Height="30" Width="150" Visibility="Hidden"/>
+                    <UIControls:WpfFilterCheckBox VerticalAlignment="Center" AttributeName="centralColumnLineOption" Visibility="Hidden"/>
+                    <ComboBox x:Name="cmb_CentralColumnLineOption" Height="25" Width="120" ItemsSource="{Binding CentralColumnLineOptionList}" SelectedItem ="{Binding CentralColumnLineOption, Mode=TwoWay}" Visibility="Hidden"/>
                 </StackPanel>
                 <StackPanel Grid.Column="2" Grid.Row="4" Orientation="Horizontal">
                     <Label x:Name="label_DoubleProfileOption" Content="{tsd:Loc albl_DoubleProfileOption}" Height="30" Width="150"/>
@@ -205,8 +205,8 @@
                     Height="23"
                     Text="{Binding ClassGroup, Mode=TwoWay}" Margin="0,4,0,0" VerticalAlignment="Top"/>
                 </StackPanel>
-                <Button Grid.Column="2" Grid.Row="11" x:Name="b_acceptAttribute" Content="Accept attributes" Width="165" HorizontalAlignment="Left" Click="b_acceptAttribute_Click"/>
-                <Button Grid.Column="2" Grid.Row="11" x:Name="b_getAttribute" Content="Get attributes" Width="165" HorizontalAlignment="Right" Click="b_getAttribute_Click"/>
+                <Button Grid.Column="2" Grid.Row="11" x:Name="b_acceptAttribute" Content="{tsd:Loc albl_AcceptAttributes}" Width="165" HorizontalAlignment="Left" Click="b_acceptAttribute_Click"/>
+                <Button Grid.Column="2" Grid.Row="11" x:Name="b_getAttribute" Content="{tsd:Loc albl_GetAttributes}" Width="165" HorizontalAlignment="Right" Click="b_getAttribute_Click"/>
             </Grid>
         </Grid>
         <UIControls:WpfOkApplyModifyGetOnOffCancel

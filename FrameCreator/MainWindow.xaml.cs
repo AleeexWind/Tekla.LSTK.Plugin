@@ -11,8 +11,10 @@ using FrameCreator.Frameworks.DataBase;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using Tekla.Structures.Dialog;
 using Localization = Tekla.Structures.Dialog.Localization;
@@ -42,39 +44,21 @@ namespace FrameCreator
         public MainWindow(MainWindowViewModel DataModel)
         {
             InitializeComponent();
-            // Get the path of the executing assembly
-            //string assemblyPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            //string assemblyPath = @"C:\ProgramData\Trimble\Tekla Structures\2020.0\Environments\common\extensions";
-
-            //// Combine the assembly path with the name of your .ail file
-            //string ailFilePath = Path.Combine(assemblyPath, "FrameCreator.ail");
-            //_loc = new Localization("FrameCreator", "enu");
-            //_loc.Language = (string)Tekla.Structures.Datatype.Settings.GetValue("language");
-            //_loc.LoadAilFile("FrameCreator.ail");
-
-            //string translText = _loc.GetText("albl_FrameOption");
-
-            //this.label_FrameOption.Content = translText;
-
-
+            string assemblyPath = @"C:\ProgramData\Trimble\Tekla Structures\2020.0\Environments\common\extensions";
+            string ailFilePath = Path.Combine(assemblyPath, "FrameCreator.ail");
 
             Dialogs.SetSettings(string.Empty);
             Localization.Language = (string)Tekla.Structures.Datatype.Settings.GetValue("language");
-            Localization.LoadAilFile("FrameCreator.ail");
-            //Localization.Localize();
-
-            string translText = Localization.GetText("albl_FrameOption");
-
-            this.label_FrameOption.Content = translText;
+            Localization.LoadAilFile(ailFilePath);
 
             dataModel = DataModel;
             this.Closed += WindowClosing;
             dataModel.OnDrawSchema += DrawSchema;
             dataModel.OnBuildSchema += TryToBuildFrame;
             dataModel.OnAttributeGet += ShowAttributes;
-            //DisplayPreviousValues();
             OnInitialization();
         }
+
         private void WindowClosing(object sender, EventArgs e)
         {
             dataModel.OnDrawSchema -= DrawSchema;
@@ -82,11 +66,55 @@ namespace FrameCreator
             dataModel.OnAttributeGet -= ShowAttributes;
             this.Closed -= WindowClosing;
         }
+        private void Localize()
+        {
+            List<Label> labels = new List<Label>()
+            {
+                label_FrameOption,
+                label_Bay,
+                label_Height_Columns,
+                label_Height_RoofRidge,
+                label_Height_RoofBottom,
+                label_Panels,
+                label_TopChordLineOption,
+                label_BottomChordLineOption,
+                label_ColumnLineOption,
+                label_CentralColumnLineOption,
+                label_DoubleProfileOption,
+                label_ProfileGap,
+                label_PartName_Group,
+                label_Profile_Group,
+                label_Material_Group,
+                label_Class_Group
+            };
+
+            foreach (var label in labels)
+            {
+                label.Content = Localization.GetText(label.Content.ToString());
+            }
+
+            List<Button> buttons = new List<Button>()
+            {
+                b_schemaAsNew,
+                b_rotate,
+                b_remove,
+                b_acceptAttribute,
+                b_getAttribute
+            };
+
+            foreach (var button in buttons)
+            {
+                button.Content = Localization.GetText(button.Content.ToString());
+            }
+
+        }
         private void OnInitialization()
         {
             Tekla.Structures.ModelInternal.Operation.dotStartAction("dotdiaLoadDialogs", "");
             Tekla.Structures.ModelInternal.Operation.dotStartAction("dotdiaReloadDialogs", "");
             Tekla.Structures.Model.Operations.Operation.DisplayPrompt("Dialogs reloaded..");
+
+            Localize();
 
             DataBase dataBase = new DataBase();
             IDataAccess dataAccess = new DataHandler(dataBase);
