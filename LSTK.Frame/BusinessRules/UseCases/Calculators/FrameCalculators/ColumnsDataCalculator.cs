@@ -18,14 +18,22 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.FrameCalculators
 
         public bool Calculate(List<ElementData> elementsDatas, InputData inputData)
         {
-            bool result = false;
             _frameBuildInputData = inputData as FrameBuildInputData;
             FilterElements(elementsDatas);
 
-            if(CalcLeftColumn() && CalcRightColumn())
+            if (!CalcLeftColumn())
             {
+                return false;
+            }
+            bool result = true;
+
+            if (!_frameBuildInputData.IsHalfOption)
+            {
+                if (!CalcRightColumn())
+                {
+                    return false;
+                }
                 elementsDatas.Add(_rightColumn);
-                result = true;
             }
 
             return result;
@@ -33,6 +41,9 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.FrameCalculators
         private void FilterElements(List<ElementData> elementsDatas)
         {
             _leftColumn = elementsDatas.FirstOrDefault(x => x.ElementGroupType.Equals(_elementGroupType) && x.ElementSideType.Equals(ElementSideType.Left));
+        }
+        private void CreateRightColumnsPrototypes()
+        {
             _rightColumn = ElementDataCloner.CloneElementData(_leftColumn);
             _rightColumn.ElementSideType = ElementSideType.Right;
         }
@@ -49,7 +60,7 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.FrameCalculators
 
                 if (_frameBuildInputData.ColumnLineOption.Equals("Inside"))
                 {
-                    newCoord = CoordinateUtils.GetParallelLineCoordinate(startPoint, endPoint, profileHeight/2);
+                    newCoord = CoordinateUtils.GetParallelLineCoordinate(startPoint, endPoint, profileHeight / 2);
                 }
 
                 _leftColumn.StartPoint = newCoord.Item1;
@@ -67,15 +78,16 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.FrameCalculators
         {
             try
             {
+                CreateRightColumnsPrototypes();
                 Point startPoint = new Point()
                 {
-                    X = _frameBuildInputData.Bay*2,
+                    X = _frameBuildInputData.Bay * 2,
                     Y = 0.0,
                     Z = 0.0
                 };
                 Point endPoint = new Point()
                 {
-                    X = _frameBuildInputData.Bay*2,
+                    X = _frameBuildInputData.Bay * 2,
                     Y = _rightColumn.EndPoint.Y,
                     Z = 0.0
                 };
@@ -86,7 +98,7 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.FrameCalculators
 
                 if (_frameBuildInputData.ColumnLineOption.Equals("Inside"))
                 {
-                    newCoord = CoordinateUtils.GetParallelLineCoordinate(startPoint, endPoint, -profileHeight/2);
+                    newCoord = CoordinateUtils.GetParallelLineCoordinate(startPoint, endPoint, -profileHeight / 2);
                 }
                 _rightColumn.StartPoint = newCoord.Item1;
                 _rightColumn.EndPoint = newCoord.Item2;

@@ -16,13 +16,23 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.FrameCalculators
         private ElementData _rightBottomChord;
         public bool Calculate(List<ElementData> elementsDatas, InputData inputData)
         {
-            bool result = false;
             _frameBuildInputData = inputData as FrameBuildInputData;
             FilterElements(elementsDatas);
-            if (CalcLeftBottomChord() && CalcRightBottomChord())
+
+            if (!CalcLeftBottomChord())
             {
+                return false;
+            }
+
+            bool result = true;
+
+            if (!_frameBuildInputData.IsHalfOption)
+            {
+                if (!CalcRightBottomChord())
+                {
+                    return false;
+                }
                 elementsDatas.Add(_rightBottomChord);
-                result = true;
             }
 
             return result;
@@ -30,10 +40,12 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.FrameCalculators
         private void FilterElements(List<ElementData> elementsDatas)
         {
             _leftBottomChord = elementsDatas.FirstOrDefault(x => x.ElementGroupType.Equals(ElementGroupType.BottomChord) && x.ElementSideType.Equals(ElementSideType.Left));
+        }
+        private void CreateRightBottomChordsPrototypes()
+        {
             _rightBottomChord = ElementDataCloner.CloneElementData(_leftBottomChord);
             _rightBottomChord.ElementSideType = ElementSideType.Right;
         }
-
         private bool CalcLeftBottomChord()
         {
             try
@@ -65,6 +77,7 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.FrameCalculators
         {
             try
             {
+                CreateRightBottomChordsPrototypes();
                 Point startPoint = new Point()
                 {
                     X = _frameBuildInputData.Bay * 2,

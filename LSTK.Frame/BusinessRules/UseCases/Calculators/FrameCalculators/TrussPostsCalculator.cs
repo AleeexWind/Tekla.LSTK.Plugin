@@ -19,25 +19,24 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.FrameCalculators
 
         public bool Calculate(List<ElementData> elementsDatas, InputData inputData)
         {
-            bool result = false;
+
             _frameBuildInputData = inputData as FrameBuildInputData;
             FilterElements(elementsDatas);
 
             if (!CalcLeftTrussPosts())
             {
-                result = false;
-            }
-            foreach (var item in _leftTrussPosts)
-            {
-                ElementData el = ElementDataCloner.CloneElementData(item);
-                el.ElementSideType = ElementSideType.Right;
-                _rightTrussPosts.Add(el);
+                return false;
             }
 
-            if (CalcRightTrussPosts())
+            bool result = true;
+
+            if (!_frameBuildInputData.IsHalfOption)
             {
+                if (!CalcRightTrussPosts())
+                {
+                    return false;
+                }
                 elementsDatas.AddRange(_rightTrussPosts);
-                result = true;
             }
 
             return result;
@@ -48,8 +47,16 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.FrameCalculators
             _leftTrussPosts = elementsDatas.Where(x => x.ElementGroupType.Equals(ElementGroupType.TrussPost) && x.ElementSideType.Equals(ElementSideType.Left)).ToList();
             _leftTopChord = elementsDatas.FirstOrDefault(x => x.ElementGroupType.Equals(ElementGroupType.TopChord) && x.ElementSideType.Equals(ElementSideType.Left));
             _leftBottomChord = elementsDatas.FirstOrDefault(x => x.ElementGroupType.Equals(ElementGroupType.BottomChord) && x.ElementSideType.Equals(ElementSideType.Left));
-
+        }
+        private void CreateRightBottomChordsPrototypes()
+        {
             _rightTrussPosts = new List<ElementData>();
+            foreach (var item in _leftTrussPosts)
+            {
+                ElementData el = ElementDataCloner.CloneElementData(item);
+                el.ElementSideType = ElementSideType.Right;
+                _rightTrussPosts.Add(el);
+            }
         }
         private bool CalcLeftTrussPosts()
         {
@@ -87,6 +94,7 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.FrameCalculators
         {
             try
             {
+                CreateRightBottomChordsPrototypes();
                 foreach (var elem in _rightTrussPosts)
                 {
                     Point startPoint = new Point()

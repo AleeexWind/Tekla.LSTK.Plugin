@@ -32,22 +32,20 @@ namespace LSTK.Frame.BusinessRules.UseCases
             res = _targetAppAccess.SetTemporaryLocalPlane(frameBuildInputData.FrameData.StartPoint, frameBuildInputData.FrameData.DirectionPoint);
             if (!res) return res;
 
-            if(!frameBuildInputData.IsHalfOption)
-            {
-                CalculateRightElements();
-            }
+            res = CalculateFinalElements();
+            if (!res) return res;
 
             List<ElementData> cl = new List<ElementData>();
             foreach (var elem in frameBuildInputData.FrameData.Elements)
             {
-                if(_frameBuildInputData.DoubleProfileOption)
+                if (_frameBuildInputData.DoubleProfileOption)
                 {
                     ElementData ce = ElementDataCloner.CloneElementData(elem);
                     ce.IsMirrored = true;
                     cl.Add(ce);
                 }
 
-                elem.StartPoint.Z = -frameBuildInputData.FrameData.Gap/2;
+                elem.StartPoint.Z = -frameBuildInputData.FrameData.Gap / 2;
                 elem.EndPoint.Z = -frameBuildInputData.FrameData.Gap / 2;
 
                 res = _targetAppAccess.CreatePart(elem);
@@ -71,12 +69,15 @@ namespace LSTK.Frame.BusinessRules.UseCases
             return res;
         }
 
-        private void CalculateRightElements()
+        private bool CalculateFinalElements()
         {
+            bool res = false;
             foreach (IDataCalculator calc in _calculators)
             {
-                calc.Calculate(_elementsDatas, _frameBuildInputData);
+                res = calc.Calculate(_elementsDatas, _frameBuildInputData);
+                if (!res) return res;
             }
+            return res;
         }
     }
 }

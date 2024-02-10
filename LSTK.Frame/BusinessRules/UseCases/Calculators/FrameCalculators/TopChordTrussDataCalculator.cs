@@ -20,14 +20,22 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.FrameCalculators
 
         public bool Calculate(List<ElementData> elementsDatas, InputData inputData)
         {
-            bool result = false;
             _frameBuildInputData = inputData as FrameBuildInputData;
             FilterElements(elementsDatas);
 
-            if(CalcLeftTopChord() && CalcRightTopChord())
+            if (!CalcLeftTopChord())
             {
+                return false;
+            }
+            bool result = true;
+
+            if (!_frameBuildInputData.IsHalfOption)
+            {
+                if (!CalcRightTopChord())
+                {
+                    return false;
+                }
                 elementsDatas.Add(_rightTopChord);
-                result = true;
             }
 
             return result;
@@ -36,6 +44,9 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.FrameCalculators
         {
             _leftColumn = elementsDatas.FirstOrDefault(x => x.ElementGroupType.Equals(ElementGroupType.Column) && x.ElementSideType.Equals(ElementSideType.Left));
             _leftTopChord = elementsDatas.FirstOrDefault(x => x.ElementGroupType.Equals(_elementGroupType) && x.ElementSideType.Equals(ElementSideType.Left));
+        }
+        private void CreateRightTopChordsPrototypes()
+        {
             _rightTopChord = ElementDataCloner.CloneElementData(_leftTopChord);
             _rightTopChord.ElementSideType = ElementSideType.Right;
         }
@@ -50,16 +61,16 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.FrameCalculators
                 (Point, Point) newCoord = (startPoint, endPoint);
                 if (_frameBuildInputData.TopChordLineOption.Equals("Below") && _frameBuildInputData.ColumnLineOption.Equals("Inside"))
                 {
-                    newCoord = CoordinateUtils.GetParallelLineCoordinate(startPoint, endPoint, profileHeight/2);
+                    newCoord = CoordinateUtils.GetParallelLineCoordinate(startPoint, endPoint, profileHeight / 2);
                 }
                 else if (_frameBuildInputData.TopChordLineOption.Equals("Below") && _frameBuildInputData.ColumnLineOption.Equals("Center"))
                 {
-                    startPoint.X = -_leftColumn.ProfileHeight/2;
-                    newCoord = CoordinateUtils.GetParallelLineCoordinate(startPoint, endPoint, profileHeight/2);
+                    startPoint.X = -_leftColumn.ProfileHeight / 2;
+                    newCoord = CoordinateUtils.GetParallelLineCoordinate(startPoint, endPoint, profileHeight / 2);
                 }
                 else if (_frameBuildInputData.TopChordLineOption.Equals("Center") && _frameBuildInputData.ColumnLineOption.Equals("Inside"))
                 {
-                    newCoord.Item1.X = _leftColumn.ProfileHeight/2;
+                    newCoord.Item1.X = _leftColumn.ProfileHeight / 2;
                 }
                 _leftTopChord.StartPoint = newCoord.Item1;
                 _leftTopChord.EndPoint = newCoord.Item2;
@@ -70,17 +81,18 @@ namespace LSTK.Frame.BusinessRules.UseCases.Calculators.FrameCalculators
             {
                 //TODO: Logging
                 return false;
-            }    
+            }
         }
         private bool CalcRightTopChord()
         {
             try
             {
+                CreateRightTopChordsPrototypes();
                 double offset = _leftTopChord.EndPoint.X - _frameBuildInputData.Bay;
 
                 Point startPoint = new Point()
                 {
-                    X = _frameBuildInputData.Bay*2 - offset,
+                    X = _frameBuildInputData.Bay * 2 - offset,
                     Y = _leftTopChord.StartPoint.Y,
                     Z = 0.0
                 };
