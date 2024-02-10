@@ -38,22 +38,41 @@ string_utf8 albl_Profile
     entry = ("rus", "Профиль");
 };
 
-string_utf8 albl_LSTK_Frame_plug-in
+string_utf8 albl_FrameCreator
 {
-    entry = ("enu", "Test plug-in");
-    entry = ("chs", "Test plug-in***");
-    entry = ("cht", "Test plug-in***");
-    entry = ("csy", "Test plug-in***");
-    entry = ("deu", "Test plug-in***");
-    entry = ("esp", "Test plug-in***");
-    entry = ("fra", "Test plug-in***");
-    entry = ("hun", "Test plug-in***");
-    entry = ("ita", "Test plug-in***");
-    entry = ("jpn", "Test plug-in***");
-    entry = ("kor", "Test plug-in***");
-    entry = ("nld", "Test plug-in***");
-    entry = ("plk", "Test plug-in***");
-    entry = ("ptb", "Test plug-in***");
-    entry = ("ptg", "Test plug-in***");
-    entry = ("rus", "LSTK.Frame");
+    entry = ("enu", "FrameCreator");
+    entry = ("chs", "FrameCreator");
+    entry = ("cht", "FrameCreator");
+    entry = ("csy", "FrameCreator");
+    entry = ("deu", "FrameCreator");
+    entry = ("esp", "FrameCreator");
+    entry = ("fra", "FrameCreator");
+    entry = ("hun", "FrameCreator");
+    entry = ("ita", "FrameCreator");
+    entry = ("jpn", "FrameCreator");
+    entry = ("kor", "FrameCreator");
+    entry = ("nld", "FrameCreator");
+    entry = ("plk", "FrameCreator");
+    entry = ("ptb", "FrameCreator");
+    entry = ("ptg", "FrameCreator");
+    entry = ("rus", "FrameCreator");
+};
+string_utf8 albl_FrameOption
+{
+    entry = ("enu", "FrameOption");
+    entry = ("chs", "FrameOption");
+    entry = ("cht", "FrameOption");
+    entry = ("csy", "FrameOption");
+    entry = ("deu", "FrameOption");
+    entry = ("esp", "FrameOption");
+    entry = ("fra", "FrameOption");
+    entry = ("hun", "FrameOption");
+    entry = ("ita", "FrameOption");
+    entry = ("jpn", "FrameOption");
+    entry = ("kor", "FrameOption");
+    entry = ("nld", "FrameOption");
+    entry = ("plk", "FrameOption");
+    entry = ("ptb", "FrameOption");
+    entry = ("ptg", "FrameOption");
+    entry = ("rus", "Вариант построения");
 };

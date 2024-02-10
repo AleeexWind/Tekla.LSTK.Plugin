@@ -14,8 +14,9 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media;
-using System.Windows.Shapes;
 using Tekla.Structures.Dialog;
+using Localization = Tekla.Structures.Dialog.Localization;
+using SWSH = System.Windows.Shapes;
 
 namespace LSTK.Frame
 {
@@ -26,6 +27,7 @@ namespace LSTK.Frame
     {
         public MainWindowViewModel dataModel;
 
+        private Localization _loc;
         private AttributeSetRequestModel _attributeSetRequestModel;
         private AttributeGetRequestModel _attributeGetRequestModel;
         private BuildSchemaRequestModel _buildSchemaRequestModel;
@@ -33,13 +35,38 @@ namespace LSTK.Frame
         private DeleteRequestModel _deleteRequestModel;
 
 
-        private List<(int, Path)> _schemaElements = new List<(int, Path)>();
+        private List<(int, SWSH.Path)> _schemaElements = new List<(int, SWSH.Path)>();
         private List<int> _selectedElements = new List<int>();
         private int _i = 2;
 
         public MainWindow(MainWindowViewModel DataModel)
         {
             InitializeComponent();
+            // Get the path of the executing assembly
+            //string assemblyPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            //string assemblyPath = @"C:\ProgramData\Trimble\Tekla Structures\2020.0\Environments\common\extensions";
+
+            //// Combine the assembly path with the name of your .ail file
+            //string ailFilePath = Path.Combine(assemblyPath, "FrameCreator.ail");
+            //_loc = new Localization("FrameCreator", "enu");
+            //_loc.Language = (string)Tekla.Structures.Datatype.Settings.GetValue("language");
+            //_loc.LoadAilFile("FrameCreator.ail");
+
+            //string translText = _loc.GetText("albl_FrameOption");
+
+            //this.label_FrameOption.Content = translText;
+
+
+
+            Dialogs.SetSettings(string.Empty);
+            Localization.Language = (string)Tekla.Structures.Datatype.Settings.GetValue("language");
+            Localization.LoadAilFile("FrameCreator.ail");
+            //Localization.Localize();
+
+            string translText = Localization.GetText("albl_FrameOption");
+
+            this.label_FrameOption.Content = translText;
+
             dataModel = DataModel;
             this.Closed += WindowClosing;
             dataModel.OnDrawSchema += DrawSchema;
@@ -163,7 +190,7 @@ namespace LSTK.Frame
 
         private void Path_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            Path pgObject = sender as Path;
+            SWSH.Path pgObject = sender as SWSH.Path;
             pgObject.Stroke = new SolidColorBrush(Colors.Red);
 
             int selElemId = _schemaElements.FirstOrDefault(x => x.Item2.Equals(pgObject)).Item1;
@@ -183,7 +210,7 @@ namespace LSTK.Frame
         {
             foreach (var item in g_schema.Children)
             {
-                Path pgObject = item as Path;
+                SWSH.Path pgObject = item as SWSH.Path;
                 pgObject.MouseDown -= Path_MouseDown;
 
             }
@@ -295,7 +322,7 @@ namespace LSTK.Frame
                 System.Windows.Point endPoint = new System.Windows.Point() { X = points.Item2.X, Y = points.Item2.Y };
 
                 LineGeometry pg = new LineGeometry(startPoint, endPoint);
-                Path pgObject = new Path
+                SWSH.Path pgObject = new SWSH.Path
                 {
                     Stroke = brushColor,
                     StrokeThickness = 5,

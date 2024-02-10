@@ -14,8 +14,8 @@ using Point = Tekla.Structures.Geometry3d.Point;
 
 namespace LSTK.Frame
 {
-    [Plugin("LSTK_Frame")]
-    [PluginUserInterface("LSTK.Frame.MainWindow")]
+    [Plugin("FrameCreator")]
+    [PluginUserInterface("FrameCreator")]
     public class MainPlugin : PluginBase
     {
         private readonly Model _model;
@@ -51,7 +51,7 @@ namespace LSTK.Frame
                 _data.DirectionPoint = Point2;
 
                 bool doubleProfileOption = false;
-                if(_data.DoubleProfileOption.Equals("Yes"))
+                if (_data.DoubleProfileOption.Equals("Yes"))
                 {
                     doubleProfileOption = true;
                 }
@@ -106,7 +106,7 @@ namespace LSTK.Frame
         public string ColumnLineOption;
         [StructuresField("centerColumnLineOpt")]
         public string CentralColumnLineOption;
-        
+
         [StructuresField("profileGap")]
         public string ProfileGap;
 

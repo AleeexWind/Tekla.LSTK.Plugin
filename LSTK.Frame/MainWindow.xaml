@@ -9,7 +9,7 @@
              x:Class="LSTK.Frame.MainWindow"
              mc:Ignorable="d" 
              d:DesignHeight="600"
-             Title="{tsd:Loc albl_LSTK_Frame_plug-in}" Height="600" Width="1000
+             Title="{tsd:Loc albl_FrameCreator}" Height="600" Width="1000
     " HorizontalAlignment="Stretch">
     <Grid HorizontalAlignment="Stretch" Margin="0,0,0,0">
         <Grid.RowDefinitions>
